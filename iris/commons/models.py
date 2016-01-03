@@ -1,5 +1,4 @@
 from django.db import models
-from localflavor.us.models import PhoneNumberField
 
 
 class DocumentType(models.Model):
@@ -16,8 +15,8 @@ class DocumentType(models.Model):
 
 class ContactInfo(models.Model):
     names = models.CharField(max_length=100)
-    mother_name = models.CharField(max_length=50)
     father_name = models.CharField(max_length=50)
+    mother_name = models.CharField(max_length=50)
     email = models.EmailField(blank=True)
 
     class META:
@@ -34,14 +33,6 @@ class PhoneType(models.Model):
 
     def __unicode__(self):
         return self.phone_type
-
-
-class Phone(models.Model):
-    phone_number = PhoneNumberField()
-    phone_type = models.ForeignKey(PhoneType)
-
-    def __unicode__(self):
-        return self.phone
 
 
 class AcademicLevel(models.Model):

@@ -2,7 +2,7 @@ from django.db import models
 import datetime
 from django.utils import timezone
 from localflavor.us.models import PhoneNumberField
-from commons.models import DocumentType, ContactInfo, AcademicLevel
+from commons.models import DocumentType, ContactInfo, AcademicLevel, PhoneType
 from location.models import Nationality, Address
 from smart_selects.db_fields import ChainedForeignKey
 
@@ -137,3 +137,11 @@ class MemberAddress(Address):
 
     def __unicode__(self):
         pass
+
+
+class Phone(models.Model):
+    phone_number = PhoneNumberField()
+    phone_type = models.ForeignKey(PhoneType)
+
+    def __unicode__(self):
+        return self.phone

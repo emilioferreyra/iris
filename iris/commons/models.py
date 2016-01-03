@@ -6,8 +6,9 @@ class DocumentType(models.Model):
     document_type = models.CharField(max_length=20)
 
     class Meta:
-        verbose_name = "DocumentType"
-        verbose_name_plural = "DocumentTypes"
+        verbose_name = "Document Type"
+        verbose_name_plural = "Document Types"
+        db_table = 'commons_document_type'
 
     def __unicode__(self):
         return self.document_type
@@ -22,9 +23,7 @@ class ContactInfo(models.Model):
 
     class META:
         abstract = True
-
-    def __unicode__(self):
-        return '%s %s %s' % (self.names, self.mother_name, self.father_name)
+        db_table = 'commons_contact_info'
 
 
 class PhoneType(models.Model):
@@ -32,6 +31,7 @@ class PhoneType(models.Model):
 
     class Meta:
         ordering = ['id']
+        db_table = 'commons_phone_type'
 
     def __unicode__(self):
         return self.phone_type

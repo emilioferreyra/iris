@@ -19,7 +19,6 @@ class ContactInfo(models.Model):
     mother_name = models.CharField(max_length=50)
     father_name = models.CharField(max_length=50)
     email = models.EmailField(blank=True)
-    active = models.BooleanField(default=True)
 
     class META:
         abstract = True
@@ -43,3 +42,13 @@ class Phone(models.Model):
 
     def __unicode__(self):
         return self.phone
+
+
+class AcademicLevel(models.Model):
+    academic_level = models.CharField(unique=True, max_length=45)
+
+    class Meta:
+        db_table = 'commons_academic_level'
+
+    def __unicode__(self):
+        return self.academic_level

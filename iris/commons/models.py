@@ -7,7 +7,7 @@ class DocumentType(models.Model):
 
     class Meta:
         verbose_name = "Document Type"
-        verbose_name_plural = "Document Types"
+        verbose_name_plural = "Documents types"
         db_table = 'commons_document_type'
 
     def __unicode__(self):

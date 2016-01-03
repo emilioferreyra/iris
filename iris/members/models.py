@@ -33,7 +33,7 @@ class MaritalStatus(models.Model):
 
     class Meta:
         db_table = 'members_marital_status'
-        verbose_name_plural = 'Marital Status'
+        verbose_name_plural = 'Marital status'
         ordering = ['id']
 
     def __unicode__(self):

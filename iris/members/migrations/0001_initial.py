@@ -9,21 +9,12 @@ import localflavor.us.models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('commons', '0003_remove_contactinfo_active'),
-        ('location', '0001_initial'),
+        ('housing', '0003_auto_20160103_1139'),
+        ('commons', '0017_contactinfo_active'),
+        ('location', '0002_addresstype'),
     ]
 
     operations = [
-        migrations.CreateModel(
-            name='AcademicLevel',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('academic_level', models.CharField(unique=True, max_length=45)),
-            ],
-            options={
-                'db_table': 'members_academic_level',
-            },
-        ),
         migrations.CreateModel(
             name='Cane',
             fields=[
@@ -46,38 +37,11 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-            name='HouseMaterial',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('house_material', models.CharField(max_length=20)),
-            ],
-            options={
-                'db_table': 'members_house_material',
-            },
-        ),
-        migrations.CreateModel(
-            name='HousePart',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('house_part', models.CharField(unique=True, max_length=20)),
-            ],
-            options={
-                'ordering': ['id'],
-            },
-        ),
-        migrations.CreateModel(
             name='Housing',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('house_material', smart_selects.db_fields.ChainedForeignKey(chained_model_field=b'house_part', to='members.HouseMaterial', chained_field=b'house_part')),
-                ('house_part', models.ForeignKey(to='members.HousePart')),
-            ],
-        ),
-        migrations.CreateModel(
-            name='Kinship',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('kinship', models.CharField(unique=True, max_length=45)),
+                ('house_material', smart_selects.db_fields.ChainedForeignKey(chained_model_field=b'house_part', to='housing.HouseMaterial', chained_field=b'house_part')),
+                ('house_part', models.ForeignKey(to='housing.HousePart')),
             ],
         ),
         migrations.CreateModel(
@@ -85,34 +49,18 @@ class Migration(migrations.Migration):
             fields=[
                 ('contactinfo_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='commons.ContactInfo')),
                 ('phone_number', localflavor.us.models.PhoneNumberField(max_length=20)),
-                ('kinship', models.ForeignKey(to='members.Kinship')),
+                ('kinship', models.ForeignKey(to='commons.Kinship')),
             ],
             bases=('commons.contactinfo',),
-        ),
-        migrations.CreateModel(
-            name='MaritalStatus',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('marital_status', models.CharField(unique=True, max_length=45)),
-            ],
-            options={
-                'ordering': ['id'],
-                'db_table': 'members_marital_status',
-                'verbose_name_plural': 'Marital Status',
-            },
         ),
         migrations.CreateModel(
             name='Member',
             fields=[
                 ('contactinfo_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='commons.ContactInfo')),
-                ('document_id', models.CharField(max_length=22)),
-                ('active', models.BooleanField(default=True)),
-                ('academic_level', models.ForeignKey(to='members.AcademicLevel')),
+                ('academic_level', models.ForeignKey(to='commons.AcademicLevel')),
                 ('cane_number', models.ForeignKey(to='members.Cane')),
                 ('disability_type', models.ManyToManyField(to='members.Disability')),
-                ('document_type', models.ForeignKey(to='commons.DocumentType')),
-                ('marital_status', models.ForeignKey(to='members.MaritalStatus')),
-                ('nationality', models.ForeignKey(default=21, to='location.Nationality')),
+                ('property_type', models.ForeignKey(to='housing.PropertyType')),
             ],
             bases=('commons.contactinfo',),
         ),
@@ -123,11 +71,12 @@ class Migration(migrations.Migration):
                 ('building', models.CharField(max_length=20)),
                 ('apartment', models.CharField(max_length=20)),
                 ('street_name', models.CharField(max_length=40)),
+                ('address_type', models.ForeignKey(to='location.AddressType', null=True)),
                 ('country_name', models.ForeignKey(to='location.Country')),
                 ('member_name', models.ForeignKey(to='members.Member')),
-                ('province_name', models.ForeignKey(to='location.Province')),
+                ('province_name', smart_selects.db_fields.ChainedForeignKey(chained_model_field=b'region_name', to='location.Province', chained_field=b'region_name')),
                 ('region_name', models.ForeignKey(to='location.Region')),
-                ('town_name', models.ForeignKey(to='location.Town')),
+                ('town_name', smart_selects.db_fields.ChainedForeignKey(chained_model_field=b'province_name', to='location.Town', chained_field=b'province_name')),
             ],
             options={
                 'db_table': 'members_address',
@@ -136,24 +85,16 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-            name='PropertyType',
+            name='Phone',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('property_type', models.CharField(unique=True, max_length=45)),
+                ('phone_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='commons.Phone')),
+                ('member_name', models.ForeignKey(to='members.Member', null=True)),
             ],
-            options={
-                'ordering': ['id'],
-                'db_table': 'members_property_type',
-            },
-        ),
-        migrations.AddField(
-            model_name='member',
-            name='property_type',
-            field=models.ForeignKey(to='members.PropertyType'),
+            bases=('commons.phone',),
         ),
         migrations.AddField(
             model_name='kinsman',
-            name='member_name',
+            name='member',
             field=models.ForeignKey(to='members.Member'),
         ),
         migrations.AddField(
@@ -161,17 +102,8 @@ class Migration(migrations.Migration):
             name='member',
             field=models.ForeignKey(to='members.Member'),
         ),
-        migrations.AddField(
-            model_name='housematerial',
-            name='house_part',
-            field=models.ForeignKey(to='members.HousePart'),
-        ),
         migrations.AlterUniqueTogether(
             name='housing',
             unique_together=set([('member', 'house_part')]),
-        ),
-        migrations.AlterUniqueTogether(
-            name='housematerial',
-            unique_together=set([('house_material', 'house_part')]),
         ),
     ]

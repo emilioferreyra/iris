@@ -7,13 +7,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('members', '0010_member_property_type'),
+        ('commons', '0016_remove_contactinfo_active'),
     ]
 
     operations = [
-        migrations.AlterField(
-            model_name='member',
-            name='property_type',
-            field=models.ForeignKey(to='housing.PropertyType'),
+        migrations.AddField(
+            model_name='contactinfo',
+            name='active',
+            field=models.BooleanField(default=True),
         ),
     ]

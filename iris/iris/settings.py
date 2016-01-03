@@ -41,10 +41,10 @@ INSTALLED_APPS = (
     'smart_selects',
     'localflavor',
     # My apps
-    'appointments',
+    # 'appointments',
     'commons',
     'doctors',
-    'employees',
+    # 'employees',
     'housing',
     'location',
     'members',

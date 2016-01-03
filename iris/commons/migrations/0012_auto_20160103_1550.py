@@ -7,13 +7,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('members', '0005_member_marital_status'),
+        ('commons', '0011_auto_20160103_1549'),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='member',
-            name='marital_status',
-            field=models.ForeignKey(to='commons.MaritalStatus'),
+            model_name='contactinfo',
+            name='document_type',
+            field=models.ForeignKey(to='commons.DocumentType'),
         ),
     ]

@@ -43,3 +43,22 @@ class AcademicLevel(models.Model):
 
     def __unicode__(self):
         return self.academic_level
+
+
+class MaritalStatus(models.Model):
+    marital_status = models.CharField(unique=True, max_length=45)
+
+    class Meta:
+        db_table = 'commons_marital_status'
+        verbose_name_plural = 'Marital status'
+        ordering = ['id']
+
+    def __unicode__(self):
+        return self.marital_status
+
+
+class Kinship(models.Model):
+    kinship = models.CharField(unique=True, max_length=45)
+
+    def __unicode__(self):
+        return self.kinship

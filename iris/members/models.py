@@ -1,10 +1,16 @@
+# Django core
+from __future__ import absolute_import
 from django.db import models
 import datetime
 from django.utils import timezone
+# Third-party apps
 from localflavor.us.models import PhoneNumberField
-from commons.models import DocumentType, ContactInfo, AcademicLevel, PhoneType
-from location.models import Nationality, Address
 from smart_selects.db_fields import ChainedForeignKey
+# My apps
+from commons.models import DocumentType, ContactInfo, AcademicLevel, \
+    PhoneType, MaritalStatus, Kinship
+from location.models import Nationality, Address
+from housing.models import HouseMaterial, HousePart, PropertyType
 
 
 class Disability(models.Model):
@@ -26,29 +32,6 @@ class Cane(models.Model):
 
     def __unicode__(self):
         return str(self.cane)
-
-
-class MaritalStatus(models.Model):
-    marital_status = models.CharField(unique=True, max_length=45)
-
-    class Meta:
-        db_table = 'members_marital_status'
-        verbose_name_plural = 'Marital status'
-        ordering = ['id']
-
-    def __unicode__(self):
-        return self.marital_status
-
-
-class PropertyType(models.Model):
-    property_type = models.CharField(max_length=45, unique=True)
-
-    class Meta:
-        ordering = ['id']
-        db_table = 'members_property_type'
-
-    def __unicode__(self):
-        return self.property_type
 
 
 class Member(ContactInfo):
@@ -73,13 +56,6 @@ class Member(ContactInfo):
     was_created_recently.short_description = 'Created recently?'
 
 
-class Kinship(models.Model):
-    kinship = models.CharField(unique=True, max_length=45)
-
-    def __unicode__(self):
-        return self.kinship
-
-
 class Kinsman(ContactInfo):
     phone_number = PhoneNumberField()
     kinship = models.ForeignKey(Kinship)
@@ -87,28 +63,6 @@ class Kinsman(ContactInfo):
 
     def __unicode__(self):
         return '%s %s' % (self.kinsman_name, self.kinsman_last_name)
-
-
-class HousePart(models.Model):
-    house_part = models.CharField(unique=True, max_length=20)
-
-    class Meta:
-        ordering = ['id']
-
-    def __unicode__(self):
-        return self.house_part
-
-
-class HouseMaterial(models.Model):
-    house_material = models.CharField(max_length=20)
-    house_part = models.ForeignKey(HousePart)
-
-    class Meta:
-        unique_together = (('house_material', 'house_part'), )
-        db_table = 'members_house_material'
-
-    def __unicode__(self):
-        return '%s de %s' % (self.house_part, self.house_material)
 
 
 class Housing(models.Model):

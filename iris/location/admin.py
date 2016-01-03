@@ -1,9 +1,9 @@
 from django.contrib import admin
-from .models import Country, Nationality, Region, Province, Town
+from . import models
 
 
-admin.site.register(Country)
-admin.site.register(Nationality)
-admin.site.register(Region)
-admin.site.register(Province)
-admin.site.register(Town)
+admin.site.register(models.Country)
+admin.site.register(models.Nationality)
+admin.site.register(models.Region)
+admin.site.register(models.Province)
+admin.site.register(models.Town)

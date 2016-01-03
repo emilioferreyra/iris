@@ -1,7 +1,9 @@
 from django.contrib import admin
-from .models import DocumentType, PhoneType, AcademicLevel
+from . import models
 
 
-admin.site.register(DocumentType)
-admin.site.register(PhoneType)
-admin.site.register(AcademicLevel)
+admin.site.register(models.DocumentType)
+admin.site.register(models.PhoneType)
+admin.site.register(models.AcademicLevel)
+admin.site.register(models.MaritalStatus)
+admin.site.register(models.Kinship)

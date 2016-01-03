@@ -37,13 +37,15 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Third parties apps
+    # Third-party apps
     'smart_selects',
+    'localflavor',
     # My apps
     'appointments',
     'commons',
     'doctors',
     'employees',
+    'housing',
     'location',
     'members',
 )

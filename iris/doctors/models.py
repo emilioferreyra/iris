@@ -10,6 +10,7 @@ class MedicalSpeciality(models.Model):
     speciality_name = models.CharField(max_length=40)
 
     class Meta:
+        db_table = "doctors_medical_speciality"
         verbose_name = "Medical speciality"
         verbose_name_plural = "Medical specialities"
 
@@ -40,10 +41,10 @@ class Address(Address):
 class DoctorPhones(Phone):
     doctor = models.ForeignKey(Doctor)
 
-    class META:
+    class Meta:
         db_table = 'doctors_phone'
-        verbose_name = "Doctor phone"
-        verbose_name_plural = "Doctor phones"
+        verbose_name = 'Doctor phone'
+        verbose_name_plural = 'Doctor phones'
 
     def __unicode__(self):
         return '%s %s %s %s' % (

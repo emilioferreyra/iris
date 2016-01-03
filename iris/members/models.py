@@ -92,8 +92,13 @@ class MemberAddress(Address):
         pass
 
 
-class Phone(Phone):
+class MemberPhone(Phone):
     member_name = models.ForeignKey(Member, null=True)
+
+    class META:
+        db_table = 'members_phones'
+        # verbose_name = "Member phone"
+        verbose_name_plural = "Member phones"
 
     def __unicode__(self):
         return '%s %s %s %s' % (

@@ -41,13 +41,15 @@ INSTALLED_APPS = (
     'smart_selects',
     'localflavor',
     # My apps
-    # 'appointments',
-    'commons',
-    'doctors',
-    # 'employees',
-    'housing',
     'location',
+    'commons',
+    'people',
+    'employees',
+    'housing',
     'members',
+    'doctors',
+    # 'suppliers',
+    # 'appointments',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -111,6 +113,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
-
 
 USE_DJANGO_JQUERY = False

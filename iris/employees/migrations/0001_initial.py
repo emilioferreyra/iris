@@ -12,35 +12,35 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Doctor',
+            name='Employee',
             fields=[
             ],
             options={
-                'verbose_name': 'Doctor',
+                'verbose_name': 'Employee',
                 'proxy': True,
-                'verbose_name_plural': 'Doctors',
+                'verbose_name_plural': 'Employees',
             },
             bases=('people.person',),
         ),
         migrations.CreateModel(
-            name='DoctorAddress',
+            name='EmployeeAddress',
             fields=[
             ],
             options={
-                'verbose_name': 'Doctor Address',
+                'verbose_name': 'Employee Address',
                 'proxy': True,
-                'verbose_name_plural': 'Doctor Addreses',
+                'verbose_name_plural': 'Employee Addreses',
             },
             bases=('people.personaddress',),
         ),
         migrations.CreateModel(
-            name='DoctorPhone',
+            name='EmployeePhone',
             fields=[
             ],
             options={
-                'verbose_name': 'Doctor Phone',
+                'verbose_name': 'Employee Phone',
                 'proxy': True,
-                'verbose_name_plural': 'Doctor Phones',
+                'verbose_name_plural': 'Employee Phones',
             },
             bases=('people.personphone',),
         ),

@@ -31,8 +31,8 @@ class MaritalStatus(models.Model):
 
 class ContactInfo(models.Model):
     names = models.CharField(max_length=100)
-    father_name = models.CharField(max_length=50)
-    mother_name = models.CharField(max_length=50)
+    father_name = models.CharField(max_length=30)
+    mother_name = models.CharField(max_length=30)
     email = models.EmailField(blank=True)
     marital_status = models.ForeignKey(MaritalStatus)
     document_type = models.ForeignKey(DocumentType)
@@ -56,8 +56,8 @@ class PhoneType(models.Model):
 
 
 class Phone(models.Model):
-    phone_number = PhoneNumberField()
     phone_type = models.ForeignKey(PhoneType)
+    phone_number = PhoneNumberField()
 
     class META:
         abstract = True
@@ -78,3 +78,16 @@ class Kinship(models.Model):
 
     def __unicode__(self):
         return self.kinship
+
+
+class PersonType(models.Model):
+    person_type = models.CharField(max_length=40, unique=True)
+
+    class Meta:
+        verbose_name = "Person Type"
+        verbose_name_plural = "Person Types"
+        db_table = 'commons_person_type'
+        ordering = ['id']
+
+    def __unicode__(self):
+        return self.person_type

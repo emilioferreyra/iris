@@ -74,10 +74,10 @@ class AcademicLevel(models.Model):
 
 
 class Kinship(models.Model):
-    kinship = models.CharField(unique=True, max_length=45)
+    name = models.CharField(unique=True, max_length=45)
 
     def __unicode__(self):
-        return self.kinship
+        return self.name
 
 
 class PersonType(models.Model):

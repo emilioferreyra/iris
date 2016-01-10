@@ -23,7 +23,4 @@ class MemberAdmin(PersonAdmin):
 admin.site.register(models.Disability)
 admin.site.register(models.Cane)
 admin.site.register(models.Member, MemberAdmin)
-admin.site.register(models.MemberKinsman)
 admin.site.register(models.Housing)
-# admin.site.register(models.MemberAddress)
-# admin.site.register(models.MemberPhone)

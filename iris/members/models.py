@@ -22,7 +22,7 @@ class Disability(models.Model):
 
 
 class Cane(models.Model):
-    cane = models.PositiveIntegerField()
+    cane_number = models.PositiveIntegerField()
 
     class Meta:
         ordering = ['id']
@@ -51,21 +51,6 @@ class Member(Person):
     was_created_recently.admin_order_field = 'created'
     was_created_recently.boolean = True
     was_created_recently.short_description = 'Created recently?'
-
-
-class MemberKinsman(Person):
-
-    class Meta:
-        verbose_name = "Member Kinsman"
-        verbose_name_plural = "Member Kinsmans"
-        proxy = True
-
-    def save(self, *args, **kwargs):
-        self.person_type = 'K'
-        super(MemberKinsman, self).save(*args, **kwargs)
-
-    def __unicode__(self):
-        return '%s %s %s' % (self.names, self.father_name, self.mother_name)
 
 
 class Housing(models.Model):

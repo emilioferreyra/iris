@@ -2,7 +2,7 @@ from django.db import models
 # Third-party modules
 from smart_selects.db_fields import ChainedForeignKey
 # My modules
-from commons.models import MaritalStatus, DocumentType, Phone
+from commons.models import MaritalStatus, DocumentType, Phone, Kinship
 from location.models import \
     Nationality, Country, Region, Province, Town, AddressType
 
@@ -22,22 +22,31 @@ class Person(models.Model):
     )
 
     names = models.CharField(max_length=100)
-    father_name = models.CharField(max_length=50)
-    mother_name = models.CharField(max_length=50)
-    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, null=True)
+    father_last_name = models.CharField(max_length=50)
+    mother_last_name = models.CharField(max_length=50)
+    gender = models.CharField(
+        max_length=1,
+        choices=GENDER_CHOICES,
+        null=True
+    )
     birth_day = models.DateField()
     nationality = models.ForeignKey(Nationality)
     marital_status = models.ForeignKey(MaritalStatus)
-    document_type = models.ForeignKey(DocumentType)
-    document_id = models.CharField(max_length=22, help_text='000-0000000-0')
+    document_type = models.ForeignKey(DocumentType, null=True)
+    document_id = models.CharField(
+        max_length=22,
+        help_text='000-0000000-0',
+        null=True
+    )
     email = models.EmailField(blank=True)
     person_type = models.CharField(
         max_length=1,
         choices=PERSON_TYPE_CHOICE,
         null=True
     )
-    dependent = models.BooleanField(default=False)
+    # dependent = models.BooleanField(default=False)
     parent_of = models.ForeignKey('self', null=True, blank=True)
+    kinship = models.ForeignKey(Kinship, null=True)
     status = models.BooleanField(default=True)
 
     class Meta:
@@ -46,7 +55,30 @@ class Person(models.Model):
         ordering = ['id']
 
     def __unicode__(self):
-        return '%s %s %s' % (self.names, self.father_name, self.mother_name)
+        return '%s %s %s' % (
+            self.names,
+            self.father_last_name,
+            self.mother_last_name
+        )
+
+
+class Kinsman(Person):
+
+    class Meta:
+        verbose_name = "Kinsman"
+        verbose_name_plural = "Kinsmans"
+        proxy = True
+
+    def save(self, *args, **kwargs):
+        self.person_type = 'K'
+        super(Kinsman, self).save(*args, **kwargs)
+
+    def __unicode__(self):
+        return '%s %s %s' % (
+            self.names,
+            self.father_last_name,
+            self.mother_last_name
+        )
 
 
 class PersonAddress(models.Model):

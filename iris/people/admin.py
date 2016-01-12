@@ -13,7 +13,14 @@ class KinsmanInline(admin.StackedInline):
         ('gender', 'birth_day', 'nationality'),
         'marital_status'
     ]
-    extra = 1
+
+    extra = 0
+    min_num = 1
+
+    radio_fields = {
+        "gender": admin.VERTICAL,
+        "document_type": admin.HORIZONTAL,
+    }
 
 
 class PersonAddressInlines(admin.StackedInline):
@@ -52,6 +59,12 @@ class PersonAdmin(admin.ModelAdmin):
         'email',
         'status'
         ]
+
+    radio_fields = {
+        # "marital_status": admin.HORIZONTAL,
+        "gender": admin.VERTICAL,
+        "document_type": admin.HORIZONTAL,
+    }
 
     search_fields = ['names', 'father_last_name', 'mother_last_name']
 

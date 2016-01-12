@@ -22,13 +22,13 @@ class Disability(models.Model):
 
 
 class Cane(models.Model):
-    cane_number = models.PositiveIntegerField()
+    name = models.PositiveIntegerField()
 
     class Meta:
         ordering = ['id']
 
     def __unicode__(self):
-        return str(self.cane)
+        return str(self.name)
 
 
 class Member(Person):
@@ -43,7 +43,11 @@ class Member(Person):
         super(Member, self).save(*args, **kwargs)
 
     def __unicode__(self):
-        return '%s %s %s' % (self.names, self.father_name, self.mother_name)
+        return '%s %s %s' % (
+            self.names,
+            self.father_last_name,
+            self.mother_last_name
+        )
 
     def was_created_recently(self):
         return self.created >= timezone.now() - datetime.timedelta(days=1)
@@ -51,6 +55,26 @@ class Member(Person):
     was_created_recently.admin_order_field = 'created'
     was_created_recently.boolean = True
     was_created_recently.short_description = 'Created recently?'
+
+
+class MemberAdditionalField(models.Model):
+    member_name = models.OneToOneField(Member)
+    disabilities = models.ManyToManyField(Disability)
+    cane_number = models.ForeignKey(Cane)
+    property_type = models.ForeignKey(PropertyType)
+    observations = models.TextField()
+
+    class Meta:
+        verbose_name = "Member Additional Field"
+        verbose_name_plural = "Member Additional Fields"
+        db_table = "members_member_additional_fields"
+
+    def __unicode__(self):
+        return '%s %s %s' % (
+            self.member_name,
+            self.cane_number,
+            self.property_type
+        )
 
 
 class Housing(models.Model):
@@ -66,4 +90,8 @@ class Housing(models.Model):
         unique_together = (('member_name', 'house_part'), )
 
     def __unicode__(self):
-        return unicode(self.member_name)
+        return '%s %s %s' % (
+            self.member_name,
+            self.house_part,
+            self.house_material
+        )

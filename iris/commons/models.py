@@ -18,7 +18,7 @@ class DocumentType(models.Model):
 
 
 class MaritalStatus(models.Model):
-    marital_status = models.CharField(unique=True, max_length=45)
+    name = models.CharField(unique=True, max_length=45)
 
     class Meta:
         db_table = 'commons_marital_status'
@@ -26,7 +26,7 @@ class MaritalStatus(models.Model):
         ordering = ['id']
 
     def __unicode__(self):
-        return self.marital_status
+        return self.name
 
 
 class ContactInfo(models.Model):
@@ -45,19 +45,19 @@ class ContactInfo(models.Model):
 
 
 class PhoneType(models.Model):
-    phone_type = models.CharField(unique=True, max_length=45)
+    name = models.CharField(unique=True, max_length=45)
 
     class Meta:
         ordering = ['id']
         db_table = 'commons_phone_type'
 
     def __unicode__(self):
-        return self.phone_type
+        return self.name
 
 
 class Phone(models.Model):
     phone_type = models.ForeignKey(PhoneType)
-    phone_number = PhoneNumberField()
+    phone_number = PhoneNumberField(help_text='999-999-9999')
 
     class META:
         abstract = True

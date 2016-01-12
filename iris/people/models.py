@@ -23,14 +23,14 @@ class Person(models.Model):
 
     names = models.CharField(max_length=100)
     father_last_name = models.CharField(max_length=50)
-    mother_last_name = models.CharField(max_length=50)
+    mother_last_name = models.CharField(max_length=50, null=True, blank=True)
     gender = models.CharField(
         max_length=1,
         choices=GENDER_CHOICES,
         null=True
     )
     birth_day = models.DateField()
-    nationality = models.ForeignKey(Nationality)
+    nationality = models.ForeignKey(Nationality, default=1)
     marital_status = models.ForeignKey(MaritalStatus)
     document_type = models.ForeignKey(DocumentType, null=True)
     document_id = models.CharField(

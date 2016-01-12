@@ -65,8 +65,8 @@ class MemberAdditionalField(models.Model):
     observations = models.TextField()
 
     class Meta:
-        verbose_name = "Member Additional Field"
-        verbose_name_plural = "Member Additional Fields"
+        verbose_name = "Additional Field"
+        verbose_name_plural = "Additional Fields"
         db_table = "members_member_additional_fields"
 
     def __unicode__(self):

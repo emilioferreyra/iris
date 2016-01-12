@@ -25,7 +25,7 @@ class KinsmanInline(admin.StackedInline):
 
 class PersonAddressInlines(admin.StackedInline):
     model = PersonAddress
-    extra = 0
+    extra = 1
     fields = [
         'address_type',
         ('street', 'building', 'apartment'),
@@ -55,6 +55,7 @@ class PersonAdmin(admin.ModelAdmin):
 
     list_display = [
         'id',
+        'person_type',
         'full_name',
         'email',
         'status'

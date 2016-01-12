@@ -31,12 +31,12 @@ class MemberAdmin(PersonAdmin):
         'status'
         )
 
-    # list_display = [
-    #     'id',
-    #     'full_name',
-    #     'email',
-    #     'status'
-    #     ]
+    list_display = [
+        'id',
+        'full_name',
+        'email',
+        'status'
+        ]
 
     list_filter = ['status']
 

@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.db import models
 from django.forms import CheckboxSelectMultiple
 
-from .models import Member, MemberAdditionalField, Disability, Cane, Housing
+from .models import Member, MemberAdditionalField, Disability, Cane, House
 from people.admin import \
     PersonAdmin, PersonAddressInlines, PersonPhoneInlines, KinsmanInline
 
@@ -15,8 +15,8 @@ class MemberAdditionalFieldInline(admin.StackedInline):
     }
 
 
-class HousingInline(admin.TabularInline):
-    model = Housing
+class HouseInline(admin.TabularInline):
+    model = House
     min_num = 3
     max_num = 3
     extra = 0
@@ -45,7 +45,7 @@ class MemberAdmin(PersonAdmin):
         PersonPhoneInlines,
         MemberAdditionalFieldInline,
         KinsmanInline,
-        HousingInline
+        HouseInline
     ]
 
     def get_queryset(self, request):
@@ -56,4 +56,4 @@ class MemberAdmin(PersonAdmin):
 admin.site.register(Disability)
 admin.site.register(Cane)
 admin.site.register(Member, MemberAdmin)
-admin.site.register(Housing)
+admin.site.register(House)

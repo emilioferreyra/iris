@@ -14,9 +14,17 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
 from django.conf.urls import include, url
+# Necesario para redireccionar el root hacia el admin
+from django.core.urlresolvers import reverse_lazy
+from django.views.generic.base import RedirectView
+
 from django.contrib import admin
 
+
 urlpatterns = [
+    # Necesario para redireccionar el root hacia el admin
+    url(r'^$', RedirectView.as_view(url=reverse_lazy('admin:index'))),
+    # Url del admin normal
     url(r'^admin/', include(admin.site.urls)),
     url(r'^chaining/', include('smart_selects.urls')),
 ]

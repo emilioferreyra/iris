@@ -19,6 +19,7 @@ class HouseMaterial(models.Model):
     class Meta:
         unique_together = (('name', 'house_part'), )
         db_table = 'housing_house_material'
+        ordering = ['id']
 
     def __unicode__(self):
         return '%s of %s' % (self.house_part, self.name)

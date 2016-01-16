@@ -77,7 +77,7 @@ class MemberAdditionalField(models.Model):
         )
 
 
-class Housing(models.Model):
+class House(models.Model):
     member_name = models.ForeignKey(Member)
     house_part = models.ForeignKey(HousePart)
     house_material = ChainedForeignKey(

@@ -7,12 +7,12 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('people', '0004_kinsman'),
+        ('housing', '0002_auto_20160112_0016'),
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='person',
-            name='dependent',
+        migrations.AlterModelOptions(
+            name='housematerial',
+            options={'ordering': ['id']},
         ),
     ]

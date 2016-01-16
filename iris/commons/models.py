@@ -29,21 +29,6 @@ class MaritalStatus(models.Model):
         return self.name
 
 
-class ContactInfo(models.Model):
-    names = models.CharField(max_length=100)
-    father_name = models.CharField(max_length=30)
-    mother_name = models.CharField(max_length=30)
-    email = models.EmailField(blank=True)
-    marital_status = models.ForeignKey(MaritalStatus)
-    document_type = models.ForeignKey(DocumentType)
-    document_id = models.CharField(max_length=22)
-    nationality = models.ForeignKey(Nationality)
-    active = models.BooleanField(default=True)
-
-    class META:
-        abstract = True
-
-
 class PhoneType(models.Model):
     name = models.CharField(unique=True, max_length=45)
 
@@ -78,16 +63,3 @@ class Kinship(models.Model):
 
     def __unicode__(self):
         return self.name
-
-
-class PersonType(models.Model):
-    person_type = models.CharField(max_length=40, unique=True)
-
-    class Meta:
-        verbose_name = "Person Type"
-        verbose_name_plural = "Person Types"
-        db_table = 'commons_person_type'
-        ordering = ['id']
-
-    def __unicode__(self):
-        return self.person_type

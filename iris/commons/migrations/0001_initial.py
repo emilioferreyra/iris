@@ -8,7 +8,6 @@ import localflavor.us.models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('location', '0001_initial'),
     ]
 
     operations = [
@@ -21,18 +20,6 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'commons_academic_level',
             },
-        ),
-        migrations.CreateModel(
-            name='ContactInfo',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('names', models.CharField(max_length=100)),
-                ('father_name', models.CharField(max_length=30)),
-                ('mother_name', models.CharField(max_length=30)),
-                ('email', models.EmailField(max_length=254, blank=True)),
-                ('document_id', models.CharField(max_length=22)),
-                ('active', models.BooleanField(default=True)),
-            ],
         ),
         migrations.CreateModel(
             name='DocumentType',
@@ -50,14 +37,14 @@ class Migration(migrations.Migration):
             name='Kinship',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('kinship', models.CharField(unique=True, max_length=45)),
+                ('name', models.CharField(unique=True, max_length=45)),
             ],
         ),
         migrations.CreateModel(
             name='MaritalStatus',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('marital_status', models.CharField(unique=True, max_length=45)),
+                ('name', models.CharField(unique=True, max_length=45)),
             ],
             options={
                 'ordering': ['id'],
@@ -66,30 +53,17 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-            name='PersonType',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('person_type', models.CharField(unique=True, max_length=40)),
-            ],
-            options={
-                'ordering': ['id'],
-                'db_table': 'commons_person_type',
-                'verbose_name': 'Person Type',
-                'verbose_name_plural': 'Person Types',
-            },
-        ),
-        migrations.CreateModel(
             name='Phone',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('phone_number', localflavor.us.models.PhoneNumberField(max_length=20)),
+                ('phone_number', localflavor.us.models.PhoneNumberField(help_text=b'999-999-9999', max_length=20)),
             ],
         ),
         migrations.CreateModel(
             name='PhoneType',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('phone_type', models.CharField(unique=True, max_length=45)),
+                ('name', models.CharField(unique=True, max_length=45)),
             ],
             options={
                 'ordering': ['id'],
@@ -100,20 +74,5 @@ class Migration(migrations.Migration):
             model_name='phone',
             name='phone_type',
             field=models.ForeignKey(to='commons.PhoneType'),
-        ),
-        migrations.AddField(
-            model_name='contactinfo',
-            name='document_type',
-            field=models.ForeignKey(to='commons.DocumentType'),
-        ),
-        migrations.AddField(
-            model_name='contactinfo',
-            name='marital_status',
-            field=models.ForeignKey(to='commons.MaritalStatus'),
-        ),
-        migrations.AddField(
-            model_name='contactinfo',
-            name='nationality',
-            field=models.ForeignKey(to='location.Nationality'),
         ),
     ]

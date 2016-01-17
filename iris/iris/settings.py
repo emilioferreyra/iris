@@ -47,7 +47,7 @@ INSTALLED_APPS = (
     'employees',
     'housing',
     'members',
-    'doctors',
+    # 'doctors',
     # 'suppliers',
     # 'appointments',
 )

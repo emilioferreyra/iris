@@ -1,4 +1,5 @@
 from __future__ import absolute_import
+from datetime import date
 from django.contrib import admin
 
 from .models import Person, PersonAddress, PersonPhone
@@ -58,6 +59,7 @@ class PersonAdmin(admin.ModelAdmin):
         'person_type',
         'full_name',
         'email',
+        'calculate_age',
         'status'
         ]
 
@@ -82,6 +84,13 @@ class PersonAdmin(admin.ModelAdmin):
             obj.mother_last_name
         )
     full_name.short_description = 'Name'
+
+    def calculate_age(self, obj):
+        today = date.today()
+        return today.year - obj.birth_day.year - (
+            (today.month, today.day) < (obj.birth_day.month, obj.birth_day.day)
+        )
+    calculate_age.short_description = "Age"
 
 
 # admin.site.register(PersonType)

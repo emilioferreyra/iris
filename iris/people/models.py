@@ -1,3 +1,4 @@
+# from datetime import date
 from django.db import models
 # Third-party modules
 from smart_selects.db_fields import ChainedForeignKey
@@ -83,10 +84,6 @@ class Kinsman(Person):
 
 class PersonAddress(models.Model):
     person_name = models.ForeignKey(Person)
-    address_type = models.ForeignKey(AddressType)
-    building = models.CharField(max_length=20, null=True, blank=True)
-    apartment = models.CharField(max_length=20, null=True, blank=True)
-    street = models.CharField(max_length=40)
     country = models.ForeignKey(Country)
     region = models.ForeignKey(Region)
     # province_name = models.ForeignKey(Province)
@@ -101,6 +98,10 @@ class PersonAddress(models.Model):
         chained_field="province",
         chained_model_field="province"
         )
+    address_type = models.ForeignKey(AddressType)
+    building = models.CharField(max_length=20, null=True, blank=True)
+    apartment = models.CharField(max_length=20, null=True, blank=True)
+    street = models.CharField(max_length=40)
 
     class Meta:
         verbose_name = "Address"

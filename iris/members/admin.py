@@ -35,6 +35,8 @@ class MemberAdmin(PersonAdmin):
         'id',
         'full_name',
         'email',
+        'calculate_age',
+        'birth_day',
         'status'
         ]
 

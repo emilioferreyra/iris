@@ -1,6 +1,6 @@
 from django.db import models
 
-from commons.models import PersonType
+# from commons.models import PersonType
 from people.models import Person, PersonAddress, PersonPhone
 
 

@@ -57,11 +57,28 @@ class Member(Person):
     was_created_recently.short_description = 'Created recently?'
 
 
+class Ocupation(models.Model):
+    name = models.CharField(max_length=40)
+
+    class Meta:
+        verbose_name = "Ocupation"
+        verbose_name_plural = "Ocupations"
+
+    def __unicode__(self):
+        return self.name
+
+
 class MemberAdditionalField(models.Model):
     member_name = models.OneToOneField(Member)
     disabilities = models.ManyToManyField(Disability)
     cane_number = models.ForeignKey(Cane)
     property_type = models.ForeignKey(PropertyType)
+    currently_works = models.BooleanField(default=False)
+    ocupation = models.ForeignKey(Ocupation, null=True)
+    where_work = models.CharField(
+        max_length=100,
+        null=True
+    )
     observations = models.TextField()
 
     class Meta:

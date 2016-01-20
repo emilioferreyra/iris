@@ -17,6 +17,7 @@ from django.conf.urls import include, url
 # Necesario para redireccionar el root hacia el admin
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic.base import RedirectView
+from django.conf import settings
 
 from django.contrib import admin
 
@@ -27,4 +28,7 @@ urlpatterns = [
     # Url del admin normal
     url(r'^admin/', include(admin.site.urls)),
     url(r'^chaining/', include('smart_selects.urls')),
+    url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
+        'document_root': settings.MEDIA_ROOT
+    }),
 ]

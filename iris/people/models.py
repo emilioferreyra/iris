@@ -2,6 +2,7 @@
 from django.db import models
 # Third-party modules
 from smart_selects.db_fields import ChainedForeignKey
+from sorl.thumbnail import ImageField
 # My modules
 from commons.models import MaritalStatus, DocumentType, Phone, Kinship
 from location.models import \
@@ -31,7 +32,7 @@ class Person(models.Model):
         null=True
     )
     birth_day = models.DateField()
-    nationality = models.ForeignKey(Nationality, default=1)
+    nationality = models.ForeignKey(Nationality, default=21)
     marital_status = models.ForeignKey(MaritalStatus)
     document_type = models.ForeignKey(DocumentType, null=True)
     document_id = models.CharField(
@@ -48,11 +49,12 @@ class Person(models.Model):
     # dependent = models.BooleanField(default=False)
     parent_of = models.ForeignKey('self', null=True, blank=True)
     kinship = models.ForeignKey(Kinship, null=True)
+    picture = ImageField(upload_to='people_pictures', null=True, blank=True)
     status = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = "Person"
-        verbose_name_plural = "Persons"
+        verbose_name_plural = "People"
         ordering = ['id']
 
     def __unicode__(self):
@@ -61,6 +63,11 @@ class Person(models.Model):
             self.father_last_name,
             self.mother_last_name
         )
+
+    def image_tag(self):
+        return u'<img src="%s" />' % self.picture.url
+    image_tag.short_description = 'Image'
+    image_tag.allow_tags = True
 
 
 class Kinsman(Person):
@@ -84,7 +91,7 @@ class Kinsman(Person):
 
 class PersonAddress(models.Model):
     person_name = models.ForeignKey(Person)
-    country = models.ForeignKey(Country)
+    country = models.ForeignKey(Country, default=1)
     region = models.ForeignKey(Region)
     # province_name = models.ForeignKey(Province)
     province = ChainedForeignKey(

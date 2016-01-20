@@ -45,7 +45,7 @@ class Province(models.Model):
 
 
 class Town(models.Model):
-    province = models.ForeignKey(Province, default=1)
+    province = models.ForeignKey(Province)
     name = models.CharField(max_length=100)
 
     class Meta:

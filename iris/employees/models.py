@@ -16,7 +16,11 @@ class Employee(Person):
         super(Employee, self).save(*args, **kwargs)
 
     def __unicode__(self):
-        return '%s %s %s' % (self.names, self.father_name, self.mother_name)
+        return '%s %s %s' % (
+            self.names,
+            self.father_last_name,
+            self.mother_last_name
+        )
 
 
 class EmployeeAddress(PersonAddress):

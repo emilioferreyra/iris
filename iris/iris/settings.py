@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     # Third-party apps
     'smart_selects',
     'localflavor',
+    'sorl.thumbnail',
     # My apps
     'location',
     'commons',
@@ -47,7 +48,7 @@ INSTALLED_APPS = (
     'employees',
     'housing',
     'members',
-    # 'doctors',
+    'doctors',
     # 'suppliers',
     # 'appointments',
 )
@@ -113,5 +114,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 USE_DJANGO_JQUERY = False

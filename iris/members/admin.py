@@ -24,7 +24,7 @@ class HouseInline(admin.TabularInline):
 
 class MemberAdmin(PersonAdmin):
     fields = (
-        ('names', 'father_last_name', 'mother_last_name', 'email'),
+        ('picture', 'names', 'father_last_name', 'mother_last_name', 'email'),
         ('birth_day', 'nationality', 'marital_status'),
         ('gender', 'document_type', 'document_id'),
         # ('dependent', 'parent_of'),
@@ -33,6 +33,7 @@ class MemberAdmin(PersonAdmin):
 
     list_display = [
         'id',
+        'picture',
         'full_name',
         'email',
         'calculate_age',
@@ -40,7 +41,7 @@ class MemberAdmin(PersonAdmin):
         'status'
         ]
 
-    list_filter = ['status']
+    list_filter = ['status', 'marital_status']
 
     inlines = [
         PersonAddressInlines,

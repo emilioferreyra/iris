@@ -6,14 +6,27 @@ from people.admin import PersonAdmin
 
 class EmployeeAdmin(PersonAdmin):
     fields = (
-        ('names', 'father_name', 'mother_name', 'email'),
+        ('picture', 'names', 'father_last_name', 'mother_last_name', 'email'),
         ('birth_day', 'nationality', 'marital_status'),
         ('gender', 'document_type', 'document_id'),
-        ('dependent', 'parent_of'),
         'status'
         )
 
-    list_filter = ['status']
+    list_display = [
+        'id',
+        'picture',
+        'full_name',
+        'email',
+        'calculate_age',
+        'birth_day',
+        'status'
+        ]
+
+    list_filter = [
+        'status',
+        'marital_status',
+        'gender'
+    ]
 
     def get_queryset(self, request):
         qs = super(EmployeeAdmin, self).get_queryset(request)

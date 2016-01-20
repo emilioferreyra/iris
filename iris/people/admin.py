@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 from datetime import date
 from django.contrib import admin
+from sorl.thumbnail.admin import AdminImageMixin
 
 from .models import Person, PersonAddress, PersonPhone
 from people.models import Kinsman
@@ -30,7 +31,6 @@ class PersonAddressInlines(admin.StackedInline):
     fields = [
         'address_type',
         ('street', 'building', 'apartment'),
-        'country',
         ('region', 'province', 'town'),
         ]
     min_num = 1
@@ -42,12 +42,12 @@ class PersonPhoneInlines(admin.TabularInline):
     min_num = 1
 
 
-class PersonAdmin(admin.ModelAdmin):
+class PersonAdmin(AdminImageMixin, admin.ModelAdmin):
     list_display_links = ('full_name',)
-    list_editable = ['status']
+    # list_editable = ['status']
     list_filter = ['status', 'person_type']
     fields = (
-        ('names', 'father_last_name', 'mother_last_name', 'email'),
+        ('picture', 'names', 'father_last_name', 'mother_last_name', 'email'),
         ('birth_day', 'nationality', 'marital_status'),
         ('gender', 'document_type', 'document_id'),
         # ('dependent', 'parent_of'),

@@ -1,7 +1,7 @@
 from django.db import models
 
 # from commons.models import PersonType
-from people.models import Person, PersonAddress, PersonPhone
+from people.models import Person
 
 
 class Doctor(Person):
@@ -16,26 +16,8 @@ class Doctor(Person):
         super(Doctor, self).save(*args, **kwargs)
 
     def __unicode__(self):
-        return '%s %s %s' % (self.names, self.father_name, self.mother_name)
-
-
-class DoctorAddress(PersonAddress):
-
-    class Meta:
-        verbose_name = "Doctor Address"
-        verbose_name_plural = "Doctor Addreses"
-        proxy = True
-
-    def __unicode__(self):
-        pass
-
-
-class DoctorPhone(PersonPhone):
-
-    class Meta:
-        verbose_name = "Doctor Phone"
-        verbose_name_plural = "Doctor Phones"
-        proxy = True
-
-    def __unicode__(self):
-        pass
+        return 'Dr. %s %s %s' % (
+            self.names,
+            self.father_last_name,
+            self.mother_last_name
+        )

@@ -17,7 +17,7 @@ class KinsmanInline(admin.StackedInline):
     ]
 
     extra = 0
-    min_num = 1
+    # min_num = 1
 
     radio_fields = {
         "gender": admin.VERTICAL,
@@ -31,7 +31,7 @@ class PersonAddressInlines(admin.StackedInline):
     fields = [
         'address_type',
         ('street', 'building', 'apartment'),
-        ('region', 'province', 'town'),
+        ('region', 'province', 'town', 'default'),
         ]
     min_num = 1
 
@@ -56,11 +56,11 @@ class PersonAdmin(AdminImageMixin, admin.ModelAdmin):
 
     list_display = [
         'id',
+        'status',
         'person_type',
         'full_name',
         'email',
         'calculate_age',
-        'status'
         ]
 
     radio_fields = {
@@ -69,7 +69,11 @@ class PersonAdmin(AdminImageMixin, admin.ModelAdmin):
         "document_type": admin.HORIZONTAL,
     }
 
-    search_fields = ['names', 'father_last_name', 'mother_last_name']
+    search_fields = [
+        'names',
+        'father_last_name',
+        'mother_last_name'
+    ]
 
     inlines = [
         PersonAddressInlines,

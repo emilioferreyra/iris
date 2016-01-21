@@ -1,15 +1,22 @@
+# -*- coding: utf-8 -*-
+from __future__ import absolute_import
+
 # from datetime import date
 from django.db import models
+
 # Third-party modules
+from model_utils.models import TimeStampedModel
+from audit_log.models import AuthStampedModel
 from smart_selects.db_fields import ChainedForeignKey
 from sorl.thumbnail import ImageField
+
 # My modules
 from commons.models import MaritalStatus, DocumentType, Phone, Kinship
 from location.models import \
     Nationality, Country, Region, Province, Town, AddressType
 
 
-class Person(models.Model):
+class Person(TimeStampedModel, AuthStampedModel):
     GENDER_CHOICES = (
         ('M', 'Male'),
         ('F', 'Female'),
@@ -109,6 +116,10 @@ class PersonAddress(models.Model):
     building = models.CharField(max_length=20, null=True, blank=True)
     apartment = models.CharField(max_length=20, null=True, blank=True)
     street = models.CharField(max_length=40)
+    default = models.BooleanField(
+        default=False,
+        verbose_name='Default Address'
+    )
 
     class Meta:
         verbose_name = "Address"
@@ -121,6 +132,7 @@ class PersonAddress(models.Model):
 
 class PersonPhone(Phone):
     person_name = models.ForeignKey(Person)
+    default = models.BooleanField(default=False, verbose_name='default phone')
 
     class Meta:
         verbose_name = "Phone"

@@ -3,10 +3,11 @@ from __future__ import absolute_import
 from django.db import models
 import datetime
 from django.utils import timezone
+from django.db.models import Q
 # Third-party apps
 from smart_selects.db_fields import ChainedForeignKey
 # My apps
-from people.models import Person
+from people.models import Person, Kinsman
 from housing.models import HouseMaterial, HousePart, PropertyType
 
 
@@ -42,6 +43,34 @@ class Member(Person):
         self.person_type = 'M'
         super(Member, self).save(*args, **kwargs)
 
+    def is_woman(self):
+        woman = False
+        if self.gender == 'F':
+            woman = True
+        return woman
+    is_woman.short_description = 'Woman'
+
+    def is_mother(self):
+        mother = False
+        children = Kinsman.objects.filter(
+            Q(parent_of=self.id),
+            Q(kinship=3) | Q(kinship=4)
+        )
+        if children and self.gender == 'F':
+            mother = True
+        return mother
+    is_mother.short_description = 'Mother'
+
+    def children_quantity(self):
+        quantity = Kinsman.objects.filter(
+            Q(parent_of=self.id),
+            Q(kinship=3) | Q(kinship=4)
+        ).count()
+        if quantity > 0:
+            quantity
+        return quantity
+    children_quantity.short_description = 'Children number'
+
     def __unicode__(self):
         return '%s %s %s' % (
             self.names,
@@ -74,12 +103,13 @@ class MemberAdditionalField(models.Model):
     cane_number = models.ForeignKey(Cane)
     property_type = models.ForeignKey(PropertyType)
     currently_works = models.BooleanField(default=False)
-    ocupation = models.ForeignKey(Ocupation, null=True)
+    ocupation = models.ForeignKey(Ocupation, null=True, blank=True)
     where_work = models.CharField(
         max_length=100,
-        null=True
+        null=True,
+        blank=True
     )
-    observations = models.TextField()
+    observations = models.TextField(null=True, blank=True)
 
     class Meta:
         verbose_name = "Additional Field"

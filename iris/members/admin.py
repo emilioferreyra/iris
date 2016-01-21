@@ -39,15 +39,23 @@ class MemberAdmin(PersonAdmin):
 
     list_display = [
         'id',
-        'picture',
+        'status',
+        # 'was_created_recently',
+        # 'picture',
+        'gender',
+        'is_mother',
+        'children_quantity',
         'full_name',
         'email',
         'calculate_age',
         'birth_day',
-        'status'
+        'was_created_recently',
         ]
 
-    list_filter = ['status', 'marital_status']
+    list_filter = [
+        'status',
+        'marital_status'
+    ]
 
     inlines = [
         MemberAdditionalFieldInline,
@@ -55,6 +63,12 @@ class MemberAdmin(PersonAdmin):
         PersonPhoneInlines,
         KinsmanInline,
         HouseInline
+    ]
+
+    search_fields = [
+        'names',
+        'father_last_name',
+        'mother_last_name'
     ]
 
     def get_queryset(self, request):

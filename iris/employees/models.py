@@ -1,7 +1,10 @@
-from django.db import models
+# -*- coding: utf-8 -*-
+# Django core
+from __future__ import absolute_import, unicode_literals
+# from django.db import models
 
 # from commons.models import PersonType
-from people.models import Person, PersonAddress, PersonPhone
+from people.models import Person
 
 
 class Employee(Person):
@@ -21,25 +24,3 @@ class Employee(Person):
             self.father_last_name,
             self.mother_last_name
         )
-
-
-class EmployeeAddress(PersonAddress):
-
-    class Meta:
-        verbose_name = "Employee Address"
-        verbose_name_plural = "Employee Addreses"
-        proxy = True
-
-    def __unicode__(self):
-        pass
-
-
-class EmployeePhone(PersonPhone):
-
-    class Meta:
-        verbose_name = "Employee Phone"
-        verbose_name_plural = "Employee Phones"
-        proxy = True
-
-    def __unicode__(self):
-        pass

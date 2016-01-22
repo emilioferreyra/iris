@@ -1,5 +1,6 @@
+# -*- coding: utf-8 -*-
 # Django core
-from __future__ import absolute_import
+from __future__ import absolute_import, unicode_literals
 from django.db import models
 import datetime
 from django.utils import timezone
@@ -32,7 +33,13 @@ class Cane(models.Model):
         return str(self.name)
 
 
+class MemberManager(models.Manager):
+    def get_queryset(self):
+        return super(MemberManager, self).get_queryset().filter(person_type='M')
+
+
 class Member(Person):
+    objects = MemberManager()
 
     class Meta:
         verbose_name = "Member"

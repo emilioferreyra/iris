@@ -1,4 +1,6 @@
-from __future__ import absolute_import
+# -*- coding: utf-8 -*-
+# Django core
+from __future__ import absolute_import, unicode_literals
 from datetime import date
 from django.contrib import admin
 from sorl.thumbnail.admin import AdminImageMixin

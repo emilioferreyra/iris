@@ -1,8 +1,10 @@
+# -*- coding: utf-8 -*-
+# Django core
+from __future__ import absolute_import
 from django.db import models
+
 # Third-party apps
 from localflavor.us.models import PhoneNumberField
-# My apps
-from location.models import Nationality
 
 
 class DocumentType(models.Model):

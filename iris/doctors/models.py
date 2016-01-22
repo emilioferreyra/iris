@@ -89,7 +89,7 @@ class DoctorAdditionalField(models.Model):
         db_table = "doctors_doctor_additional_fields"
 
     def __unicode__(self):
-        return '%s %s' % (self.doctor)
+        return '%s' % (self.doctor)
 
 
 class Appointment(models.Model):
@@ -103,7 +103,8 @@ class Appointment(models.Model):
         )
     date = models.DateField()
     symptomatology = models.TextField(max_length=300)
-    date_next_appoitment = models.DateField()
+    prescription = models.TextField(max_length=300, null=True, blank=True)
+    date_next_appoitment = models.DateField(null=True, blank=True)
 
     class Meta:
         verbose_name = "Appointment"
@@ -145,8 +146,8 @@ class PrescribedMedicine(models.Model):
     )
 
     class Meta:
-        verbose_name = "Prescription"
-        verbose_name_plural = "Prescriptions"
+        verbose_name = "Prescribed Medicine"
+        verbose_name_plural = "Prescribed Medicines"
         db_table = "doctors_prescribed_medicines"
 
     def __unicode__(self):

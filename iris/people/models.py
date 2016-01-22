@@ -132,7 +132,10 @@ class PersonAddress(models.Model):
 
 class PersonPhone(Phone):
     person_name = models.ForeignKey(Person)
-    default = models.BooleanField(default=False, verbose_name='default phone')
+    default = models.BooleanField(
+        default=False,
+        verbose_name='default phone'
+        )
 
     class Meta:
         verbose_name = "Phone"

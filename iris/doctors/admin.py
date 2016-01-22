@@ -59,9 +59,11 @@ class AppointmentAdmin(admin.ModelAdmin):
     """docstring for AppointmentAdmin"""
     model = Appointment
     fields = (
-        ('date', 'clinic'),
-        ('member', 'doctor'),
+        'date',
+        ('clinic', 'doctor'),
+        ('member'),
         'symptomatology',
+        'prescription',
         'date_next_appoitment'
     )
     list_display = [
@@ -76,18 +78,20 @@ class AppointmentAdmin(admin.ModelAdmin):
         'doctor',
         'clinic'
         ]
-    list_filter = [
-        'member',
-        'doctor',
-        'clinic',
-        'date'
-        ]
-    list_display_links = [
+    list_filter = (
         'date',
-        'member',
-        'doctor',
-        'clinic'
+        ('clinic', admin.RelatedOnlyFieldListFilter),
+        ('member', admin.RelatedOnlyFieldListFilter),
+        ('doctor', admin.RelatedOnlyFieldListFilter),
+    )
+    list_display_links = [
+        'id',
+        'date',
+        # 'member',
+        # 'doctor',
+        # 'clinic'
         ]
+    ordering = ['-id']
 
     inlines = [PrescribedMedicineInlines]
 

@@ -47,7 +47,11 @@ class PersonPhoneInlines(admin.TabularInline):
 class PersonAdmin(AdminImageMixin, admin.ModelAdmin):
     list_display_links = ('full_name',)
     # list_editable = ['status']
-    list_filter = ['status', 'person_type']
+    list_filter = (
+        'status',
+        'person_type',
+        ('marital_status', admin.RelatedOnlyFieldListFilter),
+        )
     fields = (
         ('picture', 'names', 'father_last_name', 'mother_last_name', 'email'),
         ('birth_day', 'nationality', 'marital_status'),
@@ -83,13 +87,13 @@ class PersonAdmin(AdminImageMixin, admin.ModelAdmin):
         KinsmanInline
     ]
 
-    def full_name(self, obj):
-        return "%s %s %s" % (
-            obj.names,
-            obj.father_last_name,
-            obj.mother_last_name
-        )
-    full_name.short_description = 'Name'
+    # def full_name(self, obj):
+    #     return "%s %s %s" % (
+    #         obj.names,
+    #         obj.father_last_name,
+    #         obj.mother_last_name
+    #     )
+    # full_name.short_description = 'Name'
 
     def calculate_age(self, obj):
         today = date.today()

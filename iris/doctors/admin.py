@@ -22,7 +22,7 @@ class DoctorAdditionalFieldInline(admin.StackedInline):
     # }
 
 
-class DoctorAdmin(PersonAdmin):
+class DoctorAdmin(admin.ModelAdmin):
     fields = (
         ('picture', 'names', 'father_last_name', 'mother_last_name', 'email'),
         ('birth_day', 'nationality', 'marital_status'),
@@ -32,7 +32,7 @@ class DoctorAdmin(PersonAdmin):
 
     list_display = [
         'id',
-        'person_type',
+        # 'person_type',
         'full_name',
         'email'
         ]

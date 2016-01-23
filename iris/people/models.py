@@ -64,6 +64,14 @@ class Person(TimeStampedModel, AuthStampedModel):
         verbose_name_plural = "People"
         ordering = ['id']
 
+    def full_name(self):
+        return "%s %s %s" % (
+            self.names,
+            self.father_last_name,
+            self.mother_last_name
+        )
+    full_name.short_description = 'Name'
+
     def __unicode__(self):
         return '%s %s %s' % (
             self.names,

@@ -4,7 +4,7 @@ from __future__ import absolute_import, unicode_literals
 from django.db import models
 
 # Third-party apps
-from smart_selects.db_fields import ChainedForeignKey, ChainedManyToManyField
+from smart_selects.db_fields import ChainedForeignKey
 from localflavor.us.models import PhoneNumberField
 
 # My apps

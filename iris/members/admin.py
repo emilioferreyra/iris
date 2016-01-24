@@ -7,9 +7,9 @@ from django.forms import CheckboxSelectMultiple
 
 # My apps
 from .models import Member, MemberAdditionalField, Disability, Cane,\
-    House, Ocupation
+    House, Ocupation, MemberFamily
 from people.admin import \
-    PersonAdmin, PersonAddressInlines, PersonPhoneInlines, KinsmanInline
+    PersonAdmin, PersonAddressInlines, PersonPhoneInlines
 
 
 class MemberAdditionalFieldInline(admin.StackedInline):
@@ -25,6 +25,21 @@ class MemberAdditionalFieldInline(admin.StackedInline):
     )
 
 
+class MemberFamilyInline(admin.StackedInline):
+    model = MemberFamily
+    fields = [
+        'kinship',
+        ('names', 'father_last_name', 'mother_last_name'),
+        ('gender', 'birth_day', 'nationality'),
+        'marital_status'
+    ]
+    extra = 0
+    radio_fields = {
+        "gender": admin.VERTICAL,
+        "document_type": admin.HORIZONTAL,
+    }
+
+
 class HouseInline(admin.TabularInline):
     model = House
     min_num = 3
@@ -37,7 +52,6 @@ class MemberAdmin(PersonAdmin):
         ('picture', 'names', 'father_last_name', 'mother_last_name', 'email'),
         ('birth_day', 'nationality', 'marital_status'),
         ('gender', 'document_type', 'document_id'),
-        # ('dependent', 'parent_of'),
         'status'
         )
 
@@ -65,7 +79,7 @@ class MemberAdmin(PersonAdmin):
         MemberAdditionalFieldInline,
         PersonAddressInlines,
         PersonPhoneInlines,
-        KinsmanInline,
+        MemberFamilyInline,
         HouseInline
     ]
 
@@ -77,7 +91,7 @@ class MemberAdmin(PersonAdmin):
 
     def get_queryset(self, request):
         qs = super(MemberAdmin, self).get_queryset(request)
-        return qs.filter(person_type="M")
+        return qs.filter(person_type=2)
 
 
 admin.site.register(Disability)

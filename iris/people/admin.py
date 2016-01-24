@@ -5,26 +5,7 @@ from datetime import date
 from django.contrib import admin
 from sorl.thumbnail.admin import AdminImageMixin
 
-from .models import Person, PersonAddress, PersonPhone
-from people.models import Kinsman
-
-
-class KinsmanInline(admin.StackedInline):
-    model = Kinsman
-    fields = [
-        'kinship',
-        ('names', 'father_last_name', 'mother_last_name'),
-        ('gender', 'birth_day', 'nationality'),
-        'marital_status'
-    ]
-
-    extra = 0
-    # min_num = 1
-
-    radio_fields = {
-        "gender": admin.VERTICAL,
-        "document_type": admin.HORIZONTAL,
-    }
+from .models import Person, PersonAddress, PersonPhone, PersonType
 
 
 class PersonAddressInlines(admin.StackedInline):
@@ -49,7 +30,7 @@ class PersonAdmin(AdminImageMixin, admin.ModelAdmin):
     # list_editable = ['status']
     list_filter = (
         'status',
-        'person_type',
+        ('person_type', admin.RelatedOnlyFieldListFilter),
         ('marital_status', admin.RelatedOnlyFieldListFilter),
         )
     fields = (
@@ -83,8 +64,7 @@ class PersonAdmin(AdminImageMixin, admin.ModelAdmin):
 
     inlines = [
         PersonAddressInlines,
-        PersonPhoneInlines,
-        KinsmanInline
+        PersonPhoneInlines
     ]
 
     # def full_name(self, obj):
@@ -103,7 +83,7 @@ class PersonAdmin(AdminImageMixin, admin.ModelAdmin):
     calculate_age.short_description = "Age"
 
 
-# admin.site.register(PersonType)
+admin.site.register(PersonType)
 admin.site.register(Person, PersonAdmin)
 admin.site.register(PersonAddress)
-# admin.site.register(PersonPhone)
+# admin.site.register(Kinsman)

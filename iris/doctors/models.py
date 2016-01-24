@@ -8,14 +8,14 @@ from smart_selects.db_fields import ChainedForeignKey
 from localflavor.us.models import PhoneNumberField
 
 # My apps
-from people.models import Person
+from people.models import Person, PersonType
 from members.models import Member
 from location.models import Region, Province, Town
 
 
 class DoctorManager(models.Manager):
     def get_queryset(self):
-        return super(DoctorManager, self).get_queryset().filter(person_type='D')
+        return super(DoctorManager, self).get_queryset().filter(person_type=3)
 
 
 class Doctor(Person):
@@ -27,15 +27,8 @@ class Doctor(Person):
         proxy = True
 
     def save(self, *args, **kwargs):
-        self.person_type = 'D'
+        self.person_type = PersonType.objects.get(id=3)
         super(Doctor, self).save(*args, **kwargs)
-
-    def __unicode__(self):
-        return 'Dr. %s %s %s' % (
-            self.names,
-            self.father_last_name,
-            self.mother_last_name
-        )
 
 
 class Clinic(models.Model):

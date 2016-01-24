@@ -8,7 +8,7 @@ from datetime import date
 
 # My models
 from .models import Employee, EmployeeAdditionalField, Department, Position,\
-    EmployeeType, Workday, WorkSchedule
+    EmployeeType, Workday, WorkSchedule, EmployeeFamily
 from people.admin import PersonAdmin
 
 
@@ -16,6 +16,21 @@ class AdditionalsFieldsInline(admin.TabularInline):
     model = EmployeeAdditionalField
     max_num = 1
     min_num = 1
+
+
+class EmployeeFamilyInline(admin.StackedInline):
+    model = EmployeeFamily
+    fields = [
+        'kinship',
+        ('names', 'father_last_name', 'mother_last_name'),
+        ('gender', 'birth_day', 'nationality'),
+        'marital_status'
+    ]
+    extra = 0
+    radio_fields = {
+        "gender": admin.VERTICAL,
+        "document_type": admin.HORIZONTAL,
+    }
 
 
 class EmployeeAdmin(PersonAdmin):
@@ -40,21 +55,19 @@ class EmployeeAdmin(PersonAdmin):
         'status'
         ]
 
-    # list_filter = [
-    #     'status',
-    #     'marital_status',
-    #     'gender'
-    # ]
     list_filter = (
         'status',
         ('marital_status', admin.RelatedOnlyFieldListFilter),
         'gender',
     )
-    inlines = [AdditionalsFieldsInline]
+    inlines = [
+        AdditionalsFieldsInline,
+        EmployeeFamilyInline,
+    ]
 
     def get_queryset(self, request):
         qs = super(EmployeeAdmin, self).get_queryset(request)
-        return qs.filter(person_type="E")
+        return qs.filter(person_type=1)
 
     def employee_position(self, obj):
         eaf = EmployeeAdditionalField.objects.get(employee_id=obj.id)

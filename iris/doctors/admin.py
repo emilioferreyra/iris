@@ -46,7 +46,7 @@ class DoctorAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super(DoctorAdmin, self).get_queryset(request)
-        return qs.filter(person_type="D")
+        return qs.filter(person_type=3)
 
 
 class PrescribedMedicineInlines(admin.TabularInline):

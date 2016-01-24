@@ -49,8 +49,7 @@ INSTALLED_APPS = (
     'housing',
     'members',
     'doctors',
-    # 'appointments',
-    # 'suppliers',
+    'suppliers',
 )
 
 MIDDLEWARE_CLASSES = (

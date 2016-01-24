@@ -7,12 +7,12 @@ from django.db import models
 from smart_selects.db_fields import ChainedForeignKey
 
 # from commons.models import PersonType
-from people.models import Person
+from people.models import Person, PersonType
 
 
 class EmployeeManager(models.Manager):
     def get_queryset(self):
-        return super(EmployeeManager, self).get_queryset().filter(person_type='E')
+        return super(EmployeeManager, self).get_queryset().filter(person_type=1)
 
 
 class Employee(Person):
@@ -24,15 +24,19 @@ class Employee(Person):
         proxy = True
 
     def save(self, *args, **kwargs):
-        self.person_type = 'E'
+        self.person_type = PersonType.objects.get(id=1)
         super(Employee, self).save(*args, **kwargs)
 
-    def __unicode__(self):
-        return '%s %s %s' % (
-            self.names,
-            self.father_last_name,
-            self.mother_last_name
-        )
+    # def get_additional_fields(self):
+    #     additionals_fields_list = []
+    #     eaf = EmployeeAdditionalField.objects.get(employee_id=self.id)
+    #     additionals_fields_list.append(eaf.position)
+    #     additionals_fields_list.append(eaf.department)
+    #     additionals_fields_list.append(eaf.hiring_date)
+    #     return additionals_fields_list
+    # position = get_additional_fields[0]
+    # department = get_additional_fields[1]
+    # hiring_date = get_additional_fields[2]
 
 
 class Department(models.Model):
@@ -118,3 +122,15 @@ class EmployeeAdditionalField(models.Model):
 
     def __unicode__(self):
         return '%s %s' % (self.employee, self.hiring_date)
+
+
+class EmployeeFamily(Person):
+
+    class Meta:
+        verbose_name = "Employee Family"
+        verbose_name_plural = "Employee Families"
+        proxy = True
+
+    def save(self, *args, **kwargs):
+        self.person_type = PersonType.objects.get(id=5)
+        super(EmployeeFamily, self).save(*args, **kwargs)

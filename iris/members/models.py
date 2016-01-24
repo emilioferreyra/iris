@@ -8,7 +8,7 @@ from django.db.models import Q
 # Third-party apps
 from smart_selects.db_fields import ChainedForeignKey
 # My apps
-from people.models import Person, Kinsman
+from people.models import Person, Kinsman, PersonType
 from housing.models import HouseMaterial, HousePart, PropertyType
 
 
@@ -35,7 +35,7 @@ class Cane(models.Model):
 
 class MemberManager(models.Manager):
     def get_queryset(self):
-        return super(MemberManager, self).get_queryset().filter(person_type='M')
+        return super(MemberManager, self).get_queryset().filter(person_type=2)
 
 
 class Member(Person):
@@ -47,7 +47,7 @@ class Member(Person):
         proxy = True
 
     def save(self, *args, **kwargs):
-        self.person_type = 'M'
+        self.person_type = PersonType.objects.get(id=2)
         super(Member, self).save(*args, **kwargs)
 
     def is_woman(self):
@@ -60,7 +60,7 @@ class Member(Person):
     def is_mother(self):
         mother = False
         children = Kinsman.objects.filter(
-            Q(parent_of=self.id),
+            Q(dependent_of=self.id),
             Q(kinship=3) | Q(kinship=4)
         )
         if children and self.gender == 'F':
@@ -70,20 +70,13 @@ class Member(Person):
 
     def children_quantity(self):
         quantity = Kinsman.objects.filter(
-            Q(parent_of=self.id),
+            Q(dependent_of=self.id),
             Q(kinship=3) | Q(kinship=4)
         ).count()
         if quantity > 0:
             quantity
         return quantity
     children_quantity.short_description = 'Children number'
-
-    def __unicode__(self):
-        return '%s %s %s' % (
-            self.names,
-            self.father_last_name,
-            self.mother_last_name
-        )
 
     def was_created_recently(self):
         return self.created >= timezone.now() - datetime.timedelta(days=1)
@@ -149,3 +142,15 @@ class House(models.Model):
             self.house_part,
             self.house_material
         )
+
+
+class MemberFamily(Person):
+
+    class Meta:
+        verbose_name = "Member Family"
+        verbose_name_plural = "Member Families"
+        proxy = True
+
+    def save(self, *args, **kwargs):
+        self.person_type = PersonType.objects.get(id=6)
+        super(MemberFamily, self).save(*args, **kwargs)

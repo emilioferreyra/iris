@@ -1,3 +1,97 @@
+# -*- coding: utf-8 -*-
+from __future__ import absolute_import, unicode_literals
 from django.db import models
 
-# Create your models here.
+# Third-party modules
+from model_utils.models import TimeStampedModel
+from audit_log.models import AuthStampedModel
+from smart_selects.db_fields import ChainedForeignKey
+from localflavor.us.models import PhoneNumberField
+from sorl.thumbnail import ImageField
+
+# My apps
+from people.models import Person, PersonType
+from location.models import Country, Region, Province, Town
+
+
+class SupplierType(models.Model):
+    name = models.CharField(max_length=45, unique=True)
+
+    class Meta:
+        verbose_name = "Supplier Type"
+        verbose_name_plural = "Supplier Types"
+
+    def __unicode__(self):
+        return self.name
+
+
+class SupplierCompany(models.Model):
+    name = models.CharField(max_length=60, unique=True)
+    supplier_type = models.ForeignKey(SupplierType)
+    address = models.CharField(max_length=100)
+    country = models.ForeignKey(Country, default=1)
+    region = models.ForeignKey(Region)
+    province = ChainedForeignKey(
+        Province,
+        chained_field="region",
+        chained_model_field="region"
+        )
+    town = ChainedForeignKey(
+        Town,
+        chained_field="province",
+        chained_model_field="province"
+        )
+    phone_number = PhoneNumberField(help_text='999-999-9999')
+    email = models.EmailField()
+    company_logo = ImageField(
+        upload_to='suppliers_logos',
+        null=True,
+        blank=True
+        )
+
+    def image_tag(self):
+        return u'<img src="%s" />' % self.company_logo.url
+    image_tag.short_description = 'Image'
+    image_tag.allow_tags = True
+
+    class Meta:
+        verbose_name = "Supplier Company"
+        verbose_name_plural = "Supplier Companies"
+        db_table = "suppliers_supplier_company"
+
+    def __unicode__(self):
+        return self.name
+
+
+class SupplierContactManager(models.Manager):
+    def get_queryset(self):
+        return super(SupplierContactManager, self).get_queryset().\
+            filter(person_type=4)
+
+
+class SupplierContact(Person):
+    objects = SupplierContactManager()
+
+    class Meta:
+        verbose_name = "Supplier Contact"
+        verbose_name_plural = "Supplier Contacts"
+        proxy = True
+
+    def save(self, *args, **kwargs):
+        self.person_type = PersonType.objects.get(id=4)
+        super(SupplierContact, self).save(*args, **kwargs)
+
+
+class ContactAdditionalField(models.Model):
+    supplier_contact = models.OneToOneField(SupplierContact)
+    supplier_company = models.ForeignKey(SupplierCompany)
+
+    class Meta:
+        verbose_name = "Additional Field"
+        verbose_name_plural = "Additional Fields"
+
+    def __uncode__(self):
+        return '%s %s' % (
+            self.supplier_contact,
+            self.supplier_company
+            )

@@ -16,19 +16,32 @@ from location.models import \
     Nationality, Country, Region, Province, Town, AddressType
 
 
+class PersonType(models.Model):
+    name = models.CharField(max_length=45, unique=True)
+
+    class Meta:
+        verbose_name = "Person Type"
+        verbose_name_plural = "Person Types"
+        db_table = "people_person_type"
+        ordering = ['id']
+
+    def __unicode__(self):
+        return self.name
+
+
 class Person(TimeStampedModel, AuthStampedModel):
     GENDER_CHOICES = (
         ('M', 'Male'),
         ('F', 'Female'),
     )
 
-    PERSON_TYPE_CHOICE = (
-        ('E', 'Employee'),
-        ('M', 'Member'),
-        ('D', 'Doctor'),
-        ('S', 'Supplier'),
-        ('K', 'Kinsman'),
-    )
+    # PERSON_TYPE_CHOICE = (
+    #     ('E', 'Employee'),
+    #     ('M', 'Member'),
+    #     ('D', 'Doctor'),
+    #     ('S', 'Supplier'),
+    #     ('K', 'Kinsman'),
+    # )
 
     names = models.CharField(max_length=100)
     father_last_name = models.CharField(max_length=50)
@@ -48,16 +61,17 @@ class Person(TimeStampedModel, AuthStampedModel):
         null=True
     )
     email = models.EmailField(blank=True)
-    person_type = models.CharField(
-        max_length=1,
-        choices=PERSON_TYPE_CHOICE,
-        null=True
-    )
+    # person_type = models.CharField(
+    #     max_length=1,
+    #     choices=PERSON_TYPE_CHOICE,
+    #     null=True
+    # )
+    person_type = models.ForeignKey(PersonType, null=True)
     # dependent = models.BooleanField(default=False)
-    parent_of = models.ForeignKey('self', null=True, blank=True)
+    dependent_of = models.ForeignKey('self', null=True, blank=True)
     kinship = models.ForeignKey(Kinship, null=True)
     picture = ImageField(upload_to='people_pictures', null=True, blank=True)
-    status = models.BooleanField(default=True)
+    status = models.BooleanField(default=True, verbose_name='active')
 
     class Meta:
         verbose_name = "Person"
@@ -93,15 +107,8 @@ class Kinsman(Person):
         proxy = True
 
     def save(self, *args, **kwargs):
-        self.person_type = 'K'
+        self.person_type = PersonType.objects.get(id=6)
         super(Kinsman, self).save(*args, **kwargs)
-
-    def __unicode__(self):
-        return '%s %s %s' % (
-            self.names,
-            self.father_last_name,
-            self.mother_last_name
-        )
 
 
 class PersonAddress(models.Model):

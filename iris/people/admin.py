@@ -85,5 +85,5 @@ class PersonAdmin(AdminImageMixin, admin.ModelAdmin):
 
 admin.site.register(PersonType)
 admin.site.register(Person, PersonAdmin)
-admin.site.register(PersonAddress)
+# admin.site.register(PersonAddress)
 # admin.site.register(Kinsman)

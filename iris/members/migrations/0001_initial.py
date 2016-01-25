@@ -38,7 +38,7 @@ class Migration(migrations.Migration):
             name='House',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('house_material', smart_selects.db_fields.ChainedForeignKey(chained_model_field=b'house_part', to='housing.HouseMaterial', chained_field=b'house_part')),
+                ('house_material', smart_selects.db_fields.ChainedForeignKey(chained_model_field='house_part', to='housing.HouseMaterial', chained_field='house_part')),
                 ('house_part', models.ForeignKey(to='housing.HousePart')),
             ],
         ),
@@ -46,7 +46,9 @@ class Migration(migrations.Migration):
             name='MemberAdditionalField',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('observations', models.TextField()),
+                ('currently_works', models.BooleanField(default=False)),
+                ('where_work', models.CharField(max_length=100, null=True, blank=True)),
+                ('observations', models.TextField(null=True, blank=True)),
                 ('cane_number', models.ForeignKey(to='members.Cane')),
                 ('disabilities', models.ManyToManyField(to='members.Disability')),
             ],
@@ -54,6 +56,17 @@ class Migration(migrations.Migration):
                 'db_table': 'members_member_additional_fields',
                 'verbose_name': 'Additional Field',
                 'verbose_name_plural': 'Additional Fields',
+            },
+        ),
+        migrations.CreateModel(
+            name='Ocupation',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(max_length=40)),
+            ],
+            options={
+                'verbose_name': 'Ocupation',
+                'verbose_name_plural': 'Ocupations',
             },
         ),
         migrations.CreateModel(
@@ -67,10 +80,26 @@ class Migration(migrations.Migration):
             },
             bases=('people.person',),
         ),
+        migrations.CreateModel(
+            name='MemberFamily',
+            fields=[
+            ],
+            options={
+                'verbose_name': 'Member Family',
+                'proxy': True,
+                'verbose_name_plural': 'Member Families',
+            },
+            bases=('people.person',),
+        ),
         migrations.AddField(
             model_name='memberadditionalfield',
             name='member_name',
             field=models.OneToOneField(to='members.Member'),
+        ),
+        migrations.AddField(
+            model_name='memberadditionalfield',
+            name='ocupation',
+            field=models.ForeignKey(blank=True, to='members.Ocupation', null=True),
         ),
         migrations.AddField(
             model_name='memberadditionalfield',

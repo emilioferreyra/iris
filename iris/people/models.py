@@ -138,7 +138,7 @@ class PersonAddress(models.Model):
 
     class Meta:
         verbose_name = "Address"
-        verbose_name_plural = "Addreses"
+        verbose_name_plural = "Addresses"
         db_table = "people_person_address"
 
     def __unicode__(self):

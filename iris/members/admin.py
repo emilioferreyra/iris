@@ -15,9 +15,9 @@ from people.admin import \
 class MemberAdditionalFieldInline(admin.StackedInline):
     model = MemberAdditionalField
     min_num = 1
-    formfield_overrides = {
-        models.ManyToManyField: {'widget': CheckboxSelectMultiple},
-    }
+    # formfield_overrides = {
+    #     models.ManyToManyField: {'widget': CheckboxSelectMultiple},
+    # }
     fields = (
         ('disabilities', 'cane_number', 'property_type'),
         ('currently_works', 'ocupation', 'where_work'),
@@ -36,7 +36,7 @@ class MemberFamilyInline(admin.StackedInline):
     extra = 0
     radio_fields = {
         "gender": admin.VERTICAL,
-        "document_type": admin.HORIZONTAL,
+        "document_type": admin.VERTICAL,
     }
 
 
@@ -49,9 +49,11 @@ class HouseInline(admin.TabularInline):
 
 class MemberAdmin(PersonAdmin):
     fields = (
-        ('picture', 'names', 'father_last_name', 'mother_last_name', 'email'),
-        ('birth_day', 'nationality', 'marital_status'),
-        ('gender', 'document_type', 'document_id'),
+        'picture',
+        ('names', 'father_last_name'), ('mother_last_name', 'email'),
+        ('birth_day', 'nationality'), 'marital_status',
+        'gender', 
+        ('document_type', 'document_id'),
         'status'
         )
 

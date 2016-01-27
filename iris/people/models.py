@@ -29,20 +29,63 @@ class PersonType(models.Model):
         return self.name
 
 
+# Person type variables
+employee = PersonType.objects.get(name="Employee")
+member = PersonType.objects.get(name="Member")
+doctor = PersonType.objects.get(name="Doctor")
+supplier = PersonType.objects.get(name="Suppliers")
+employee_family = PersonType.objects.get(name="Employee Family")
+member_family = PersonType.objects.get(name="Member Family")
+
+
+class EmployeeManager(models.Manager):
+    def get_queryset(self):
+        return super(EmployeeManager, self).\
+            get_queryset().filter(person_type=employee.id)
+
+
+class MemberManager(models.Manager):
+    def get_queryset(self):
+        return super(MemberManager, self).\
+            get_queryset().filter(person_type=member.id)
+
+
+class DoctorManager(models.Manager):
+    def get_queryset(self):
+        return super(DoctorManager, self).\
+            get_queryset().filter(person_type=doctor.id)
+
+
+class SupplierManager(models.Manager):
+    def get_queryset(self):
+        return super(SupplierManager, self).\
+            get_queryset().filter(person_type=supplier.id)
+
+
+class EmployeeFamilyManager(models.Manager):
+    def get_queryset(self):
+        return super(EmployeeFamilyManager, self).\
+            get_queryset().filter(person_type=employee_family.id)
+
+
+class MemberFamilyManager(models.Manager):
+    def get_queryset(self):
+        return super(MemberFamilyManager, self).\
+            get_queryset().filter(person_type=member_family.id)
+
+
 class Person(TimeStampedModel, AuthStampedModel):
+    people = models.Manager()
+    employees = EmployeeManager()
+    members = MemberManager()
+    doctors = DoctorManager()
+    suppliers = SupplierManager()
+    employee_families = EmployeeFamilyManager()
+    member_families = MemberFamilyManager()
     GENDER_CHOICES = (
         ('M', 'Male'),
         ('F', 'Female'),
     )
-
-    # PERSON_TYPE_CHOICE = (
-    #     ('E', 'Employee'),
-    #     ('M', 'Member'),
-    #     ('D', 'Doctor'),
-    #     ('S', 'Supplier'),
-    #     ('K', 'Kinsman'),
-    # )
-
     names = models.CharField(max_length=100)
     father_last_name = models.CharField(max_length=50)
     mother_last_name = models.CharField(max_length=50, null=True, blank=True)
@@ -99,16 +142,16 @@ class Person(TimeStampedModel, AuthStampedModel):
     image_tag.allow_tags = True
 
 
-class Kinsman(Person):
+# class Kinsman(Person):
 
-    class Meta:
-        verbose_name = "Kinsman"
-        verbose_name_plural = "Kinsmans"
-        proxy = True
+#     class Meta:
+#         verbose_name = "Kinsman"
+#         verbose_name_plural = "Kinsmans"
+#         proxy = True
 
-    def save(self, *args, **kwargs):
-        self.person_type = PersonType.objects.get(id=6)
-        super(Kinsman, self).save(*args, **kwargs)
+#     def save(self, *args, **kwargs):
+#         self.person_type = PersonType.objects.get(id=6)
+#         super(Kinsman, self).save(*args, **kwargs)
 
 
 class PersonAddress(models.Model):

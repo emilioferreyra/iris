@@ -5,14 +5,15 @@ from django.contrib import admin
 from django.db import models
 from django.forms import CheckboxSelectMultiple
 from datetime import date
+from sorl.thumbnail.admin import AdminImageMixin
 
 # My models
 from .models import Employee, EmployeeAdditionalField, Department, Position,\
     EmployeeType, Workday, WorkSchedule, EmployeeFamily
-from people.admin import PersonAdmin
+# from people.admin import PersonAdmin
 
 
-class AdditionalsFieldsInline(admin.TabularInline):
+class AdditionalsFieldsInline(admin.StackedInline):
     model = EmployeeAdditionalField
     max_num = 1
     min_num = 1
@@ -33,7 +34,7 @@ class EmployeeFamilyInline(admin.StackedInline):
     }
 
 
-class EmployeeAdmin(PersonAdmin):
+class EmployeeAdmin(AdminImageMixin, admin.ModelAdmin):
     fields = (
         ('picture', 'names', 'father_last_name', 'mother_last_name', 'email'),
         ('birth_day', 'nationality', 'marital_status'),
@@ -54,6 +55,7 @@ class EmployeeAdmin(PersonAdmin):
         'birth_day',
         'status'
         ]
+    list_display_links = ['id', 'full_name']
 
     list_filter = (
         'status',

@@ -8,7 +8,8 @@ from django.db.models import Q
 # Third-party apps
 from smart_selects.db_fields import ChainedForeignKey
 # My apps
-from people.models import Person, Kinsman, PersonType
+from people.models import Person, PersonType,\
+    MemberManager, MemberFamilyManager
 from housing.models import HouseMaterial, HousePart, PropertyType
 
 
@@ -33,9 +34,10 @@ class Cane(models.Model):
         return str(self.name)
 
 
-class MemberManager(models.Manager):
-    def get_queryset(self):
-        return super(MemberManager, self).get_queryset().filter(person_type=2)
+# class MemberManager(models.Manager):
+#     def get_queryset(self):
+#         return super(MemberManager, self).\
+#             get_queryset().filter(person_type=2)
 
 
 class Member(Person):
@@ -47,19 +49,19 @@ class Member(Person):
         proxy = True
 
     def save(self, *args, **kwargs):
-        self.person_type = PersonType.objects.get(id=2)
+        self.person_type = PersonType.objects.get(name="Member")
         super(Member, self).save(*args, **kwargs)
 
-    def is_woman(self):
-        woman = False
-        if self.gender == 'F':
-            woman = True
-        return woman
-    is_woman.short_description = 'Woman'
+    # def is_woman(self):
+    #     woman = False
+    #     if self.gender == 'F':
+    #         woman = True
+    #     return woman
+    # is_woman.short_description = 'Woman'
 
     def is_mother(self):
         mother = False
-        children = Kinsman.objects.filter(
+        children = Person.member_families.filter(
             Q(dependent_of=self.id),
             Q(kinship=3) | Q(kinship=4)
         )
@@ -69,7 +71,7 @@ class Member(Person):
     is_mother.short_description = 'Mother'
 
     def children_quantity(self):
-        quantity = Kinsman.objects.filter(
+        quantity = Person.member_families.filter(
             Q(dependent_of=self.id),
             Q(kinship=3) | Q(kinship=4)
         ).count()
@@ -145,6 +147,7 @@ class House(models.Model):
 
 
 class MemberFamily(Person):
+    objects = MemberFamilyManager()
 
     class Meta:
         verbose_name = "Member Family"
@@ -152,5 +155,5 @@ class MemberFamily(Person):
         proxy = True
 
     def save(self, *args, **kwargs):
-        self.person_type = PersonType.objects.get(id=6)
+        self.person_type = PersonType.objects.get(name="Member Family")
         super(MemberFamily, self).save(*args, **kwargs)

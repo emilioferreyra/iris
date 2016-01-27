@@ -7,12 +7,14 @@ from django.db import models
 from smart_selects.db_fields import ChainedForeignKey
 
 # from commons.models import PersonType
-from people.models import Person, PersonType
+from people.models import Person, PersonType,\
+    EmployeeManager, EmployeeFamilyManager
 
 
-class EmployeeManager(models.Manager):
-    def get_queryset(self):
-        return super(EmployeeManager, self).get_queryset().filter(person_type=1)
+# class EmployeeManager(models.Manager):
+#     def get_queryset(self):
+#         return super(EmployeeManager, self).get_queryset().\
+#             filter(person_type=1)
 
 
 class Employee(Person):
@@ -22,6 +24,11 @@ class Employee(Person):
         verbose_name = "Employee"
         verbose_name_plural = "Employees"
         proxy = True
+        # permissions = (
+        #     ("add_employee", "Can add Employee"),
+        #     ("change_employee", "Can change Employee"),
+        #     ("delete_employee", "Can delete Employee"),
+        #     )
 
     def save(self, *args, **kwargs):
         self.person_type = PersonType.objects.get(id=1)
@@ -125,6 +132,7 @@ class EmployeeAdditionalField(models.Model):
 
 
 class EmployeeFamily(Person):
+    objects = EmployeeFamilyManager()
 
     class Meta:
         verbose_name = "Employee Family"
@@ -132,5 +140,5 @@ class EmployeeFamily(Person):
         proxy = True
 
     def save(self, *args, **kwargs):
-        self.person_type = PersonType.objects.get(id=5)
+        self.person_type = PersonType.objects.get(name="Employee Family")
         super(EmployeeFamily, self).save(*args, **kwargs)

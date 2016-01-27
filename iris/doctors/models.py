@@ -8,14 +8,14 @@ from smart_selects.db_fields import ChainedForeignKey
 from localflavor.us.models import PhoneNumberField
 
 # My apps
-from people.models import Person, PersonType
+from people.models import Person, PersonType, DoctorManager
 from members.models import Member
 from location.models import Region, Province, Town
 
 
-class DoctorManager(models.Manager):
-    def get_queryset(self):
-        return super(DoctorManager, self).get_queryset().filter(person_type=3)
+# class DoctorManager(models.Manager):
+#     def get_queryset(self):
+#         return super(DoctorManager, self).get_queryset().filter(person_type=3)
 
 
 class Doctor(Person):

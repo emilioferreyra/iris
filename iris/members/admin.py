@@ -23,6 +23,7 @@ class MemberAdditionalFieldInline(admin.StackedInline):
         ('currently_works', 'ocupation', 'where_work'),
         'observations'
     )
+    filter_vertical = ['disabilities']
 
 
 class MemberFamilyInline(admin.StackedInline):
@@ -52,7 +53,7 @@ class MemberAdmin(PersonAdmin):
         'picture',
         ('names', 'father_last_name'), ('mother_last_name', 'email'),
         ('birth_day', 'nationality'), 'marital_status',
-        'gender', 
+        'gender',
         ('document_type', 'document_id'),
         'status'
         )

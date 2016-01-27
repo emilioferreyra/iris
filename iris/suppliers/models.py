@@ -10,7 +10,7 @@ from localflavor.us.models import PhoneNumberField
 from sorl.thumbnail import ImageField
 
 # My apps
-from people.models import Person, PersonType
+from people.models import Person, PersonType, SupplierManager
 from location.models import Country, Region, Province, Town
 
 
@@ -63,14 +63,14 @@ class SupplierCompany(models.Model):
         return self.name
 
 
-class SupplierContactManager(models.Manager):
-    def get_queryset(self):
-        return super(SupplierContactManager, self).get_queryset().\
-            filter(person_type=4)
+# class SupplierContactManager(models.Manager):
+#     def get_queryset(self):
+#         return super(SupplierContactManager, self).get_queryset().\
+#             filter(person_type=4)
 
 
 class SupplierContact(Person):
-    objects = SupplierContactManager()
+    objects = SupplierManager()
 
     class Meta:
         verbose_name = "Supplier Contact"

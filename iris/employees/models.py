@@ -11,12 +11,6 @@ from people.models import Person, PersonType,\
     EmployeeManager, EmployeeFamilyManager
 
 
-# class EmployeeManager(models.Manager):
-#     def get_queryset(self):
-#         return super(EmployeeManager, self).get_queryset().\
-#             filter(person_type=1)
-
-
 class Employee(Person):
     objects = EmployeeManager()
 

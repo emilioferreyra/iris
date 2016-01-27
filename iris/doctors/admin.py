@@ -2,33 +2,47 @@
 # Django core
 from __future__ import absolute_import, unicode_literals
 from django.contrib import admin
-from django.db import models
-from django.forms import CheckboxSelectMultiple
+# from django.db import models
+# from django.forms import CheckboxSelectMultiple
 
 # My apps
 from .models import Doctor, DoctorAdditionalField, Clinic, Speciality, \
     Appointment, Medicine, PrescribedMedicine
-from people.admin import PersonAdmin, PersonPhoneInlines
+from people.admin import PersonPhoneInline
 
 
 class DoctorAdditionalFieldInline(admin.StackedInline):
     model = DoctorAdditionalField
     filter_horizontal = [
         'specialities',
-        'clinic'
+        'clinics'
     ]
-    # formfield_overrides = {
-    #     models.ManyToManyField: {'widget': CheckboxSelectMultiple},
-    # }
+    suit_classes = 'suit-tab suit-tab-additionalsfields'
+
+
+class DoctorPhoneInline(PersonPhoneInline):
+    suit_classes = 'suit-tab suit-tab-phones'
 
 
 class DoctorAdmin(admin.ModelAdmin):
-    fields = (
-        ('picture', 'names', 'father_last_name', 'mother_last_name', 'email'),
-        ('birth_day', 'nationality', 'marital_status'),
-        ('gender', 'document_type', 'document_id'),
-        'status'
-        )
+    fieldsets = [
+        (None, {
+            'classes': ('suit-tab', 'suit-tab-general',),
+            'fields': [
+                'picture',
+                'names',
+                'father_last_name',
+                'mother_last_name',
+                'email',
+                'birth_day',
+                'nationality',
+                'marital_status',
+                'gender',
+                'document_type',
+                'document_id',
+                'status',
+                ]
+            })]
 
     list_display = [
         'id',
@@ -39,14 +53,16 @@ class DoctorAdmin(admin.ModelAdmin):
 
     inlines = [
         DoctorAdditionalFieldInline,
-        PersonPhoneInlines
+        DoctorPhoneInline
     ]
 
     list_filter = ['status']
 
-    def get_queryset(self, request):
-        qs = super(DoctorAdmin, self).get_queryset(request)
-        return qs.filter(person_type=3)
+    suit_form_tabs = (
+        ('general', 'General'),
+        ('additionalsfields', 'Additional Info'),
+        ('phones', 'Phones'),
+        )
 
 
 class PrescribedMedicineInlines(admin.TabularInline):

@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
-
-# from datetime import date
+from datetime import date
 from django.db import models
 
 # Third-party modules
@@ -128,6 +127,14 @@ class Person(TimeStampedModel, AuthStampedModel):
             self.mother_last_name
         )
     full_name.short_description = 'Name'
+
+    def calculate_age(self):
+        today = date.today()
+        return today.year - self.birth_day.year - (
+            (today.month, today.day) <
+            (self.birth_day.month, self.birth_day.day)
+        )
+    calculate_age.short_description = "Age"
 
     def __unicode__(self):
         return '%s %s %s' % (

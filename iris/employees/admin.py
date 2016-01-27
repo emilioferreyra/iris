@@ -6,25 +6,54 @@ from django.db import models
 from django.forms import CheckboxSelectMultiple
 from datetime import date
 from sorl.thumbnail.admin import AdminImageMixin
+from django.forms import ModelForm
+
+# Third party apps
+from suit.widgets import EnclosedInput
 
 # My models
 from .models import Employee, EmployeeAdditionalField, Department, Position,\
     EmployeeType, Workday, WorkSchedule, EmployeeFamily
+from people.admin import PersonAddressInline, PersonPhoneInline
 # from people.admin import PersonAdmin
 
 
+class EmployeeForm(ModelForm):
+    class Meta:
+        # model = Employee
+        widgets = {
+            'email': EnclosedInput(prepend='icon-envelope'),
+            'salary': EnclosedInput(prepend='RD$'),
+        }
+
+
+class EmployeeAddressInline(PersonAddressInline):
+    suit_classes = 'suit-tab suit-tab-employeeaddress'
+
+
+class EmployeePhoneInline(PersonPhoneInline):
+    suit_classes = 'suit-tab suit-tab-employeephone'
+
+
 class AdditionalsFieldsInline(admin.StackedInline):
+    # form = OrderForm
+    form = EmployeeForm
     model = EmployeeAdditionalField
     max_num = 1
     min_num = 1
+    suit_classes = 'suit-tab suit-tab-additionalsfields'
 
 
 class EmployeeFamilyInline(admin.StackedInline):
     model = EmployeeFamily
     fields = [
         'kinship',
-        ('names', 'father_last_name', 'mother_last_name'),
-        ('gender', 'birth_day', 'nationality'),
+        'names',
+        'father_last_name',
+        'mother_last_name',
+        'gender',
+        'birth_day',
+        'nationality',
         'marital_status'
     ]
     extra = 0
@@ -32,15 +61,29 @@ class EmployeeFamilyInline(admin.StackedInline):
         "gender": admin.VERTICAL,
         "document_type": admin.HORIZONTAL,
     }
+    suit_classes = 'suit-tab suit-tab-employeefamily'
 
 
 class EmployeeAdmin(AdminImageMixin, admin.ModelAdmin):
-    fields = (
-        ('picture', 'names', 'father_last_name', 'mother_last_name', 'email'),
-        ('birth_day', 'nationality', 'marital_status'),
-        ('gender', 'document_type', 'document_id'),
-        'status'
-        )
+    form = EmployeeForm
+    fieldsets = [
+        (None, {
+            'classes': ('suit-tab', 'suit-tab-general',),
+            'fields': [
+                'picture',
+                'names',
+                'father_last_name',
+                'mother_last_name',
+                'email',
+                'birth_day',
+                'nationality',
+                'marital_status',
+                'gender',
+                'document_type',
+                'document_id',
+                'status',
+                ]
+            })]
 
     list_display = [
         'id',
@@ -63,6 +106,8 @@ class EmployeeAdmin(AdminImageMixin, admin.ModelAdmin):
         'gender',
     )
     inlines = [
+        EmployeeAddressInline,
+        EmployeePhoneInline,
         AdditionalsFieldsInline,
         EmployeeFamilyInline,
     ]
@@ -90,9 +135,18 @@ class EmployeeAdmin(AdminImageMixin, admin.ModelAdmin):
         today = date.today()
         eaf = EmployeeAdditionalField.objects.get(employee_id=obj.id)
         return today.year - eaf.hiring_date.year - (
-            (today.month, today.day) < (eaf.hiring_date.month, eaf.hiring_date.day)
+            (today.month, today.day) <
+            (eaf.hiring_date.month, eaf.hiring_date.day)
         )
     years_of_work.short_description = "Years of work"
+
+    suit_form_tabs = (
+        ('general', 'General'),
+        ('additionalsfields', 'Additional Info'),
+        ('employeeaddress', 'Employee Addresses'),
+        ('employeephone', 'Employee Phones'),
+        ('employeefamily', 'Employee Family'),
+        )
 
 
 class WorkScheduleAdmin(admin.ModelAdmin):

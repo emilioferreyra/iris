@@ -1,32 +1,43 @@
 # -*- coding: utf-8 -*-
 # Django core
 from __future__ import absolute_import, unicode_literals
-from datetime import date
+# from datetime import date
 from django.contrib import admin
 from sorl.thumbnail.admin import AdminImageMixin
 
-from .models import Person, PersonAddress, PersonPhone, PersonType
+#  My apps
+from .models import Person, PersonAddress, PersonPhone, PersonType, AddressType
+from commons.models import PhoneType
 
 
-class PersonAddressInlines(admin.StackedInline):
+class PersonAddressInline(admin.StackedInline):
+    max_num_addresses = AddressType.objects.count()
     model = PersonAddress
     extra = 1
     fields = [
         'address_type',
-        ('street', 'building', 'apartment'),
-        ('region', 'province', 'town', 'default'),
+        'street',
+        'building',
+        'apartment',
+        'region',
+        'province',
+        'town',
+        'default',
         ]
     min_num = 1
+    max_num = max_num_addresses
 
 
-class PersonPhoneInlines(admin.TabularInline):
+class PersonPhoneInline(admin.TabularInline):
+    max_num_phones = PhoneType.objects.count()
     model = PersonPhone
     extra = 0
     min_num = 1
+    max_num = max_num_phones
 
 
 class PersonAdmin(AdminImageMixin, admin.ModelAdmin):
-    list_display_links = ('full_name',)
+    list_display_links = ('id', 'full_name',)
     # list_editable = ['status']
     list_filter = (
         'status',
@@ -63,24 +74,9 @@ class PersonAdmin(AdminImageMixin, admin.ModelAdmin):
     ]
 
     inlines = [
-        PersonAddressInlines,
-        PersonPhoneInlines
+        PersonAddressInline,
+        PersonPhoneInline
     ]
-
-    # def full_name(self, obj):
-    #     return "%s %s %s" % (
-    #         obj.names,
-    #         obj.father_last_name,
-    #         obj.mother_last_name
-    #     )
-    # full_name.short_description = 'Name'
-
-    def calculate_age(self, obj):
-        today = date.today()
-        return today.year - obj.birth_day.year - (
-            (today.month, today.day) < (obj.birth_day.month, obj.birth_day.day)
-        )
-    calculate_age.short_description = "Age"
 
 
 admin.site.register(PersonType)

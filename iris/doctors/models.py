@@ -13,11 +13,6 @@ from members.models import Member
 from location.models import Region, Province, Town
 
 
-# class DoctorManager(models.Manager):
-#     def get_queryset(self):
-#         return super(DoctorManager, self).get_queryset().filter(person_type=3)
-
-
 class Doctor(Person):
     objects = DoctorManager()
 
@@ -74,7 +69,7 @@ class Speciality(models.Model):
 class DoctorAdditionalField(models.Model):
     doctor = models.OneToOneField(Doctor)
     specialities = models.ManyToManyField(Speciality)
-    clinic = models.ManyToManyField(Clinic)
+    clinics = models.ManyToManyField(Clinic)
 
     class Meta:
         verbose_name = "Doctor Additional Field"

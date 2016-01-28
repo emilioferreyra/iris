@@ -22,12 +22,12 @@ class Doctor(Person):
         proxy = True
 
     def save(self, *args, **kwargs):
-        self.person_type = PersonType.objects.get(id=3)
+        self.person_type = PersonType.objects.get(name="Doctor")
         super(Doctor, self).save(*args, **kwargs)
 
 
 class Clinic(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, unique=True)
     region = models.ForeignKey(Region, null=True, default=1)
     province = ChainedForeignKey(
         Province,
@@ -56,7 +56,7 @@ class Clinic(models.Model):
 
 
 class Speciality(models.Model):
-    name = models.CharField(max_length=60)
+    name = models.CharField(max_length=60, unique=True)
 
     class Meta:
         verbose_name = "Speciality"
@@ -83,7 +83,6 @@ class DoctorAdditionalField(models.Model):
 class Appointment(models.Model):
     member = models.ForeignKey(Member)
     clinic = models.ForeignKey(Clinic)
-    # doctor = models.ForeignKey(Doctor)
     doctor = ChainedForeignKey(
         DoctorAdditionalField,
         chained_field="clinic",
@@ -97,6 +96,7 @@ class Appointment(models.Model):
     class Meta:
         verbose_name = "Appointment"
         verbose_name_plural = "Appointments"
+        unique_together = (("member", "doctor", "date"),)
 
     def __unicode__(self):
         return '%s with %s at %s' % (self.member, self.doctor, self.clinic)

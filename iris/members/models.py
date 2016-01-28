@@ -34,12 +34,6 @@ class Cane(models.Model):
         return str(self.name)
 
 
-# class MemberManager(models.Manager):
-#     def get_queryset(self):
-#         return super(MemberManager, self).\
-#             get_queryset().filter(person_type=2)
-
-
 class Member(Person):
     objects = MemberManager()
 
@@ -51,13 +45,6 @@ class Member(Person):
     def save(self, *args, **kwargs):
         self.person_type = PersonType.objects.get(name="Member")
         super(Member, self).save(*args, **kwargs)
-
-    # def is_woman(self):
-    #     woman = False
-    #     if self.gender == 'F':
-    #         woman = True
-    #     return woman
-    # is_woman.short_description = 'Woman'
 
     def is_mother(self):
         mother = False
@@ -89,7 +76,7 @@ class Member(Person):
 
 
 class Ocupation(models.Model):
-    name = models.CharField(max_length=40)
+    name = models.CharField(max_length=40, unique=True)
 
     class Meta:
         verbose_name = "Ocupation"

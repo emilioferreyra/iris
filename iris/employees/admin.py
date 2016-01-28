@@ -36,7 +36,6 @@ class EmployeePhoneInline(PersonPhoneInline):
 
 
 class AdditionalsFieldsInline(admin.StackedInline):
-    # form = OrderForm
     form = EmployeeForm
     model = EmployeeAdditionalField
     max_num = 1
@@ -87,14 +86,11 @@ class EmployeeAdmin(AdminImageMixin, admin.ModelAdmin):
 
     list_display = [
         'id',
-        # 'picture',
         'full_name',
         'employee_position',
         'employee_department',
-        # 'email',
         'employee_hiring_date',
         'years_of_work',
-        # 'calculate_age',
         'birth_day',
         'status'
         ]
@@ -111,10 +107,6 @@ class EmployeeAdmin(AdminImageMixin, admin.ModelAdmin):
         AdditionalsFieldsInline,
         EmployeeFamilyInline,
     ]
-
-    def get_queryset(self, request):
-        qs = super(EmployeeAdmin, self).get_queryset(request)
-        return qs.filter(person_type=1)
 
     def employee_position(self, obj):
         eaf = EmployeeAdditionalField.objects.get(employee_id=obj.id)
@@ -143,9 +135,9 @@ class EmployeeAdmin(AdminImageMixin, admin.ModelAdmin):
     suit_form_tabs = (
         ('general', 'General'),
         ('additionalsfields', 'Additional Info'),
-        ('employeeaddress', 'Employee Addresses'),
-        ('employeephone', 'Employee Phones'),
-        ('employeefamily', 'Employee Family'),
+        ('employeeaddress', 'Addresses'),
+        ('employeephone', 'Phones'),
+        ('employeefamily', 'Family'),
         )
 
 

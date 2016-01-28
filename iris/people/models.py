@@ -103,13 +103,7 @@ class Person(TimeStampedModel, AuthStampedModel):
         null=True
     )
     email = models.EmailField(blank=True)
-    # person_type = models.CharField(
-    #     max_length=1,
-    #     choices=PERSON_TYPE_CHOICE,
-    #     null=True
-    # )
     person_type = models.ForeignKey(PersonType, null=True)
-    # dependent = models.BooleanField(default=False)
     dependent_of = models.ForeignKey('self', null=True, blank=True)
     kinship = models.ForeignKey(Kinship, null=True)
     picture = ImageField(upload_to='people_pictures', null=True, blank=True)
@@ -149,29 +143,15 @@ class Person(TimeStampedModel, AuthStampedModel):
     image_tag.allow_tags = True
 
 
-# class Kinsman(Person):
-
-#     class Meta:
-#         verbose_name = "Kinsman"
-#         verbose_name_plural = "Kinsmans"
-#         proxy = True
-
-#     def save(self, *args, **kwargs):
-#         self.person_type = PersonType.objects.get(id=6)
-#         super(Kinsman, self).save(*args, **kwargs)
-
-
 class PersonAddress(models.Model):
     person_name = models.ForeignKey(Person)
     country = models.ForeignKey(Country, default=1)
     region = models.ForeignKey(Region)
-    # province_name = models.ForeignKey(Province)
     province = ChainedForeignKey(
         Province,
         chained_field="region",
         chained_model_field="region"
         )
-    # town_name = models.ForeignKey(Town)
     town = ChainedForeignKey(
         Town,
         chained_field="province",

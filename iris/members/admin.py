@@ -8,8 +8,7 @@ from django.contrib import admin
 # My apps
 from .models import Member, MemberAdditionalField, Disability, Cane,\
     House, Ocupation, MemberFamily
-from people.admin import \
-    PersonAdmin, PersonAddressInline, PersonPhoneInline
+from people.admin import PersonAddressInline, PersonPhoneInline
 
 
 class MemberAddressInline(PersonAddressInline):

@@ -18,26 +18,10 @@ class Employee(Person):
         verbose_name = "Employee"
         verbose_name_plural = "Employees"
         proxy = True
-        # permissions = (
-        #     ("add_employee", "Can add Employee"),
-        #     ("change_employee", "Can change Employee"),
-        #     ("delete_employee", "Can delete Employee"),
-        #     )
 
     def save(self, *args, **kwargs):
-        self.person_type = PersonType.objects.get(id=1)
+        self.person_type = PersonType.objects.get(name="Employee")
         super(Employee, self).save(*args, **kwargs)
-
-    # def get_additional_fields(self):
-    #     additionals_fields_list = []
-    #     eaf = EmployeeAdditionalField.objects.get(employee_id=self.id)
-    #     additionals_fields_list.append(eaf.position)
-    #     additionals_fields_list.append(eaf.department)
-    #     additionals_fields_list.append(eaf.hiring_date)
-    #     return additionals_fields_list
-    # position = get_additional_fields[0]
-    # department = get_additional_fields[1]
-    # hiring_date = get_additional_fields[2]
 
 
 class Department(models.Model):

@@ -50,6 +50,7 @@ class DoctorAdmin(admin.ModelAdmin):
         'full_name',
         'email'
         ]
+    list_display_links = ['id', 'full_name']
 
     inlines = [
         DoctorAdditionalFieldInline,

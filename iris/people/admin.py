@@ -48,7 +48,6 @@ class PersonAdmin(AdminImageMixin, admin.ModelAdmin):
         ('picture', 'names', 'father_last_name', 'mother_last_name', 'email'),
         ('birth_day', 'nationality', 'marital_status'),
         ('gender', 'document_type', 'document_id'),
-        # ('dependent', 'parent_of'),
         'status', 'person_type'
         )
 
@@ -62,7 +61,6 @@ class PersonAdmin(AdminImageMixin, admin.ModelAdmin):
         ]
 
     radio_fields = {
-        # "marital_status": admin.HORIZONTAL,
         "gender": admin.VERTICAL,
         "document_type": admin.HORIZONTAL,
     }
@@ -81,5 +79,3 @@ class PersonAdmin(AdminImageMixin, admin.ModelAdmin):
 
 admin.site.register(PersonType)
 admin.site.register(Person, PersonAdmin)
-# admin.site.register(PersonAddress)
-# admin.site.register(Kinsman)

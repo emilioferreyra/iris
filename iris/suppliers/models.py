@@ -3,8 +3,8 @@ from __future__ import absolute_import, unicode_literals
 from django.db import models
 
 # Third-party modules
-from model_utils.models import TimeStampedModel
-from audit_log.models import AuthStampedModel
+# from model_utils.models import TimeStampedModel
+# from audit_log.models import AuthStampedModel
 from smart_selects.db_fields import ChainedForeignKey
 from localflavor.us.models import PhoneNumberField
 from sorl.thumbnail import ImageField
@@ -63,12 +63,6 @@ class SupplierCompany(models.Model):
         return self.name
 
 
-# class SupplierContactManager(models.Manager):
-#     def get_queryset(self):
-#         return super(SupplierContactManager, self).get_queryset().\
-#             filter(person_type=4)
-
-
 class SupplierContact(Person):
     objects = SupplierManager()
 
@@ -78,7 +72,7 @@ class SupplierContact(Person):
         proxy = True
 
     def save(self, *args, **kwargs):
-        self.person_type = PersonType.objects.get(id=4)
+        self.person_type = PersonType.objects.get(name="Supplier")
         super(SupplierContact, self).save(*args, **kwargs)
 
 

@@ -7,12 +7,12 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('employees', '0002_auto_20160125_1922'),
+        ('commons', '0002_persontype'),
     ]
 
     operations = [
-        migrations.AlterModelOptions(
-            name='employee',
-            options={'verbose_name': 'Employee', 'verbose_name_plural': 'Employees'},
+        migrations.AlterModelTable(
+            name='persontype',
+            table='commons_person_type',
         ),
     ]

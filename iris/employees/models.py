@@ -7,21 +7,21 @@ from django.db import models
 from smart_selects.db_fields import ChainedForeignKey
 
 # from commons.models import PersonType
-from people.models import Person, PersonType,\
-    EmployeeManager, EmployeeFamilyManager
+from commons.models import Kinship, PersonType
+from people.models import Person, EmployeeManager,\
+    EmployeeFamilyManager
 
 
-class Employee(Person):
-    objects = EmployeeManager()
+class EmployeeType(models.Model):
+    name = models.CharField(max_length=45, unique=True)
 
     class Meta:
-        verbose_name = "Employee"
-        verbose_name_plural = "Employees"
-        proxy = True
+        verbose_name = "Employee Type"
+        verbose_name_plural = "Employee Types"
+        db_table = "employees_employee_type"
 
-    def save(self, *args, **kwargs):
-        self.person_type = PersonType.objects.get(name="Employee")
-        super(Employee, self).save(*args, **kwargs)
+    def __unicode__(self):
+        return self.name
 
 
 class Department(models.Model):
@@ -42,18 +42,6 @@ class Position(models.Model):
     class Meta:
         verbose_name = "Position"
         verbose_name_plural = "Positions"
-
-    def __unicode__(self):
-        return self.name
-
-
-class EmployeeType(models.Model):
-    name = models.CharField(max_length=45, unique=True)
-
-    class Meta:
-        verbose_name = "Employee Type"
-        verbose_name_plural = "Employee Types"
-        db_table = "employees_employee_type"
 
     def __unicode__(self):
         return self.name
@@ -86,8 +74,31 @@ class WorkSchedule(models.Model):
         return self.name
 
 
-class EmployeeAdditionalField(models.Model):
-    employee = models.OneToOneField(Employee)
+# class EmployeeAdditionalField(models.Model):
+#     employee = models.OneToOneField(Employee)
+#     hiring_date = models.DateField()
+#     department = models.ForeignKey(Department)
+#     position = ChainedForeignKey(
+#         Position,
+#         chained_field="department",
+#         chained_model_field="department",
+#         )
+#     workSchedule = models.ForeignKey(WorkSchedule)
+#     employee_type = models.ForeignKey(EmployeeType)
+#     salary = models.FloatField()
+#     contract_termination_date = models.DateField(null=True, blank=True)
+
+#     class Meta:
+#         verbose_name = "Employee Additional Field"
+#         verbose_name_plural = "Employee Additional Fields"
+#         db_table = "employees_employee_additional_fields"
+
+#     def __unicode__(self):
+#         return '%s %s' % (self.employee, self.hiring_date)
+
+
+class Employee(Person):
+    # objects = EmployeeManager()
     hiring_date = models.DateField()
     department = models.ForeignKey(Department)
     position = ChainedForeignKey(
@@ -98,24 +109,29 @@ class EmployeeAdditionalField(models.Model):
     workSchedule = models.ForeignKey(WorkSchedule)
     employee_type = models.ForeignKey(EmployeeType)
     salary = models.FloatField()
+    # supervisor = models.ForeignKey('self', null=True, blank=True)
     contract_termination_date = models.DateField(null=True, blank=True)
 
     class Meta:
-        verbose_name = "Employee Additional Field"
-        verbose_name_plural = "Employee Additional Fields"
-        db_table = "employees_employee_additional_fields"
+        verbose_name = "Employee"
+        verbose_name_plural = "Employees"
+        # proxy = True
 
-    def __unicode__(self):
-        return '%s %s' % (self.employee, self.hiring_date)
+    def save(self, *args, **kwargs):
+        self.person_type = PersonType.objects.get(name="Employee")
+        super(Employee, self).save(*args, **kwargs)
 
 
 class EmployeeFamily(Person):
     objects = EmployeeFamilyManager()
+    # dependent_of = models.ForeignKey(Employee)
+    # kinship = models.ForeignKey(Kinship, null=True)
 
     class Meta:
         verbose_name = "Employee Family"
         verbose_name_plural = "Employee Families"
         proxy = True
+        app_label = "employees"
 
     def save(self, *args, **kwargs):
         self.person_type = PersonType.objects.get(name="Employee Family")

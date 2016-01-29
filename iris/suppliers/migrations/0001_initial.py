@@ -16,16 +16,6 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='ContactAdditionalField',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-            ],
-            options={
-                'verbose_name': 'Additional Field',
-                'verbose_name_plural': 'Additional Fields',
-            },
-        ),
-        migrations.CreateModel(
             name='SupplierCompany',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
@@ -45,6 +35,18 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
+            name='SupplierContact',
+            fields=[
+                ('person_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='people.Person')),
+                ('supplier_company', models.ForeignKey(to='suppliers.SupplierCompany')),
+            ],
+            options={
+                'verbose_name': 'Supplier Contact',
+                'verbose_name_plural': 'Supplier Contacts',
+            },
+            bases=('people.person',),
+        ),
+        migrations.CreateModel(
             name='SupplierType',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
@@ -55,17 +57,6 @@ class Migration(migrations.Migration):
                 'verbose_name_plural': 'Supplier Types',
             },
         ),
-        migrations.CreateModel(
-            name='SupplierContact',
-            fields=[
-            ],
-            options={
-                'verbose_name': 'Supplier Contact',
-                'proxy': True,
-                'verbose_name_plural': 'Supplier Contacts',
-            },
-            bases=('people.person',),
-        ),
         migrations.AddField(
             model_name='suppliercompany',
             name='supplier_type',
@@ -75,15 +66,5 @@ class Migration(migrations.Migration):
             model_name='suppliercompany',
             name='town',
             field=smart_selects.db_fields.ChainedForeignKey(chained_model_field='province', to='location.Town', chained_field='province'),
-        ),
-        migrations.AddField(
-            model_name='contactadditionalfield',
-            name='supplier_company',
-            field=models.ForeignKey(to='suppliers.SupplierCompany'),
-        ),
-        migrations.AddField(
-            model_name='contactadditionalfield',
-            name='supplier_contact',
-            field=models.OneToOneField(to='suppliers.SupplierContact'),
         ),
     ]

@@ -10,67 +10,54 @@ from smart_selects.db_fields import ChainedForeignKey
 from sorl.thumbnail import ImageField
 
 # My modules
-from commons.models import MaritalStatus, DocumentType, Phone, Kinship
+from commons.models import MaritalStatus, DocumentType, Phone, Kinship, PersonType
 from location.models import \
     Nationality, Country, Region, Province, Town, AddressType
 
 
-class PersonType(models.Model):
-    name = models.CharField(max_length=45, unique=True)
-
-    class Meta:
-        verbose_name = "Person Type"
-        verbose_name_plural = "Person Types"
-        db_table = "people_person_type"
-        ordering = ['id']
-
-    def __unicode__(self):
-        return self.name
-
-
 # Person type variables
-employee = PersonType.objects.get(name="Employee")
-member = PersonType.objects.get(name="Member")
-doctor = PersonType.objects.get(name="Doctor")
-supplier = PersonType.objects.get(name="Suppliers")
-employee_family = PersonType.objects.get(name="Employee Family")
-member_family = PersonType.objects.get(name="Member Family")
+# employee = PersonType.objects.filter(name="Employee")
+# member = PersonType.objects.filter(name="Member")
+# doctor = PersonType.objects.filter(name="Doctor")
+# supplier = PersonType.objects.filter(name="Suppliers")
+# employee_family = PersonType.objects.filter(name="Employee Family")
+# member_family = PersonType.objects.filter(name="Member Family")
 
 
 class EmployeeManager(models.Manager):
     def get_queryset(self):
         return super(EmployeeManager, self).\
-            get_queryset().filter(person_type=employee.id)
+            get_queryset().filter(person_type=1)
 
 
 class MemberManager(models.Manager):
     def get_queryset(self):
         return super(MemberManager, self).\
-            get_queryset().filter(person_type=member.id)
+            get_queryset().filter(person_type=2)
 
 
 class DoctorManager(models.Manager):
     def get_queryset(self):
         return super(DoctorManager, self).\
-            get_queryset().filter(person_type=doctor.id)
+            get_queryset().filter(person_type=3)
 
 
 class SupplierManager(models.Manager):
     def get_queryset(self):
         return super(SupplierManager, self).\
-            get_queryset().filter(person_type=supplier.id)
+            get_queryset().filter(person_type=4)
 
 
 class EmployeeFamilyManager(models.Manager):
     def get_queryset(self):
         return super(EmployeeFamilyManager, self).\
-            get_queryset().filter(person_type=employee_family.id)
+            get_queryset().filter(person_type=5)
 
 
 class MemberFamilyManager(models.Manager):
     def get_queryset(self):
         return super(MemberFamilyManager, self).\
-            get_queryset().filter(person_type=member_family.id)
+            get_queryset().filter(person_type=6)
 
 
 class Person(TimeStampedModel, AuthStampedModel):
@@ -104,7 +91,12 @@ class Person(TimeStampedModel, AuthStampedModel):
     )
     email = models.EmailField(blank=True)
     person_type = models.ForeignKey(PersonType, null=True)
-    dependent_of = models.ForeignKey('self', null=True, blank=True)
+    dependent_of = models.ForeignKey(
+        'self',
+        null=True,
+        blank=True,
+        verbose_name='supervisor'
+        )
     kinship = models.ForeignKey(Kinship, null=True)
     picture = ImageField(upload_to='people_pictures', null=True, blank=True)
     status = models.BooleanField(default=True, verbose_name='active')

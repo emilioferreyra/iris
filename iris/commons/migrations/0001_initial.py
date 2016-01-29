@@ -56,7 +56,7 @@ class Migration(migrations.Migration):
             name='Phone',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('phone_number', localflavor.us.models.PhoneNumberField(help_text=b'999-999-9999', max_length=20)),
+                ('phone_number', localflavor.us.models.PhoneNumberField(help_text='999-999-9999', max_length=20)),
             ],
         ),
         migrations.CreateModel(

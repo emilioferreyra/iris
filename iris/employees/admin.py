@@ -12,7 +12,7 @@ from django.forms import ModelForm
 from suit.widgets import EnclosedInput
 
 # My models
-from .models import Employee, EmployeeAdditionalField, Department, Position,\
+from .models import Employee, Department, Position,\
     EmployeeType, Workday, WorkSchedule, EmployeeFamily
 from people.admin import PersonAddressInline, PersonPhoneInline
 # from people.admin import PersonAdmin
@@ -35,12 +35,12 @@ class EmployeePhoneInline(PersonPhoneInline):
     suit_classes = 'suit-tab suit-tab-employeephone'
 
 
-class AdditionalsFieldsInline(admin.StackedInline):
-    form = EmployeeForm
-    model = EmployeeAdditionalField
-    max_num = 1
-    min_num = 1
-    suit_classes = 'suit-tab suit-tab-additionalsfields'
+# class AdditionalsFieldsInline(admin.StackedInline):
+#     form = EmployeeForm
+#     model = EmployeeAdditionalField
+#     max_num = 1
+#     min_num = 1
+#     suit_classes = 'suit-tab suit-tab-additionalsfields'
 
 
 class EmployeeFamilyInline(admin.StackedInline):
@@ -82,14 +82,29 @@ class EmployeeAdmin(AdminImageMixin, admin.ModelAdmin):
                 'document_id',
                 'status',
                 ]
-            })]
+            }),
+        ('Additional Info', {
+            'classes': ('suit-tab', 'suit-tab-additionalsfields',),
+            'fields': [
+                'hiring_date',
+                'department',
+                'position',
+                'dependent_of',
+                'workSchedule',
+                'employee_type',
+                'salary',
+                'contract_termination_date',
+            ]})]
 
     list_display = [
         'id',
         'full_name',
-        'employee_position',
-        'employee_department',
-        'employee_hiring_date',
+        # 'employee_position',
+        # 'employee_department',
+        # 'employee_hiring_date',
+        'position',
+        'department',
+        'hiring_date',
         'years_of_work',
         'birth_day',
         'status'
@@ -101,31 +116,36 @@ class EmployeeAdmin(AdminImageMixin, admin.ModelAdmin):
         ('marital_status', admin.RelatedOnlyFieldListFilter),
         'gender',
     )
+    radio_fields = {
+        "gender": admin.VERTICAL,
+        "document_type": admin.HORIZONTAL,
+        "marital_status": admin.HORIZONTAL,
+    }
     inlines = [
         EmployeeAddressInline,
         EmployeePhoneInline,
-        AdditionalsFieldsInline,
+        # AdditionalsFieldsInline,
         EmployeeFamilyInline,
     ]
 
-    def employee_position(self, obj):
-        eaf = EmployeeAdditionalField.objects.get(employee_id=obj.id)
-        return eaf.position
-    employee_position.short_description = 'position'
+    # def employee_position(self, obj):
+    #     eaf = EmployeeAdditionalField.objects.get(employee_id=obj.id)
+    #     return eaf.position
+    # employee_position.short_description = 'position'
 
-    def employee_department(self, obj):
-        eaf = EmployeeAdditionalField.objects.get(employee_id=obj.id)
-        return eaf.department
-    employee_department.short_description = 'department'
+    # def employee_department(self, obj):
+    #     eaf = EmployeeAdditionalField.objects.get(employee_id=obj.id)
+    #     return eaf.department
+    # employee_department.short_description = 'department'
 
-    def employee_hiring_date(self, obj):
-        eaf = EmployeeAdditionalField.objects.get(employee_id=obj.id)
-        return eaf.hiring_date
-    employee_hiring_date.short_description = 'hiring date'
+    # def employee_hiring_date(self, obj):
+    #     eaf = EmployeeAdditionalField.objects.get(employee_id=obj.id)
+    #     return eaf.hiring_date
+    # employee_hiring_date.short_description = 'hiring date'
 
     def years_of_work(self, obj):
         today = date.today()
-        eaf = EmployeeAdditionalField.objects.get(employee_id=obj.id)
+        eaf = Employee.objects.get(id=obj.id)
         return today.year - eaf.hiring_date.year - (
             (today.month, today.day) <
             (eaf.hiring_date.month, eaf.hiring_date.day)

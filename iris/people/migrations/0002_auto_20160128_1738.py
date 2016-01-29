@@ -11,7 +11,9 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.DeleteModel(
-            name='Kinsman',
+        migrations.AlterField(
+            model_name='person',
+            name='dependent_of',
+            field=models.ForeignKey(verbose_name='supervisor', blank=True, to='people.Person', null=True),
         ),
     ]

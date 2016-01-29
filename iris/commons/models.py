@@ -65,3 +65,16 @@ class Kinship(models.Model):
 
     def __unicode__(self):
         return self.name
+
+
+class PersonType(models.Model):
+    name = models.CharField(max_length=45, unique=True)
+
+    class Meta:
+        verbose_name = "Person Type"
+        verbose_name_plural = "Person Types"
+        db_table = "commons_person_type"
+        ordering = ['id']
+
+    def __unicode__(self):
+        return self.name

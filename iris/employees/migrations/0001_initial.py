@@ -24,19 +24,19 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-            name='EmployeeAdditionalField',
+            name='Employee',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('person_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='people.Person')),
                 ('hiring_date', models.DateField()),
                 ('salary', models.FloatField()),
                 ('contract_termination_date', models.DateField(null=True, blank=True)),
                 ('department', models.ForeignKey(to='employees.Department')),
             ],
             options={
-                'db_table': 'employees_employee_additional_fields',
-                'verbose_name': 'Employee Additional Field',
-                'verbose_name_plural': 'Employee Additional Fields',
+                'verbose_name': 'Employee',
+                'verbose_name_plural': 'Employees',
             },
+            bases=('people.person',),
         ),
         migrations.CreateModel(
             name='EmployeeType',
@@ -89,45 +89,18 @@ class Migration(migrations.Migration):
                 'verbose_name_plural': 'Work Schedules',
             },
         ),
-        migrations.CreateModel(
-            name='Employee',
-            fields=[
-            ],
-            options={
-                'verbose_name': 'Employee',
-                'proxy': True,
-                'verbose_name_plural': 'Employees',
-            },
-            bases=('people.person',),
-        ),
-        migrations.CreateModel(
-            name='EmployeeFamily',
-            fields=[
-            ],
-            options={
-                'verbose_name': 'Employee Family',
-                'proxy': True,
-                'verbose_name_plural': 'Employee Families',
-            },
-            bases=('people.person',),
-        ),
         migrations.AddField(
-            model_name='employeeadditionalfield',
-            name='employee',
-            field=models.OneToOneField(to='employees.Employee'),
-        ),
-        migrations.AddField(
-            model_name='employeeadditionalfield',
+            model_name='employee',
             name='employee_type',
             field=models.ForeignKey(to='employees.EmployeeType'),
         ),
         migrations.AddField(
-            model_name='employeeadditionalfield',
+            model_name='employee',
             name='position',
             field=smart_selects.db_fields.ChainedForeignKey(chained_model_field='department', to='employees.Position', chained_field='department'),
         ),
         migrations.AddField(
-            model_name='employeeadditionalfield',
+            model_name='employee',
             name='workSchedule',
             field=models.ForeignKey(to='employees.WorkSchedule'),
         ),

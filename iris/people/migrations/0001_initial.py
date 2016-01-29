@@ -13,9 +13,9 @@ import model_utils.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('commons', '0001_initial'),
-        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
         ('location', '0001_initial'),
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        ('commons', '0002_persontype'),
     ]
 
     operations = [
@@ -43,6 +43,7 @@ class Migration(migrations.Migration):
                 ('marital_status', models.ForeignKey(to='commons.MaritalStatus')),
                 ('modified_by', audit_log.models.fields.LastUserField(related_name='modified_people_person_set', editable=False, to=settings.AUTH_USER_MODEL, null=True, verbose_name='modified by')),
                 ('nationality', models.ForeignKey(default=21, to='location.Nationality')),
+                ('person_type', models.ForeignKey(to='commons.PersonType', null=True)),
             ],
             options={
                 'ordering': ['id'],
@@ -84,34 +85,5 @@ class Migration(migrations.Migration):
                 'verbose_name_plural': 'Phones',
             },
             bases=('commons.phone',),
-        ),
-        migrations.CreateModel(
-            name='PersonType',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('name', models.CharField(unique=True, max_length=45)),
-            ],
-            options={
-                'ordering': ['id'],
-                'db_table': 'people_person_type',
-                'verbose_name': 'Person Type',
-                'verbose_name_plural': 'Person Types',
-            },
-        ),
-        migrations.AddField(
-            model_name='person',
-            name='person_type',
-            field=models.ForeignKey(to='people.PersonType', null=True),
-        ),
-        migrations.CreateModel(
-            name='Kinsman',
-            fields=[
-            ],
-            options={
-                'verbose_name': 'Kinsman',
-                'proxy': True,
-                'verbose_name_plural': 'Kinsmans',
-            },
-            bases=('people.person',),
         ),
     ]

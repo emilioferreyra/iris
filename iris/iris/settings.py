@@ -50,8 +50,8 @@ INSTALLED_APPS = (
     'employees',
     'housing',
     'members',
-    'doctors',
     'suppliers',
+    'doctors',
 )
 
 MIDDLEWARE_CLASSES = (

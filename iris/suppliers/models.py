@@ -64,28 +64,29 @@ class SupplierCompany(models.Model):
 
 
 class SupplierContact(Person):
-    objects = SupplierManager()
+    # objects = SupplierManager()
+    supplier_company = models.ForeignKey(SupplierCompany)
 
     class Meta:
         verbose_name = "Supplier Contact"
         verbose_name_plural = "Supplier Contacts"
-        proxy = True
+        # proxy = True
 
     def save(self, *args, **kwargs):
         self.person_type = PersonType.objects.get(name="Supplier")
         super(SupplierContact, self).save(*args, **kwargs)
 
 
-class ContactAdditionalField(models.Model):
-    supplier_contact = models.OneToOneField(SupplierContact)
-    supplier_company = models.ForeignKey(SupplierCompany)
+# class ContactAdditionalField(models.Model):
+#     supplier_contact = models.OneToOneField(SupplierContact)
+#     supplier_company = models.ForeignKey(SupplierCompany)
 
-    class Meta:
-        verbose_name = "Additional Field"
-        verbose_name_plural = "Additional Fields"
+#     class Meta:
+#         verbose_name = "Additional Field"
+#         verbose_name_plural = "Additional Fields"
 
-    def __uncode__(self):
-        return '%s %s' % (
-            self.supplier_contact,
-            self.supplier_company
-            )
+#     def __uncode__(self):
+#         return '%s %s' % (
+#             self.supplier_contact,
+#             self.supplier_company
+#             )

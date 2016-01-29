@@ -10,46 +10,28 @@ from localflavor.us.models import PhoneNumberField
 # My apps
 from people.models import Person, PersonType, DoctorManager
 from members.models import Member
-from location.models import Region, Province, Town
+# from location.models import Region, Province, Town
+from suppliers.models import SupplierCompany, SupplierType
 
 
-class Doctor(Person):
-    objects = DoctorManager()
-
-    class Meta:
-        verbose_name = "Doctor"
-        verbose_name_plural = "Doctors"
-        proxy = True
-
-    def save(self, *args, **kwargs):
-        self.person_type = PersonType.objects.get(name="Doctor")
-        super(Doctor, self).save(*args, **kwargs)
+class ClinicManager(models.Manager):
+    def get_queryset(self):
+        return super(ClinicManager, self).\
+            get_queryset().filter(supplier_type=1)
 
 
-class Clinic(models.Model):
-    name = models.CharField(max_length=50, unique=True)
-    region = models.ForeignKey(Region, null=True, default=1)
-    province = ChainedForeignKey(
-        Province,
-        chained_field="region",
-        chained_model_field="region"
-        )
-    town = ChainedForeignKey(
-        Town,
-        chained_field="province",
-        chained_model_field="province"
-        )
-    address = models.TextField(max_length=150, null=True, blank=True)
-    phone_number = PhoneNumberField(
-        help_text='999-999-9999',
-        null=True,
-        blank=True
-        )
+class Clinic(SupplierCompany):
+    objects = ClinicManager()
 
     class Meta:
         verbose_name = "Clinic"
         verbose_name_plural = "Clinics"
         ordering = ['name']
+        proxy = True
+
+    def save(self, *args, **kwargs):
+        self.supplier_type = SupplierType.objects.filter(id=1)
+        super(Clinic, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return self.name
@@ -66,25 +48,40 @@ class Speciality(models.Model):
         return self.name
 
 
-class DoctorAdditionalField(models.Model):
-    doctor = models.OneToOneField(Doctor)
+# class DoctorAdditionalField(models.Model):
+#     doctor = models.OneToOneField(Doctor)
+#     specialities = models.ManyToManyField(Speciality)
+#     clinics = models.ManyToManyField(Clinic)
+
+#     class Meta:
+#         verbose_name = "Doctor Additional Field"
+#         verbose_name_plural = "Doctor Additional Fields"
+#         db_table = "doctors_doctor_additional_fields"
+
+#     def __unicode__(self):
+#         return '%s' % (self.doctor)
+
+
+class Doctor(Person):
+    # objects = DoctorManager()
     specialities = models.ManyToManyField(Speciality)
     clinics = models.ManyToManyField(Clinic)
 
     class Meta:
-        verbose_name = "Doctor Additional Field"
-        verbose_name_plural = "Doctor Additional Fields"
-        db_table = "doctors_doctor_additional_fields"
+        verbose_name = "Doctor"
+        verbose_name_plural = "Doctors"
+        # proxy = True
 
-    def __unicode__(self):
-        return '%s' % (self.doctor)
+    def save(self, *args, **kwargs):
+        self.person_type = PersonType.objects.filter(name="Doctor")
+        super(Doctor, self).save(*args, **kwargs)
 
 
 class Appointment(models.Model):
     member = models.ForeignKey(Member)
     clinic = models.ForeignKey(Clinic)
     doctor = ChainedForeignKey(
-        DoctorAdditionalField,
+        Doctor,
         chained_field="clinic",
         chained_model_field="clinic",
         )

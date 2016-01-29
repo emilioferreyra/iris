@@ -33,7 +33,7 @@ class Migration(migrations.Migration):
             name='Clinic',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('name', models.CharField(max_length=50)),
+                ('name', models.CharField(unique=True, max_length=50)),
                 ('address', models.TextField(max_length=150, null=True, blank=True)),
                 ('phone_number', localflavor.us.models.PhoneNumberField(help_text='999-999-9999', max_length=20, null=True, blank=True)),
                 ('province', smart_selects.db_fields.ChainedForeignKey(chained_model_field='region', to='location.Province', chained_field='region')),
@@ -47,16 +47,16 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-            name='DoctorAdditionalField',
+            name='Doctor',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('clinic', models.ManyToManyField(to='doctors.Clinic')),
+                ('person_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='people.Person')),
+                ('clinics', models.ManyToManyField(to='doctors.Clinic')),
             ],
             options={
-                'db_table': 'doctors_doctor_additional_fields',
-                'verbose_name': 'Doctor Additional Field',
-                'verbose_name_plural': 'Doctor Additional Fields',
+                'verbose_name': 'Doctor',
+                'verbose_name_plural': 'Doctors',
             },
+            bases=('people.person',),
         ),
         migrations.CreateModel(
             name='Medicine',
@@ -90,31 +90,15 @@ class Migration(migrations.Migration):
             name='Speciality',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('name', models.CharField(max_length=60)),
+                ('name', models.CharField(unique=True, max_length=60)),
             ],
             options={
                 'verbose_name': 'Speciality',
                 'verbose_name_plural': 'Specialities',
             },
         ),
-        migrations.CreateModel(
-            name='Doctor',
-            fields=[
-            ],
-            options={
-                'verbose_name': 'Doctor',
-                'proxy': True,
-                'verbose_name_plural': 'Doctors',
-            },
-            bases=('people.person',),
-        ),
         migrations.AddField(
-            model_name='doctoradditionalfield',
-            name='doctor',
-            field=models.OneToOneField(to='doctors.Doctor'),
-        ),
-        migrations.AddField(
-            model_name='doctoradditionalfield',
+            model_name='doctor',
             name='specialities',
             field=models.ManyToManyField(to='doctors.Speciality'),
         ),
@@ -126,11 +110,15 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='appointment',
             name='doctor',
-            field=smart_selects.db_fields.ChainedForeignKey(chained_model_field='clinic', to='doctors.DoctorAdditionalField', chained_field='clinic'),
+            field=smart_selects.db_fields.ChainedForeignKey(chained_model_field='clinic', to='doctors.Doctor', chained_field='clinic'),
         ),
         migrations.AddField(
             model_name='appointment',
             name='member',
             field=models.ForeignKey(to='members.Member'),
+        ),
+        migrations.AlterUniqueTogether(
+            name='appointment',
+            unique_together=set([('member', 'doctor', 'date')]),
         ),
     ]

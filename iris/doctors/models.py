@@ -5,10 +5,11 @@ from django.db import models
 
 # Third-party apps
 from smart_selects.db_fields import ChainedForeignKey
-from localflavor.us.models import PhoneNumberField
+# from localflavor.us.models import PhoneNumberField
 
 # My apps
-from people.models import Person, PersonType, DoctorManager
+from commons.models import PersonType
+from people.models import Person, DoctorManager
 from members.models import Member
 # from location.models import Region, Province, Town
 from suppliers.models import SupplierCompany, SupplierType
@@ -30,7 +31,7 @@ class Clinic(SupplierCompany):
         proxy = True
 
     def save(self, *args, **kwargs):
-        self.supplier_type = SupplierType.objects.filter(id=1)
+        self.supplier_type = SupplierType.objects.get(id=1)
         super(Clinic, self).save(*args, **kwargs)
 
     def __unicode__(self):
@@ -48,32 +49,17 @@ class Speciality(models.Model):
         return self.name
 
 
-# class DoctorAdditionalField(models.Model):
-#     doctor = models.OneToOneField(Doctor)
-#     specialities = models.ManyToManyField(Speciality)
-#     clinics = models.ManyToManyField(Clinic)
-
-#     class Meta:
-#         verbose_name = "Doctor Additional Field"
-#         verbose_name_plural = "Doctor Additional Fields"
-#         db_table = "doctors_doctor_additional_fields"
-
-#     def __unicode__(self):
-#         return '%s' % (self.doctor)
-
-
 class Doctor(Person):
-    # objects = DoctorManager()
+    objects = DoctorManager()
     specialities = models.ManyToManyField(Speciality)
-    clinics = models.ManyToManyField(Clinic)
+    clinic = models.ManyToManyField(Clinic)
 
     class Meta:
         verbose_name = "Doctor"
         verbose_name_plural = "Doctors"
-        # proxy = True
 
     def save(self, *args, **kwargs):
-        self.person_type = PersonType.objects.filter(name="Doctor")
+        self.person_type = PersonType.objects.get(name="Doctor")
         super(Doctor, self).save(*args, **kwargs)
 
 

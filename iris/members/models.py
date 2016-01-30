@@ -8,8 +8,8 @@ from django.db.models import Q
 # Third-party apps
 from smart_selects.db_fields import ChainedForeignKey
 # My apps
-from people.models import Person, PersonType,\
-    MemberManager, MemberFamilyManager
+from commons.models import PersonType
+from people.models import Person, MemberManager, MemberFamilyManager
 from housing.models import HouseMaterial, HousePart, PropertyType
 
 
@@ -34,7 +34,6 @@ class Cane(models.Model):
         return str(self.name)
 
 
-
 class Ocupation(models.Model):
     name = models.CharField(max_length=40, unique=True)
 
@@ -44,33 +43,6 @@ class Ocupation(models.Model):
 
     def __unicode__(self):
         return self.name
-
-
-# class MemberAdditionalField(models.Model):
-#     member_name = models.OneToOneField(Member)
-#     disabilities = models.ManyToManyField(Disability)
-#     cane_number = models.ForeignKey(Cane)
-#     property_type = models.ForeignKey(PropertyType)
-#     currently_works = models.BooleanField(default=False)
-#     ocupation = models.ForeignKey(Ocupation, null=True, blank=True)
-#     where_work = models.CharField(
-#         max_length=100,
-#         null=True,
-#         blank=True
-#     )
-#     observations = models.TextField(null=True, blank=True)
-
-#     class Meta:
-#         verbose_name = "Additional Field"
-#         verbose_name_plural = "Additional Fields"
-#         db_table = "members_member_additional_fields"
-
-#     def __unicode__(self):
-#         return '%s %s %s' % (
-#             self.member_name,
-#             self.cane_number,
-#             self.property_type
-#         )
 
 
 class Member(Person):
@@ -93,7 +65,7 @@ class Member(Person):
         # proxy = True
 
     def save(self, *args, **kwargs):
-        self.person_type = PersonType.objects.filter(name="Member")
+        self.person_type = PersonType.objects.get(name="Member")
         super(Member, self).save(*args, **kwargs)
 
     def is_mother(self):
@@ -154,5 +126,5 @@ class MemberFamily(Person):
         proxy = True
 
     def save(self, *args, **kwargs):
-        self.person_type = PersonType.objects.filter(name="Member Family")
+        self.person_type = PersonType.objects.get(name="Member Family")
         super(MemberFamily, self).save(*args, **kwargs)

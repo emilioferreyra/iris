@@ -26,6 +26,7 @@ class PersonAddressInline(admin.StackedInline):
         ]
     min_num = 1
     max_num = max_num_addresses
+    suit_classes = 'suit-tab suit-tab-addresses'
 
 
 class PersonPhoneInline(admin.TabularInline):
@@ -34,6 +35,7 @@ class PersonPhoneInline(admin.TabularInline):
     extra = 0
     min_num = 1
     max_num = max_num_phones
+    suit_classes = 'suit-tab suit-tab-phones'
 
 
 class PersonAdmin(AdminImageMixin, admin.ModelAdmin):
@@ -44,12 +46,25 @@ class PersonAdmin(AdminImageMixin, admin.ModelAdmin):
         ('person_type', admin.RelatedOnlyFieldListFilter),
         ('marital_status', admin.RelatedOnlyFieldListFilter),
         )
-    fields = (
-        ('picture', 'names', 'father_last_name', 'mother_last_name', 'email'),
-        ('birth_day', 'nationality', 'marital_status'),
-        ('gender', 'document_type', 'document_id'),
-        'status', 'person_type'
-        )
+    fieldsets = [
+        (None, {
+            'classes': ('suit-tab', 'suit-tab-general',),
+            'fields': [
+                'picture',
+                'names',
+                'father_last_name',
+                'mother_last_name',
+                'email',
+                'birth_day',
+                'nationality',
+                'marital_status',
+                'gender',
+                'document_type',
+                'document_id',
+                'status',
+                'person_type'
+                ]
+            })]
 
     list_display = [
         'id',
@@ -68,13 +83,19 @@ class PersonAdmin(AdminImageMixin, admin.ModelAdmin):
     search_fields = [
         'names',
         'father_last_name',
-        'mother_last_name'
+        'mother_last_name',
+        'email'
     ]
 
     inlines = [
         PersonAddressInline,
         PersonPhoneInline
     ]
+    suit_form_tabs = (
+        ('general', 'General'),
+        ('addresses', 'Addresses'),
+        ('phones', 'Phones'),
+        )
 
 
 admin.site.register(PersonType)

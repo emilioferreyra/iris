@@ -35,14 +35,6 @@ class EmployeePhoneInline(PersonPhoneInline):
     suit_classes = 'suit-tab suit-tab-employeephone'
 
 
-# class AdditionalsFieldsInline(admin.StackedInline):
-#     form = EmployeeForm
-#     model = EmployeeAdditionalField
-#     max_num = 1
-#     min_num = 1
-#     suit_classes = 'suit-tab suit-tab-additionalsfields'
-
-
 class EmployeeFamilyInline(admin.StackedInline):
     model = EmployeeFamily
     fields = [
@@ -127,21 +119,6 @@ class EmployeeAdmin(AdminImageMixin, admin.ModelAdmin):
         # AdditionalsFieldsInline,
         EmployeeFamilyInline,
     ]
-
-    # def employee_position(self, obj):
-    #     eaf = EmployeeAdditionalField.objects.get(employee_id=obj.id)
-    #     return eaf.position
-    # employee_position.short_description = 'position'
-
-    # def employee_department(self, obj):
-    #     eaf = EmployeeAdditionalField.objects.get(employee_id=obj.id)
-    #     return eaf.department
-    # employee_department.short_description = 'department'
-
-    # def employee_hiring_date(self, obj):
-    #     eaf = EmployeeAdditionalField.objects.get(employee_id=obj.id)
-    #     return eaf.hiring_date
-    # employee_hiring_date.short_description = 'hiring date'
 
     def years_of_work(self, obj):
         today = date.today()

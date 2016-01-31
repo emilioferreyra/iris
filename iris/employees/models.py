@@ -72,6 +72,18 @@ class WorkSchedule(models.Model):
         return self.name
 
 
+class EmployeeLevel(models.Model):
+    name = models.CharField(max_length=45, unique=True)
+
+    class Meta:
+        verbose_name = "Employee Level"
+        verbose_name_plural = "Employee Levels"
+        db_table = "employees_employee_lavels"
+
+    def __unicode__(self):
+        return self.name
+
+
 class Employee(Person):
     objects = EmployeeManager()
     hiring_date = models.DateField()
@@ -81,6 +93,7 @@ class Employee(Person):
         chained_field="department",
         chained_model_field="department",
         )
+    employee_level = models.ForeignKey(EmployeeLevel, null=True)
     workSchedule = models.ForeignKey(WorkSchedule)
     employee_type = models.ForeignKey(EmployeeType)
     salary = models.FloatField()

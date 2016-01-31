@@ -95,7 +95,7 @@ class SupplierCompanyAdmin(AdminImageMixin, admin.ModelAdmin):
                 "email",
                 ]
             })]
-    inlines = [SupplierContactInline]
+    # inlines = [SupplierContactInline]
 
     search_fields = ['name']
 
@@ -107,7 +107,7 @@ class SupplierCompanyAdmin(AdminImageMixin, admin.ModelAdmin):
 
     suit_form_tabs = (
         ('general', 'General'),
-        ('suppliercontact', 'Contacts'),
+        # ('suppliercontact', 'Contacts'),
         )
 
 

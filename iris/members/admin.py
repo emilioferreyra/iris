@@ -99,7 +99,8 @@ class MemberAdmin(admin.ModelAdmin):
 
     list_filter = [
         'status',
-        'marital_status'
+        'marital_status',
+        'gender',
     ]
     radio_fields = {
         "gender": admin.VERTICAL,

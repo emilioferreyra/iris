@@ -91,6 +91,8 @@ class PersonAdmin(AdminImageMixin, admin.ModelAdmin):
         PersonAddressInline,
         PersonPhoneInline
     ]
+    ordering = ['-id']
+
     suit_form_tabs = (
         ('general', 'General'),
         ('addresses', 'Addresses'),

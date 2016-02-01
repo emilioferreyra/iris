@@ -13,7 +13,7 @@ from suit.widgets import EnclosedInput
 
 # My models
 from .models import Employee, Department, Position,\
-    EmployeeType, Workday, WorkSchedule, EmployeeFamily, EmployeeLevel
+    EmployeeType, Workday, WorkSchedule, EmployeeFamily, PositionLevel
 from people.admin import PersonAddressInline, PersonPhoneInline
 # from people.admin import PersonAdmin
 
@@ -82,7 +82,7 @@ class EmployeeAdmin(AdminImageMixin, admin.ModelAdmin):
                 'hiring_date',
                 'department',
                 'position',
-                'employee_level',
+                # 'employee_level',
                 'dependent_of',
                 'workSchedule',
                 'employee_type',
@@ -134,7 +134,8 @@ class EmployeeAdmin(AdminImageMixin, admin.ModelAdmin):
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "dependent_of":
             kwargs["queryset"] = Employee.objects.filter(
-                person_type=1, employee_level__gt=3)
+                person_type=1
+                )
         return super(EmployeeAdmin, self).\
             formfield_for_foreignkey(db_field, request, **kwargs)
 
@@ -160,4 +161,4 @@ admin.site.register(Position)
 admin.site.register(EmployeeType)
 admin.site.register(Workday)
 admin.site.register(WorkSchedule, WorkScheduleAdmin)
-admin.site.register(EmployeeLevel)
+admin.site.register(PositionLevel)

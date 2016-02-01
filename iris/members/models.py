@@ -62,7 +62,7 @@ class Member(Person):
     class Meta:
         verbose_name = "Member"
         verbose_name_plural = "Members"
-        # proxy = True
+        ordering = ['-id']
 
     def save(self, *args, **kwargs):
         self.person_type = PersonType.objects.get(name="Member")
@@ -77,6 +77,9 @@ class Member(Person):
         if children and self.gender == 'F':
             mother = True
         return mother
+
+    is_mother.admin_order_field = 'mother'
+    is_mother.boolean = True
     is_mother.short_description = 'Mother'
 
     def children_quantity(self):
@@ -88,6 +91,7 @@ class Member(Person):
             quantity
         return quantity
     children_quantity.short_description = 'Children number'
+    children_quantity.admin_order_field = 'children_number'
 
     def was_created_recently(self):
         return self.created >= timezone.now() - datetime.timedelta(days=1)

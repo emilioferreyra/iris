@@ -104,7 +104,6 @@ class Person(TimeStampedModel, AuthStampedModel):
     class Meta:
         verbose_name = "Person"
         verbose_name_plural = "People"
-        ordering = ['id']
 
     def full_name(self):
         return "%s %s %s" % (
@@ -112,7 +111,8 @@ class Person(TimeStampedModel, AuthStampedModel):
             self.father_last_name,
             self.mother_last_name
         )
-    full_name.short_description = 'Name'
+    full_name.short_description = "Name"
+    full_name.admin_order_field = "name"
 
     def calculate_age(self):
         today = date.today()
@@ -121,6 +121,7 @@ class Person(TimeStampedModel, AuthStampedModel):
             (self.birth_day.month, self.birth_day.day)
         )
     calculate_age.short_description = "Age"
+    calculate_age.admin_order_field = "age"
 
     def __unicode__(self):
         return '%s %s %s' % (

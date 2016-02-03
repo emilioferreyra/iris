@@ -6,7 +6,8 @@ from django.db import models
 from django.forms import CheckboxSelectMultiple
 from datetime import date
 from sorl.thumbnail.admin import AdminImageMixin
-from django.forms import ModelForm
+# from django.forms import ModelForm
+from django import forms
 
 # Third party apps
 from suit.widgets import EnclosedInput
@@ -18,14 +19,24 @@ from people.admin import PersonAddressInline, PersonPhoneInline
 # from people.admin import PersonAdmin
 
 
-class EmployeeForm(ModelForm):
+class EmployeeForm(forms.ModelForm):
     class Meta:
-        # model = Employee
+        model = Employee
+        fields = "__all__"
 
-        widgets = {
-            'email': EnclosedInput(prepend='icon-envelope'),
-            'salary': EnclosedInput(prepend='RD$'),
-        }
+        # widgets = {
+        #     'email': EnclosedInput(prepend='icon-envelope'),
+        #     'salary': EnclosedInput(prepend='RD$'),
+        # }
+
+    # def clean_date_of_birth(self):
+    #     dob = self.cleaned_data.get['birth_day']
+    #     today = date.today()
+    #     if (dob.year + 18, dob.month, dob.day) > (today.year, today.month, today.day):
+    #         raise forms.ValidationError(
+    #             'Must be at least 18 years old to register.'
+    #             )
+    #     return self.cleaned_data
 
 
 class EmployeeAddressInline(PersonAddressInline):
@@ -57,7 +68,7 @@ class EmployeeFamilyInline(admin.StackedInline):
 
 
 class EmployeeAdmin(AdminImageMixin, admin.ModelAdmin):
-    form = EmployeeForm
+    # form = EmployeeForm
     fieldsets = [
         (None, {
             'classes': ('suit-tab', 'suit-tab-general',),
@@ -93,14 +104,12 @@ class EmployeeAdmin(AdminImageMixin, admin.ModelAdmin):
     list_display = [
         'id',
         'full_name',
-        # 'employee_position',
-        # 'employee_department',
-        # 'employee_hiring_date',
         'position',
         'department',
         'hiring_date',
         'years_of_work',
-        'birth_day',
+        # 'birth_day',
+        'calculate_age',
         'status'
         ]
     list_display_links = ['id', 'full_name']
@@ -122,14 +131,14 @@ class EmployeeAdmin(AdminImageMixin, admin.ModelAdmin):
         EmployeeFamilyInline,
     ]
 
-    def years_of_work(self, obj):
-        today = date.today()
-        eaf = Employee.objects.get(id=obj.id)
-        return today.year - eaf.hiring_date.year - (
-            (today.month, today.day) <
-            (eaf.hiring_date.month, eaf.hiring_date.day)
-        )
-    years_of_work.short_description = "Years of work"
+    # def years_of_work(self, obj):
+    #     today = date.today()
+    #     eaf = Employee.objects.get(id=obj.id)
+    #     return today.year - eaf.hiring_date.year - (
+    #         (today.month, today.day) <
+    #         (eaf.hiring_date.month, eaf.hiring_date.day)
+    #     )
+    # years_of_work.short_description = "Years of work"
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "dependent_of":

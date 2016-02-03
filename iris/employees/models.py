@@ -2,9 +2,13 @@
 # Django core
 from __future__ import absolute_import, unicode_literals
 from django.db import models
+from datetime import date
+from django.core.exceptions import ValidationError
+from django.utils.translation import ugettext_lazy as _
 
 # Third party apps
 from smart_selects.db_fields import ChainedForeignKey
+
 # My apps
 from commons.models import PersonType
 from people.models import Person, EmployeeManager, EmployeeFamilyManager
@@ -95,7 +99,6 @@ class Employee(Person):
         chained_field="department",
         chained_model_field="department",
         )
-    # employee_level = models.ForeignKey(EmployeeLevel, null=True)
     workSchedule = models.ForeignKey(WorkSchedule)
     employee_type = models.ForeignKey(EmployeeType)
     salary = models.FloatField()
@@ -105,9 +108,24 @@ class Employee(Person):
         verbose_name = "Employee"
         verbose_name_plural = "Employees"
 
+    def clean(self):
+        dob = self.birth_day
+        today = date.today()
+        if (dob.year + 18, dob.month, dob.day) > (today.year, today.month, today.day):
+            raise ValidationError({'birth_day': _('Must be at least 18 years old to register.')})
+
     def save(self, *args, **kwargs):
         self.person_type = PersonType.objects.get(name="Employee")
         super(Employee, self).save(*args, **kwargs)
+
+    def years_of_work(self):
+        today = date.today()
+        eaf = Employee.objects.get(id=self.id)
+        return today.year - eaf.hiring_date.year - (
+            (today.month, today.day) <
+            (eaf.hiring_date.month, eaf.hiring_date.day)
+        )
+    years_of_work.short_description = "Years of work"
 
 
 class EmployeeFamily(Person):

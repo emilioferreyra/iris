@@ -8,11 +8,13 @@ from model_utils.models import TimeStampedModel
 from audit_log.models import AuthStampedModel
 from smart_selects.db_fields import ChainedForeignKey
 from sorl.thumbnail import ImageField
+from localflavor.us.models import PhoneNumberField
 
 # My modules
-from commons.models import MaritalStatus, DocumentType, Phone, Kinship, PersonType
-from location.models import \
-    Nationality, Country, Region, Province, Town, AddressType
+from commons.models import MaritalStatus, DocumentType, Kinship,\
+    PersonType, PhoneType
+from location.models import Nationality, Country, Region, Province,\
+    Town, AddressType
 
 
 # Person type variables
@@ -60,24 +62,23 @@ class MemberFamilyManager(models.Manager):
             get_queryset().filter(person_type=6)
 
 
+class MaleManager(models.Manager):
+    def get_query_set(self):
+        return super(MaleManager, self).get_query_set().filter(gender='M')
+
+
+class FemaleManager(models.Manager):
+    def get_query_set(self):
+        return super(FemaleManager, self).get_query_set().filter(gender='F')
+
+
 class Person(TimeStampedModel, AuthStampedModel):
-    people = models.Manager()
-    employees = EmployeeManager()
-    members = MemberManager()
-    doctors = DoctorManager()
-    suppliers = SupplierManager()
-    employee_families = EmployeeFamilyManager()
-    member_families = MemberFamilyManager()
-    GENDER_CHOICES = (
-        ('M', 'Male'),
-        ('F', 'Female'),
-    )
     names = models.CharField(max_length=100)
     father_last_name = models.CharField(max_length=50)
     mother_last_name = models.CharField(max_length=50, null=True, blank=True)
     gender = models.CharField(
         max_length=1,
-        choices=GENDER_CHOICES,
+        choices=(('M', 'Male'), ('F', 'Female'),),
         null=True
     )
     birth_day = models.DateField()
@@ -100,6 +101,15 @@ class Person(TimeStampedModel, AuthStampedModel):
     kinship = models.ForeignKey(Kinship, null=True)
     picture = ImageField(upload_to='people_pictures', null=True, blank=True)
     status = models.BooleanField(default=True, verbose_name='active')
+    people = models.Manager()
+    employees = EmployeeManager()
+    members = MemberManager()
+    doctors = DoctorManager()
+    suppliers = SupplierManager()
+    employee_families = EmployeeFamilyManager()
+    member_families = MemberFamilyManager()
+    men = MaleManager()
+    women = FemaleManager()
 
     class Meta:
         verbose_name = "Person"
@@ -112,7 +122,7 @@ class Person(TimeStampedModel, AuthStampedModel):
             self.mother_last_name
         )
     full_name.short_description = "Name"
-    full_name.admin_order_field = "name"
+    # full_name.admin_order_field = "name"
 
     def calculate_age(self):
         today = date.today()
@@ -121,7 +131,12 @@ class Person(TimeStampedModel, AuthStampedModel):
             (self.birth_day.month, self.birth_day.day)
         )
     calculate_age.short_description = "Age"
-    calculate_age.admin_order_field = "age"
+    # calculate_age.admin_order_field = "age"
+
+    # def main_phone(self):
+    #     phone = PersonPhone.objects.filter(person_name_id=self.id)
+    #     for p in phone:
+    #         return p.phone_number
 
     def __unicode__(self):
         return '%s %s %s' % (
@@ -168,7 +183,9 @@ class PersonAddress(models.Model):
         return '%s %s %s' % (self.building, self.apartment, self.street)
 
 
-class PersonPhone(Phone):
+class PersonPhone(models.Model):
+    phone_type = models.ForeignKey(PhoneType, null=True)
+    phone_number = PhoneNumberField(help_text='999-999-9999', null=True)
     person_name = models.ForeignKey(Person)
     default = models.BooleanField(
         default=False,
@@ -179,6 +196,17 @@ class PersonPhone(Phone):
         verbose_name = "Phone"
         verbose_name_plural = "Phones"
         db_table = "people_person_phone"
+        unique_together = (("person_name", "phone_type"),)
+
+    def save(self, *args, **kwargs):
+        count_default = PersonPhone.objects.filter(
+            person_name_id=self.person_name_id,
+            default=True
+            ).count()
+        # person_type = Person.people.filter(person_type=1)
+        if count_default == 0 and self.phone_type == 3:
+            self.default = True
+        super(PersonPhone, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return '%s %s' % (self.person_name, self.phone_number)

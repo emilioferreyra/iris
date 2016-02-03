@@ -74,13 +74,13 @@ class Member(Person):
             Q(dependent_of=self.id),
             Q(kinship=3) | Q(kinship=4)
         )
-        if children and self.gender == 'F':
+        if children > 0 and self.gender == 'F':
             mother = True
         return mother
 
-    is_mother.admin_order_field = 'mother'
+    # is_mother.admin_order_field = 'mother'
     is_mother.boolean = True
-    is_mother.short_description = 'Mother'
+    is_mother.short_description = 'Is mother?'
 
     def children_quantity(self):
         quantity = Person.member_families.filter(
@@ -90,8 +90,9 @@ class Member(Person):
         if quantity > 0:
             quantity
         return quantity
+
+    # children_quantity.admin_order_field = 'children_number'
     children_quantity.short_description = 'Children number'
-    children_quantity.admin_order_field = 'children_number'
 
     def was_created_recently(self):
         return self.created >= timezone.now() - datetime.timedelta(days=1)

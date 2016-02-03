@@ -29,15 +29,6 @@ class EmployeeForm(forms.ModelForm):
         #     'salary': EnclosedInput(prepend='RD$'),
         # }
 
-    # def clean_date_of_birth(self):
-    #     dob = self.cleaned_data.get['birth_day']
-    #     today = date.today()
-    #     if (dob.year + 18, dob.month, dob.day) > (today.year, today.month, today.day):
-    #         raise forms.ValidationError(
-    #             'Must be at least 18 years old to register.'
-    #             )
-    #     return self.cleaned_data
-
 
 class EmployeeAddressInline(PersonAddressInline):
     suit_classes = 'suit-tab suit-tab-employeeaddress'
@@ -119,26 +110,21 @@ class EmployeeAdmin(AdminImageMixin, admin.ModelAdmin):
         ('marital_status', admin.RelatedOnlyFieldListFilter),
         'gender',
     )
+
     radio_fields = {
         "gender": admin.VERTICAL,
         "document_type": admin.HORIZONTAL,
         "marital_status": admin.HORIZONTAL,
     }
+
+    search_fields = ['name']
+
     inlines = [
         EmployeeAddressInline,
         EmployeePhoneInline,
         # AdditionalsFieldsInline,
         EmployeeFamilyInline,
     ]
-
-    # def years_of_work(self, obj):
-    #     today = date.today()
-    #     eaf = Employee.objects.get(id=obj.id)
-    #     return today.year - eaf.hiring_date.year - (
-    #         (today.month, today.day) <
-    #         (eaf.hiring_date.month, eaf.hiring_date.day)
-    #     )
-    # years_of_work.short_description = "Years of work"
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "dependent_of":

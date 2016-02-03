@@ -50,18 +50,27 @@ class DoctorAdmin(admin.ModelAdmin):
 
     list_display = [
         'id',
-        'full_name',
-        'email'
+        'doctor_name',
+        'email',
+        'status',
         ]
 
     list_display_links = [
         'id',
-        'full_name'
+        'doctor_name'
         ]
 
-    filter_vertical = [
+    filter_horizontal = [
         'specialities',
         'clinic'
+        ]
+
+    search_fields = [
+        'names',
+        'father_last_name',
+        'mother_last_name',
+        # 'clinic',
+        # 'specialities'
         ]
 
     # formfield_overrides = {
@@ -72,7 +81,11 @@ class DoctorAdmin(admin.ModelAdmin):
         DoctorPhoneInline
     ]
 
-    list_filter = ['status']
+    list_filter = (
+        'status',
+        ('clinic', admin.RelatedOnlyFieldListFilter),
+        ('specialities', admin.RelatedOnlyFieldListFilter),
+        )
 
     suit_form_tabs = (
         ('general', 'General'),

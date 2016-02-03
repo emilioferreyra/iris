@@ -42,12 +42,12 @@ class PhoneType(models.Model):
         return self.name
 
 
-class Phone(models.Model):
-    phone_type = models.ForeignKey(PhoneType)
-    phone_number = PhoneNumberField(help_text='999-999-9999')
+# class Phone(models.Model):
+#     phone_type = models.ForeignKey(PhoneType)
+#     phone_number = PhoneNumberField(help_text='999-999-9999')
 
-    class META:
-        abstract = True
+#     class META:
+#         abstract = True
 
 
 class AcademicLevel(models.Model):

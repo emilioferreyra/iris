@@ -82,11 +82,14 @@ class MemberAdmin(admin.ModelAdmin):
     list_display = [
         'id',
         'status',
-        'full_name',
+        # 'full_name',
+        'names',
+        'father_last_name',
+        'mother_last_name',
         'gender',
         'is_mother',
         'children_quantity',
-        'email',
+        # 'email',
         'calculate_age',
         'birth_day',
         'was_created_recently',
@@ -94,7 +97,10 @@ class MemberAdmin(admin.ModelAdmin):
 
     list_display_links = [
         'id',
-        'full_name',
+        # 'full_name',
+        'names',
+        'father_last_name',
+        'mother_last_name',
         ]
 
     list_filter = [

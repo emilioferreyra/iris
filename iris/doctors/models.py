@@ -58,6 +58,22 @@ class Doctor(Person):
         verbose_name = "Doctor"
         verbose_name_plural = "Doctors"
 
+    def doctor_name(self):
+        if self.gender == 'F':
+            return "Dra. %s %s %s" % (
+                self.names,
+                self.father_last_name,
+                self.mother_last_name
+                )
+        else:
+            return "Dr. %s %s %s" % (
+                self.names,
+                self.father_last_name,
+                self.mother_last_name
+                )
+
+    doctor_name.short_description = 'Name'
+
     def save(self, *args, **kwargs):
         self.person_type = PersonType.objects.get(name="Doctor")
         super(Doctor, self).save(*args, **kwargs)

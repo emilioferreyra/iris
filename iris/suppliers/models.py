@@ -74,5 +74,5 @@ class SupplierContact(Person):
         verbose_name_plural = "Supplier Contacts"
 
     def save(self, *args, **kwargs):
-        self.person_type = PersonType.objects.get(name="Suppliers")
+        self.person_type = PersonType.objects.get(name="Supplier")
         super(SupplierContact, self).save(*args, **kwargs)

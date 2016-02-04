@@ -16,60 +16,60 @@ from commons.models import MaritalStatus, DocumentType, Kinship,\
 from location.models import Nationality, Country, Region, Province,\
     Town, AddressType
 
+#  PersonType variables
 
-# Person type variables
-# employee = PersonType.objects.filter(name="Employee")
-# member = PersonType.objects.filter(name="Member")
-# doctor = PersonType.objects.filter(name="Doctor")
-# supplier = PersonType.objects.filter(name="Suppliers")
-# employee_family = PersonType.objects.filter(name="Employee Family")
-# member_family = PersonType.objects.filter(name="Member Family")
+employee, member, doctor, supplier, employee_family, \
+    member_family = 1, 2, 3, 4, 5, 6
+
+# Men and women
+
+men, women = "M", "F"
 
 
 class EmployeeManager(models.Manager):
     def get_queryset(self):
         return super(EmployeeManager, self).\
-            get_queryset().filter(person_type=1)
+            get_queryset().filter(person_type=employee)
 
 
 class MemberManager(models.Manager):
     def get_queryset(self):
         return super(MemberManager, self).\
-            get_queryset().filter(person_type=2)
+            get_queryset().filter(person_type=member)
 
 
 class DoctorManager(models.Manager):
     def get_queryset(self):
         return super(DoctorManager, self).\
-            get_queryset().filter(person_type=3)
+            get_queryset().filter(person_type=doctor)
 
 
 class SupplierManager(models.Manager):
     def get_queryset(self):
         return super(SupplierManager, self).\
-            get_queryset().filter(person_type=4)
+            get_queryset().filter(person_type=supplier)
 
 
 class EmployeeFamilyManager(models.Manager):
     def get_queryset(self):
         return super(EmployeeFamilyManager, self).\
-            get_queryset().filter(person_type=5)
+            get_queryset().filter(person_type=employee_family)
 
 
 class MemberFamilyManager(models.Manager):
     def get_queryset(self):
         return super(MemberFamilyManager, self).\
-            get_queryset().filter(person_type=6)
+            get_queryset().filter(person_type=member_family)
 
 
 class MaleManager(models.Manager):
     def get_query_set(self):
-        return super(MaleManager, self).get_query_set().filter(gender='M')
+        return super(MaleManager, self).get_query_set().filter(gender=men)
 
 
 class FemaleManager(models.Manager):
     def get_query_set(self):
-        return super(FemaleManager, self).get_query_set().filter(gender='F')
+        return super(FemaleManager, self).get_query_set().filter(gender=women)
 
 
 class Person(TimeStampedModel, AuthStampedModel):
@@ -133,10 +133,20 @@ class Person(TimeStampedModel, AuthStampedModel):
     calculate_age.short_description = "Age"
     # calculate_age.admin_order_field = "age"
 
-    # def main_phone(self):
-    #     phone = PersonPhone.objects.filter(person_name_id=self.id)
-    #     for p in phone:
-    #         return p.phone_number
+    def main_phone(self):
+        phone = PersonPhone.objects.filter(
+            person_name_id=self.id,
+            default=True
+            )
+        if phone:
+            for p in phone:
+                return p.phone_number
+        else:
+            phone = PersonPhone.objects.filter(person_name_id=self.id)
+            for p in phone:
+                return p.phone_number
+
+    main_phone.short_description = "Phone"
 
     def __unicode__(self):
         return '%s %s %s' % (
@@ -184,8 +194,8 @@ class PersonAddress(models.Model):
 
 
 class PersonPhone(models.Model):
-    phone_type = models.ForeignKey(PhoneType, null=True)
-    phone_number = PhoneNumberField(help_text='999-999-9999', null=True)
+    phone_type = models.ForeignKey(PhoneType)
+    phone_number = PhoneNumberField(help_text='999-999-9999')
     person_name = models.ForeignKey(Person)
     default = models.BooleanField(
         default=False,
@@ -199,12 +209,10 @@ class PersonPhone(models.Model):
         unique_together = (("person_name", "phone_type"),)
 
     def save(self, *args, **kwargs):
-        count_default = PersonPhone.objects.filter(
-            person_name_id=self.person_name_id,
-            default=True
-            ).count()
-        # person_type = Person.people.filter(person_type=1)
-        if count_default == 0 and self.phone_type == 3:
+        home, mobile, work, family_phone = 1, 2, 3, 4
+        if self.phone_type == work:
+            self.default = True
+        elif self.default == home:
             self.default = True
         super(PersonPhone, self).save(*args, **kwargs)
 

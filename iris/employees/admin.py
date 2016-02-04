@@ -97,12 +97,15 @@ class EmployeeAdmin(AdminImageMixin, admin.ModelAdmin):
         'full_name',
         'position',
         'department',
-        'hiring_date',
+        'email',
+        'main_phone',
+        # 'hiring_date',
         'years_of_work',
         # 'birth_day',
         'calculate_age',
         'status'
         ]
+
     list_display_links = ['id', 'full_name']
 
     list_filter = (
@@ -127,9 +130,10 @@ class EmployeeAdmin(AdminImageMixin, admin.ModelAdmin):
     ]
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        employee = 1
         if db_field.name == "dependent_of":
             kwargs["queryset"] = Employee.objects.filter(
-                person_type=1
+                person_type=employee
                 )
         return super(EmployeeAdmin, self).\
             formfield_for_foreignkey(db_field, request, **kwargs)

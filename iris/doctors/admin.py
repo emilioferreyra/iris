@@ -52,6 +52,7 @@ class DoctorAdmin(admin.ModelAdmin):
         'id',
         'doctor_name',
         'email',
+        'main_phone',
         'status',
         ]
 
@@ -60,7 +61,7 @@ class DoctorAdmin(admin.ModelAdmin):
         'doctor_name'
         ]
 
-    filter_horizontal = [
+    filter_vertical = [
         'specialities',
         'clinic'
         ]

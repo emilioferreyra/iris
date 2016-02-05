@@ -53,6 +53,7 @@ class MemberAdmin(admin.ModelAdmin):
             'classes': ('suit-tab', 'suit-tab-general',),
             'fields': [
                 'picture',
+                'member_number',
                 'names',
                 'father_last_name',
                 'mother_last_name',
@@ -80,12 +81,13 @@ class MemberAdmin(admin.ModelAdmin):
             })]
 
     list_display = [
-        'id',
+        # 'id',
+        'member_number',
         'status',
-        # 'full_name',
-        'names',
-        'father_last_name',
-        'mother_last_name',
+        'full_name',
+        # 'names',
+        # 'father_last_name',
+        # 'mother_last_name',
         'gender',
         'is_mother',
         'children_quantity',
@@ -93,14 +95,16 @@ class MemberAdmin(admin.ModelAdmin):
         'calculate_age',
         'birth_day',
         'was_created_recently',
+        # 'main_address',
         ]
 
     list_display_links = [
-        'id',
-        # 'full_name',
-        'names',
-        'father_last_name',
-        'mother_last_name',
+        # 'id',
+        'member_number',
+        'full_name',
+        # 'names',
+        # 'father_last_name',
+        # 'mother_last_name',
         ]
 
     list_filter = [
@@ -135,6 +139,8 @@ class MemberAdmin(admin.ModelAdmin):
         'mother_last_name'
     ]
 
+    readonly_fields = ('member_number',)
+
     suit_form_tabs = (
         ('general', 'General'),
         ('additionalsfields', 'Additional Info'),
@@ -144,9 +150,14 @@ class MemberAdmin(admin.ModelAdmin):
         ('house', 'House Type'),
         )
 
+    # def get_readonly_fields(self, request, obj=None):
+    #     if obj:  # editing an existing object
+    #         return self.readonly_fields + ('member_number',)
+    #     return self.readonly_fields
+
 
 admin.site.register(Disability)
 admin.site.register(Cane)
 admin.site.register(Member, MemberAdmin)
-admin.site.register(House)
+# admin.site.register(House)
 admin.site.register(Ocupation)

@@ -108,7 +108,7 @@ class AppointmentAdmin(admin.ModelAdmin):
         (None, {
             'classes': ('suit-tab', 'suit-tab-general',),
             'fields': [
-                'date',
+                'appointment_date',
                 'clinic',
                 'doctor',
                 'member',
@@ -125,7 +125,7 @@ class AppointmentAdmin(admin.ModelAdmin):
 
     list_display = [
         'id',
-        'date',
+        'appointment_date',
         'member',
         'doctor',
         'clinic'
@@ -136,19 +136,19 @@ class AppointmentAdmin(admin.ModelAdmin):
         'clinic'
         ]
     list_filter = (
-        'date',
+        'appointment_date',
         ('clinic', admin.RelatedOnlyFieldListFilter),
         ('member', admin.RelatedOnlyFieldListFilter),
         ('doctor', admin.RelatedOnlyFieldListFilter),
     )
     list_display_links = [
         'id',
-        'date',
-        # 'member',
+        'appointment_date',
+        'member',
         # 'doctor',
         # 'clinic'
         ]
-    ordering = ['-id']
+    # ordering = ['-id']
 
     inlines = [PrescribedMedicineInlines]
 
@@ -184,4 +184,4 @@ admin.site.register(Clinic, ClinicAdmin)
 admin.site.register(Speciality)
 admin.site.register(Appointment, AppointmentAdmin)
 admin.site.register(Medicine)
-admin.site.register(PrescribedMedicine)
+# admin.site.register(PrescribedMedicine)

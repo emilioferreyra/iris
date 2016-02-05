@@ -2,6 +2,8 @@
 # Django core
 from __future__ import absolute_import, unicode_literals
 from django.db import models
+# from datetime import date
+from django.utils.timezone import now
 
 # Third-party apps
 from smart_selects.db_fields import ChainedForeignKey
@@ -74,6 +76,20 @@ class Doctor(Person):
 
     doctor_name.short_description = 'Name'
 
+    def __unicode__(self):
+        if self.gender == 'F':
+            return "Dra. %s %s %s" % (
+                self.names,
+                self.father_last_name,
+                self.mother_last_name
+                )
+        else:
+            return "Dr. %s %s %s" % (
+                self.names,
+                self.father_last_name,
+                self.mother_last_name
+                )
+
     def save(self, *args, **kwargs):
         self.person_type = PersonType.objects.get(name="Doctor")
         super(Doctor, self).save(*args, **kwargs)
@@ -87,7 +103,7 @@ class Appointment(models.Model):
         chained_field="clinic",
         chained_model_field="clinic",
         )
-    date = models.DateField()
+    appointment_date = models.DateField(default=now())
     symptomatology = models.TextField(max_length=300)
     prescription = models.TextField(max_length=300, null=True, blank=True)
     date_next_appoitment = models.DateField(null=True, blank=True)
@@ -95,7 +111,7 @@ class Appointment(models.Model):
     class Meta:
         verbose_name = "Appointment"
         verbose_name_plural = "Appointments"
-        unique_together = (("member", "doctor", "date"),)
+        unique_together = (("member", "doctor", "appointment_date"),)
 
     def __unicode__(self):
         return '%s with %s at %s' % (self.member, self.doctor, self.clinic)

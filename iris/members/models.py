@@ -4,7 +4,8 @@ from __future__ import absolute_import, unicode_literals
 from django.db import models
 import datetime
 from django.utils import timezone
-from django.db.models import Q
+from django.db.models import Q, Max
+
 # Third-party apps
 from smart_selects.db_fields import ChainedForeignKey
 # My apps
@@ -45,8 +46,18 @@ class Ocupation(models.Model):
         return self.name
 
 
+def number():
+    no = Member.objects.aggregate(Max('member_number'))
+    value = no.values()[0]
+    if value is None:
+        return 1
+    else:
+        return value + 1
+
+
 class Member(Person):
-    # objects = MemberManager()
+    objects = MemberManager()
+    member_number = models.IntegerField(unique=True, default=number)
     disabilities = models.ManyToManyField(Disability)
     cane_number = models.ForeignKey(Cane)
     property_type = models.ForeignKey(PropertyType)

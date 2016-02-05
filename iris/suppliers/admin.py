@@ -33,11 +33,14 @@ class SupplierContactAdmin(AdminImageMixin, admin.ModelAdmin):
                 'gender',
                 ]
             })]
+
     list_display = [
-        'full_name',
         'supplier_company',
+        'full_name',
+        'main_phone',
         'email',
         ]
+
     inlines = [SupplierContactPhoneInline]
     search_fields = ['name', 'supplier_company']
     # list_filter = ['supplier_company', 'supplier_company__supplier_type']

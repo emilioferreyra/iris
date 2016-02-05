@@ -16,13 +16,11 @@ from commons.models import MaritalStatus, DocumentType, Kinship,\
 from location.models import Nationality, Country, Region, Province,\
     Town, AddressType
 
-#  PersonType variables
+#  PersonType variables.
+employee, member, doctor, supplier, employee_family, member_family = \
+    1, 2, 3, 4, 5, 6
 
-employee, member, doctor, supplier, employee_family, \
-    member_family = 1, 2, 3, 4, 5, 6
-
-# Men and women
-
+# Men and women variables.
 men, women = "M", "F"
 
 
@@ -133,18 +131,33 @@ class Person(TimeStampedModel, AuthStampedModel):
     calculate_age.short_description = "Age"
     # calculate_age.admin_order_field = "age"
 
+    def main_address(self):
+        address = PersonAddress.objects.filter(
+            person_name_id=self.id,
+            default=True
+            ).order_by('id').first()
+        if address:
+            return address
+        else:
+            address = PersonAddress.objects.filter(
+                person_name_id=self.id
+                ).order_by('id').first()
+            return address
+
+    main_address.short_description = "Address"
+
     def main_phone(self):
         phone = PersonPhone.objects.filter(
             person_name_id=self.id,
             default=True
-            )
+            ).order_by('id').first()
         if phone:
-            for p in phone:
-                return p.phone_number
+            return phone
         else:
-            phone = PersonPhone.objects.filter(person_name_id=self.id)
-            for p in phone:
-                return p.phone_number
+            phone = PersonPhone.objects.filter(
+                person_name_id=self.id
+                ).order_by('id').first()
+            return phone
 
     main_phone.short_description = "Phone"
 
@@ -208,13 +221,5 @@ class PersonPhone(models.Model):
         db_table = "people_person_phone"
         unique_together = (("person_name", "phone_type"),)
 
-    def save(self, *args, **kwargs):
-        home, mobile, work, family_phone = 1, 2, 3, 4
-        if self.phone_type == work:
-            self.default = True
-        elif self.default == home:
-            self.default = True
-        super(PersonPhone, self).save(*args, **kwargs)
-
     def __unicode__(self):
-        return '%s %s' % (self.person_name, self.phone_number)
+        return self.phone_number

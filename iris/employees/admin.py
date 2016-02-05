@@ -102,7 +102,7 @@ class EmployeeAdmin(AdminImageMixin, admin.ModelAdmin):
         # 'hiring_date',
         'years_of_work',
         # 'birth_day',
-        'calculate_age',
+        # 'calculate_age',
         'status'
         ]
 
@@ -121,6 +121,8 @@ class EmployeeAdmin(AdminImageMixin, admin.ModelAdmin):
     }
 
     search_fields = ['name']
+
+    ordering = ['department']
 
     inlines = [
         EmployeeAddressInline,

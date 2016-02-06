@@ -27,6 +27,55 @@ class HouseMaterial(models.Model):
         return '%s of %s' % (self.house_part, self.name)
 
 
+# House parts variables
+ceilling, wall, floor = 1, 2, 3
+
+
+class CeillingManager(models.Manager):
+    def get_queryset(self):
+        return super(CeillingManager, self).\
+            get_queryset().filter(house_part_id=ceilling)
+
+
+class WallManager(models.Manager):
+    def get_queryset(self):
+        return super(WallManager, self).\
+            get_queryset().filter(house_part_id=wall)
+
+
+class FloorManager(models.Manager):
+    def get_queryset(self):
+        return super(FloorManager, self).\
+            get_queryset().filter(house_part_id=floor)
+
+
+class HouseMaterialCeilling(HouseMaterial):
+    objects = CeillingManager()
+
+    class Meta:
+        verbose_name = "HouseMaterialCeilling"
+        verbose_name_plural = "HouseMaterialCeillings"
+        proxy = True
+
+
+class HouseMaterialWall(HouseMaterial):
+    objects = WallManager()
+
+    class Meta:
+        verbose_name = "HouseMaterialWall"
+        verbose_name_plural = "HouseMaterialWalls"
+        proxy = True
+
+
+class HouseMaterialFloor(HouseMaterial):
+    objects = FloorManager()
+
+    class Meta:
+        verbose_name = "HouseMaterialFloor"
+        verbose_name_plural = "HouseMaterialFloors"
+        proxy = True
+
+
 class PropertyType(models.Model):
     name = models.CharField(max_length=45, unique=True)
 

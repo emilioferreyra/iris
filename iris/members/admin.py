@@ -39,10 +39,10 @@ class MemberFamilyInline(admin.StackedInline):
     suit_classes = 'suit-tab suit-tab-memberfamily'
 
 
-class HouseInline(admin.TabularInline):
+class HouseInline(admin.StackedInline):
     model = House
-    min_num = 3
-    max_num = 3
+    min_num = 1
+    max_num = 1
     extra = 0
     suit_classes = 'suit-tab suit-tab-house'
 
@@ -72,7 +72,7 @@ class MemberAdmin(admin.ModelAdmin):
             'fields': [
                 'disabilities',
                 'cane_number',
-                'property_type',
+                # 'property_type',
                 'currently_works',
                 'ocupation',
                 'where_work',
@@ -92,19 +92,16 @@ class MemberAdmin(admin.ModelAdmin):
         'is_mother',
         'children_quantity',
         # 'email',
+        'main_phone',
         'calculate_age',
-        'birth_day',
+        # 'birth_day',
         'was_created_recently',
         # 'main_address',
         ]
 
     list_display_links = [
-        # 'id',
         'member_number',
         'full_name',
-        # 'names',
-        # 'father_last_name',
-        # 'mother_last_name',
         ]
 
     list_filter = [
@@ -117,10 +114,6 @@ class MemberAdmin(admin.ModelAdmin):
         "document_type": admin.HORIZONTAL,
         "marital_status": admin.HORIZONTAL,
     }
-
-    # filter_vertical = [
-    #     'disabilities'
-    #     ]
 
     formfield_overrides = {
         models.ManyToManyField: {'widget': CheckboxSelectMultiple},
@@ -150,14 +143,7 @@ class MemberAdmin(admin.ModelAdmin):
         ('house', 'House Type'),
         )
 
-    # def get_readonly_fields(self, request, obj=None):
-    #     if obj:  # editing an existing object
-    #         return self.readonly_fields + ('member_number',)
-    #     return self.readonly_fields
-
-
 admin.site.register(Disability)
 admin.site.register(Cane)
 admin.site.register(Member, MemberAdmin)
-# admin.site.register(House)
 admin.site.register(Ocupation)

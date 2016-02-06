@@ -7,11 +7,12 @@ from django.utils import timezone
 from django.db.models import Q, Max
 
 # Third-party apps
-from smart_selects.db_fields import ChainedForeignKey
+# from smart_selects.db_fields import ChainedForeignKey
 # My apps
 from commons.models import PersonType
 from people.models import Person, MemberManager, MemberFamilyManager
-from housing.models import HouseMaterial, HousePart, PropertyType
+from housing.models import PropertyType, HouseMaterialCeilling,\
+    HouseMaterialWall, HouseMaterialFloor
 
 
 class Disability(models.Model):
@@ -60,7 +61,7 @@ class Member(Person):
     member_number = models.IntegerField(unique=True, default=number)
     disabilities = models.ManyToManyField(Disability)
     cane_number = models.ForeignKey(Cane)
-    property_type = models.ForeignKey(PropertyType)
+    # property_type = models.ForeignKey(PropertyType)
     currently_works = models.BooleanField(default=False)
     ocupation = models.ForeignKey(Ocupation, null=True, blank=True)
     where_work = models.CharField(
@@ -115,22 +116,13 @@ class Member(Person):
 
 class House(models.Model):
     member_name = models.ForeignKey(Member)
-    house_part = models.ForeignKey(HousePart)
-    house_material = ChainedForeignKey(
-        HouseMaterial,
-        chained_field="house_part",
-        chained_model_field="house_part"
-    )
-
-    class Meta:
-        unique_together = (('member_name', 'house_part'), )
+    property_type = models.ForeignKey(PropertyType)
+    ceilling = models.ForeignKey(HouseMaterialCeilling)
+    wall = models.ForeignKey(HouseMaterialWall)
+    floor = models.ForeignKey(HouseMaterialFloor)
 
     def __unicode__(self):
-        return '%s %s %s' % (
-            self.member_name,
-            self.house_part,
-            self.house_material
-        )
+        return '%s %s' % (self.member_name, self.property_type)
 
 
 class MemberFamily(Person):

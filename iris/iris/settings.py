@@ -152,7 +152,7 @@ SUIT_CONFIG = {
        'people': 'icon-user',
        'suppliers': 'icon-briefcase',
     },
-    # 'MENU_OPEN_FIRST_CHILD': False, # Default True
+    'MENU_OPEN_FIRST_CHILD': False,  # Default True
     # 'MENU_EXCLUDE': ('auth.group',),
     # 'MENU': (
         # 'sites',

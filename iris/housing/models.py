@@ -14,19 +14,6 @@ class HousePart(models.Model):
         return self.name
 
 
-class HouseMaterial(models.Model):
-    house_part = models.ForeignKey(HousePart)
-    name = models.CharField(max_length=20)
-
-    class Meta:
-        unique_together = (('name', 'house_part'), )
-        db_table = 'housing_house_material'
-        ordering = ['id']
-
-    def __unicode__(self):
-        return '%s of %s' % (self.house_part, self.name)
-
-
 # House parts variables
 ceilling, wall, floor = 1, 2, 3
 
@@ -47,6 +34,22 @@ class FloorManager(models.Manager):
     def get_queryset(self):
         return super(FloorManager, self).\
             get_queryset().filter(house_part_id=floor)
+
+
+class HouseMaterial(models.Model):
+    ceilling = CeillingManager()
+    wall = WallManager()
+    floor = FloorManager()
+    house_part = models.ForeignKey(HousePart)
+    name = models.CharField(max_length=20)
+
+    class Meta:
+        unique_together = (('name', 'house_part'), )
+        db_table = 'housing_house_material'
+        ordering = ['id']
+
+    def __unicode__(self):
+        return '%s of %s' % (self.house_part, self.name)
 
 
 class HouseMaterialCeilling(HouseMaterial):

@@ -2,8 +2,8 @@
 # Django core
 from __future__ import absolute_import, unicode_literals
 from django.contrib import admin
-from django.db import models
-from django.forms import CheckboxSelectMultiple
+# from django.db import models
+# from django.forms import CheckboxSelectMultiple
 
 # My apps
 from .models import Doctor, Clinic, Speciality, \
@@ -184,4 +184,3 @@ admin.site.register(Clinic, ClinicAdmin)
 admin.site.register(Speciality)
 admin.site.register(Appointment, AppointmentAdmin)
 admin.site.register(Medicine)
-# admin.site.register(PrescribedMedicine)

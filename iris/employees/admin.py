@@ -95,6 +95,7 @@ class EmployeeAdmin(AdminImageMixin, admin.ModelAdmin):
     list_display = [
         'id',
         'full_name',
+        'get_position_level',
         'position',
         'department',
         'email',
@@ -131,11 +132,19 @@ class EmployeeAdmin(AdminImageMixin, admin.ModelAdmin):
         EmployeeFamilyInline,
     ]
 
+    def get_position_level(self, obj):
+        position_level = Position.objects.filter(id=obj.position_id)
+        for e in position_level:
+            return e.position_level_id
+    get_position_level.short_description = "Position level"
+
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
-        employee = 1
+        # position_level = Position.objects.filter(id=4)
+        # for e in position_level:
+        #     return e.position_level_id
         if db_field.name == "dependent_of":
             kwargs["queryset"] = Employee.objects.filter(
-                person_type=employee
+                position__position_level_id__gt=1
                 )
         return super(EmployeeAdmin, self).\
             formfield_for_foreignkey(db_field, request, **kwargs)

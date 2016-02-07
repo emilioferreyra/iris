@@ -4,7 +4,7 @@ from __future__ import absolute_import, unicode_literals
 from django.db import models
 
 # Third-party apps
-from localflavor.us.models import PhoneNumberField
+# from localflavor.us.models import PhoneNumberField
 
 
 class DocumentType(models.Model):
@@ -40,14 +40,6 @@ class PhoneType(models.Model):
 
     def __unicode__(self):
         return self.name
-
-
-# class Phone(models.Model):
-#     phone_type = models.ForeignKey(PhoneType)
-#     phone_number = PhoneNumberField(help_text='999-999-9999')
-
-#     class META:
-#         abstract = True
 
 
 class AcademicLevel(models.Model):

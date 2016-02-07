@@ -133,6 +133,12 @@ class Employee(Person):
         )
     years_of_work.short_description = "Years of work"
 
+    # def get_position_level(self):
+    #     position_level = Position.objects.filter(id=self.position_id)
+    #     for e in position_level:
+    #         return e.position_level_id
+    # get_position_level.short_description = "Position level"
+
 
 class EmployeeFamily(Person):
     objects = EmployeeFamilyManager()

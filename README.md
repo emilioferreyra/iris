@@ -35,9 +35,12 @@ Iris is a web application developed in Python via Django web framework, which al
 
 ##List of top Apps:
 
-**Employees:** This app allows the registration of employees and the department to which it belongs, position and supervisor
+**Employees:** This app allows the registration of employees and the department to which it belongs, position and supervisor.
+
 **Members:** This app lets you save the member information as well as their type of disability and information related to family and home.
+
 **Doctors:** This app lets you record clinics and doctors who provide consultation service to members and the appointments of the members.
+
 **Suppliers:** This app allows you to register suppliers and contacts related companies.
 
 ***
@@ -46,8 +49,11 @@ Iris is a web application developed in Python via Django web framework, which al
 ##List of auxiliary apps:
 
 **Common:** Contains common models used in the main apps.
+
 **Location:** Contains the models necessary for the correct location of entities (people, members, suppliers, etc.).
+
 **People:** This app contains reusable models entities employees, members, doctor, family member and family employee contact supplier.
+
 **Housing: **This app contains the models that identify the characteristics of housing for members.
 
 ***

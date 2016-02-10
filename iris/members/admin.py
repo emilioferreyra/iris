@@ -59,7 +59,7 @@ class MemberAdmin(admin.ModelAdmin):
                 'mother_last_name',
                 'email',
                 'birth_day',
-                'academic_level',
+                # 'academic_level',
                 'nationality',
                 'marital_status',
                 'gender',
@@ -114,7 +114,7 @@ class MemberAdmin(admin.ModelAdmin):
         "gender": admin.VERTICAL,
         "document_type": admin.HORIZONTAL,
         "marital_status": admin.HORIZONTAL,
-        "academic_level": admin.HORIZONTAL
+        # "academic_level": admin.HORIZONTAL
     }
 
     formfield_overrides = {

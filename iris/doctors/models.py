@@ -3,7 +3,7 @@
 from __future__ import absolute_import, unicode_literals
 from django.db import models
 # from datetime import date
-from django.utils.timezone import now
+# from django.utils import timezone
 
 # Third-party apps
 from smart_selects.db_fields import ChainedForeignKey
@@ -105,7 +105,7 @@ class Appointment(models.Model):
         chained_field="clinic",
         chained_model_field="clinic",
         )
-    appointment_date = models.DateField(default=now())
+    appointment_date = models.DateField()
     symptomatology = models.TextField(max_length=300)
     prescription = models.TextField(max_length=300, null=True, blank=True)
     date_next_appoitment = models.DateField(null=True, blank=True)

@@ -16,7 +16,6 @@ from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
@@ -27,7 +26,6 @@ SECRET_KEY = '^8xxu^ycbqg-=xjx+jn3e^830y+_)-xi-sf4l5&)2hqacd*k7l'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -67,7 +65,6 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'iris.urls'
 
-
 TEMPLATE_CONTEXT_PROCESSORS = TCP + (
     'django.core.context_processors.request',
 )
@@ -91,7 +88,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'iris.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
@@ -101,7 +97,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
@@ -115,7 +110,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
@@ -141,23 +135,23 @@ SUIT_CONFIG = {
     # menu
     'SEARCH_URL': '/admin/members/member/',
     'MENU_ICONS': {
-       'sites': 'icon-leaf',
-       'auth': 'icon-lock',
-       'commons': 'icon-random',
-       'doctors': 'icon-calendar',
-       'employees': 'icon-user',
-       'housing': 'icon-home',
-       'location': 'icon-map-marker',
-       'members': 'icon-eye-close',
-       'people': 'icon-user',
-       'suppliers': 'icon-briefcase',
+        'sites': 'icon-leaf',
+        'auth': 'icon-lock',
+        'commons': 'icon-random',
+        'doctors': 'icon-calendar',
+        'employees': 'icon-user',
+        'housing': 'icon-home',
+        'location': 'icon-map-marker',
+        'members': 'icon-eye-close',
+        'people': 'icon-user',
+        'suppliers': 'icon-briefcase',
     },
     'MENU_OPEN_FIRST_CHILD': False,  # Default True
     # 'MENU_EXCLUDE': ('auth.group',),
     # 'MENU': (
-        # 'sites',
+    # 'sites',
     #     {'app': 'auth', 'icon':'icon-lock', 'models': ('user', 'group')},
-        # {'label': 'Settings', 'icon':'icon-cog', 'models': ('auth.user', 'auth.group')},
+    # {'label': 'Settings', 'icon':'icon-cog', 'models': ('auth.user', 'auth.group')},
     #     {'label': 'Support', 'icon':'icon-question-sign', 'url': '/support/'},
     # ),
 

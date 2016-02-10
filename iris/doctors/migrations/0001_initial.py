@@ -2,46 +2,123 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
+import localflavor.us.models
+import smart_selects.db_fields
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
         ('people', '0001_initial'),
+        ('members', '0001_initial'),
+        ('location', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
+            name='Appointment',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('date', models.DateField()),
+                ('symptomatology', models.TextField(max_length=300)),
+                ('prescription', models.TextField(max_length=300, null=True, blank=True)),
+                ('date_next_appoitment', models.DateField(null=True, blank=True)),
+            ],
+            options={
+                'verbose_name': 'Appointment',
+                'verbose_name_plural': 'Appointments',
+            },
+        ),
+        migrations.CreateModel(
+            name='Clinic',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(unique=True, max_length=50)),
+                ('address', models.TextField(max_length=150, null=True, blank=True)),
+                ('phone_number', localflavor.us.models.PhoneNumberField(help_text='999-999-9999', max_length=20, null=True, blank=True)),
+                ('province', smart_selects.db_fields.ChainedForeignKey(chained_model_field='region', to='location.Province', chained_field='region')),
+                ('region', models.ForeignKey(default=1, to='location.Region', null=True)),
+                ('town', smart_selects.db_fields.ChainedForeignKey(chained_model_field='province', to='location.Town', chained_field='province')),
+            ],
+            options={
+                'ordering': ['name'],
+                'verbose_name': 'Clinic',
+                'verbose_name_plural': 'Clinics',
+            },
+        ),
+        migrations.CreateModel(
             name='Doctor',
             fields=[
+                ('person_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='people.Person')),
+                ('clinics', models.ManyToManyField(to='doctors.Clinic')),
             ],
             options={
                 'verbose_name': 'Doctor',
-                'proxy': True,
                 'verbose_name_plural': 'Doctors',
             },
             bases=('people.person',),
         ),
         migrations.CreateModel(
-            name='DoctorAddress',
+            name='Medicine',
             fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(unique=True, max_length=50)),
             ],
             options={
-                'verbose_name': 'Doctor Address',
-                'proxy': True,
-                'verbose_name_plural': 'Doctor Addreses',
+                'verbose_name': 'Medicine',
+                'verbose_name_plural': 'Medicines',
             },
-            bases=('people.personaddress',),
         ),
         migrations.CreateModel(
-            name='DoctorPhone',
+            name='PrescribedMedicine',
             fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('quantity', models.FloatField(default=1)),
+                ('unit', models.CharField(max_length=1, choices=[('G', 'Gout'), ('P', 'Pill'), ('S', 'Spoon')])),
+                ('frecuency', models.FloatField(default=1)),
+                ('frecuency_unit', models.CharField(max_length=1, choices=[('H', 'By Hour'), ('D', 'By Day')])),
+                ('appointment', models.ForeignKey(to='doctors.Appointment')),
+                ('medicine', models.ForeignKey(to='doctors.Medicine')),
             ],
             options={
-                'verbose_name': 'Doctor Phone',
-                'proxy': True,
-                'verbose_name_plural': 'Doctor Phones',
+                'db_table': 'doctors_prescribed_medicines',
+                'verbose_name': 'Prescribed Medicine',
+                'verbose_name_plural': 'Prescribed Medicines',
             },
-            bases=('people.personphone',),
+        ),
+        migrations.CreateModel(
+            name='Speciality',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(unique=True, max_length=60)),
+            ],
+            options={
+                'verbose_name': 'Speciality',
+                'verbose_name_plural': 'Specialities',
+            },
+        ),
+        migrations.AddField(
+            model_name='doctor',
+            name='specialities',
+            field=models.ManyToManyField(to='doctors.Speciality'),
+        ),
+        migrations.AddField(
+            model_name='appointment',
+            name='clinic',
+            field=models.ForeignKey(to='doctors.Clinic'),
+        ),
+        migrations.AddField(
+            model_name='appointment',
+            name='doctor',
+            field=smart_selects.db_fields.ChainedForeignKey(chained_model_field='clinic', to='doctors.Doctor', chained_field='clinic'),
+        ),
+        migrations.AddField(
+            model_name='appointment',
+            name='member',
+            field=models.ForeignKey(to='members.Member'),
+        ),
+        migrations.AlterUniqueTogether(
+            name='appointment',
+            unique_together=set([('member', 'doctor', 'date')]),
         ),
     ]

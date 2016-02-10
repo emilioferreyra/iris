@@ -1,8 +1,10 @@
+# -*- coding: utf-8 -*-
+# Django core
+from __future__ import absolute_import, unicode_literals
 from django.db import models
+
 # Third-party apps
-from localflavor.us.models import PhoneNumberField
-# My apps
-from location.models import Nationality
+# from localflavor.us.models import PhoneNumberField
 
 
 class DocumentType(models.Model):
@@ -18,7 +20,7 @@ class DocumentType(models.Model):
 
 
 class MaritalStatus(models.Model):
-    marital_status = models.CharField(unique=True, max_length=45)
+    name = models.CharField(unique=True, max_length=45)
 
     class Meta:
         db_table = 'commons_marital_status'
@@ -26,41 +28,18 @@ class MaritalStatus(models.Model):
         ordering = ['id']
 
     def __unicode__(self):
-        return self.marital_status
-
-
-class ContactInfo(models.Model):
-    names = models.CharField(max_length=100)
-    father_name = models.CharField(max_length=30)
-    mother_name = models.CharField(max_length=30)
-    email = models.EmailField(blank=True)
-    marital_status = models.ForeignKey(MaritalStatus)
-    document_type = models.ForeignKey(DocumentType)
-    document_id = models.CharField(max_length=22)
-    nationality = models.ForeignKey(Nationality)
-    active = models.BooleanField(default=True)
-
-    class META:
-        abstract = True
+        return self.name
 
 
 class PhoneType(models.Model):
-    phone_type = models.CharField(unique=True, max_length=45)
+    name = models.CharField(unique=True, max_length=45)
 
     class Meta:
         ordering = ['id']
         db_table = 'commons_phone_type'
 
     def __unicode__(self):
-        return self.phone_type
-
-
-class Phone(models.Model):
-    phone_type = models.ForeignKey(PhoneType)
-    phone_number = PhoneNumberField()
-
-    class META:
-        abstract = True
+        return self.name
 
 
 class AcademicLevel(models.Model):
@@ -74,20 +53,20 @@ class AcademicLevel(models.Model):
 
 
 class Kinship(models.Model):
-    kinship = models.CharField(unique=True, max_length=45)
+    name = models.CharField(unique=True, max_length=45)
 
     def __unicode__(self):
-        return self.kinship
+        return self.name
 
 
 class PersonType(models.Model):
-    person_type = models.CharField(max_length=40, unique=True)
+    name = models.CharField(max_length=45, unique=True)
 
     class Meta:
         verbose_name = "Person Type"
         verbose_name_plural = "Person Types"
-        db_table = 'commons_person_type'
+        db_table = "commons_person_type"
         ordering = ['id']
 
     def __unicode__(self):
-        return self.person_type
+        return self.name

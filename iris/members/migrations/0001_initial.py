@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
             name='Cane',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('cane', models.PositiveIntegerField()),
+                ('name', models.PositiveIntegerField()),
             ],
             options={
                 'ordering': ['id'],
@@ -35,42 +35,68 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-            name='Housing',
+            name='House',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('house_material', smart_selects.db_fields.ChainedForeignKey(chained_model_field=b'house_part', to='housing.HouseMaterial', chained_field=b'house_part')),
+                ('house_material', smart_selects.db_fields.ChainedForeignKey(chained_model_field='house_part', to='housing.HouseMaterial', chained_field='house_part')),
                 ('house_part', models.ForeignKey(to='housing.HousePart')),
             ],
         ),
         migrations.CreateModel(
             name='Member',
             fields=[
+                ('person_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='people.Person')),
+                ('currently_works', models.BooleanField(default=False)),
+                ('where_work', models.CharField(max_length=100, null=True, blank=True)),
+                ('observations', models.TextField(null=True, blank=True)),
+                ('cane_number', models.ForeignKey(to='members.Cane')),
+                ('disabilities', models.ManyToManyField(to='members.Disability')),
             ],
             options={
                 'verbose_name': 'Member',
-                'proxy': True,
                 'verbose_name_plural': 'Members',
             },
             bases=('people.person',),
         ),
         migrations.CreateModel(
-            name='MemberKinsman',
+            name='Ocupation',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(unique=True, max_length=40)),
+            ],
+            options={
+                'verbose_name': 'Ocupation',
+                'verbose_name_plural': 'Ocupations',
+            },
+        ),
+        migrations.CreateModel(
+            name='MemberFamily',
             fields=[
             ],
             options={
-                'verbose_name': 'Member Kinsman',
+                'verbose_name': 'Member Family',
                 'proxy': True,
-                'verbose_name_plural': 'Member Kinsmans',
+                'verbose_name_plural': 'Member Families',
             },
             bases=('people.person',),
         ),
         migrations.AddField(
-            model_name='housing',
+            model_name='member',
+            name='ocupation',
+            field=models.ForeignKey(blank=True, to='members.Ocupation', null=True),
+        ),
+        migrations.AddField(
+            model_name='member',
+            name='property_type',
+            field=models.ForeignKey(to='housing.PropertyType'),
+        ),
+        migrations.AddField(
+            model_name='house',
             name='member_name',
             field=models.ForeignKey(to='members.Member'),
         ),
         migrations.AlterUniqueTogether(
-            name='housing',
+            name='house',
             unique_together=set([('member_name', 'house_part')]),
         ),
     ]

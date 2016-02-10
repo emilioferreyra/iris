@@ -14,9 +14,10 @@ class Migration(migrations.Migration):
             name='HouseMaterial',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('house_material', models.CharField(max_length=20)),
+                ('name', models.CharField(max_length=20)),
             ],
             options={
+                'ordering': ['id'],
                 'db_table': 'housing_house_material',
             },
         ),
@@ -24,7 +25,7 @@ class Migration(migrations.Migration):
             name='HousePart',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('house_part', models.CharField(unique=True, max_length=20)),
+                ('name', models.CharField(unique=True, max_length=20)),
             ],
             options={
                 'ordering': ['id'],
@@ -35,7 +36,7 @@ class Migration(migrations.Migration):
             name='PropertyType',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('property_type', models.CharField(unique=True, max_length=45)),
+                ('name', models.CharField(unique=True, max_length=45)),
             ],
             options={
                 'ordering': ['id'],
@@ -49,6 +50,6 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterUniqueTogether(
             name='housematerial',
-            unique_together=set([('house_material', 'house_part')]),
+            unique_together=set([('name', 'house_part')]),
         ),
     ]

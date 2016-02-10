@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -31,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
+    'suit',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,6 +42,7 @@ INSTALLED_APPS = (
     # Third-party apps
     'smart_selects',
     'localflavor',
+    'sorl.thumbnail',
     # My apps
     'location',
     'commons',
@@ -47,9 +50,8 @@ INSTALLED_APPS = (
     'employees',
     'housing',
     'members',
+    'suppliers',
     'doctors',
-    # 'suppliers',
-    # 'appointments',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -65,11 +67,17 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'iris.urls'
 
+
+TEMPLATE_CONTEXT_PROCESSORS = TCP + (
+    'django.core.context_processors.request',
+)
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
+        # 'TEMPLATE_CONTEXT_PROCESSORS': ['django.core.context_processors.request'],
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -98,7 +106,7 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es'
 
 TIME_ZONE = 'America/Santo_Domingo'
 
@@ -114,4 +122,45 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
 USE_DJANGO_JQUERY = False
+
+# Django Suit configuration example
+SUIT_CONFIG = {
+    # header
+    'ADMIN_NAME': 'Iris Project',
+    # 'HEADER_DATE_FORMAT': 'l, j. F Y',
+    # 'HEADER_TIME_FORMAT': 'H:i',
+
+    # forms
+    # 'SHOW_REQUIRED_ASTERISK': True,  # Default True
+    # 'CONFIRM_UNSAVED_CHANGES': True, # Default True
+
+    # menu
+    'SEARCH_URL': '/admin/members/member/',
+    'MENU_ICONS': {
+       'sites': 'icon-leaf',
+       'auth': 'icon-lock',
+       'commons': 'icon-random',
+       'doctors': 'icon-calendar',
+       'employees': 'icon-user',
+       'housing': 'icon-home',
+       'location': 'icon-map-marker',
+       'members': 'icon-eye-close',
+       'people': 'icon-user',
+       'suppliers': 'icon-briefcase',
+    },
+    'MENU_OPEN_FIRST_CHILD': False,  # Default True
+    # 'MENU_EXCLUDE': ('auth.group',),
+    # 'MENU': (
+        # 'sites',
+    #     {'app': 'auth', 'icon':'icon-lock', 'models': ('user', 'group')},
+        # {'label': 'Settings', 'icon':'icon-cog', 'models': ('auth.user', 'auth.group')},
+    #     {'label': 'Support', 'icon':'icon-question-sign', 'url': '/support/'},
+    # ),
+
+    # misc
+    # 'LIST_PER_PAGE': 15
+}

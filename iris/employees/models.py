@@ -10,7 +10,7 @@ from django.utils.translation import ugettext_lazy as _
 from smart_selects.db_fields import ChainedForeignKey
 
 # My apps
-from commons.models import PersonType
+from commons.models import PersonType, AcademicLevel
 from people.models import Person, EmployeeManager, EmployeeFamilyManager
 
 
@@ -93,6 +93,7 @@ class WorkSchedule(models.Model):
 class Employee(Person):
     objects = EmployeeManager()
     hiring_date = models.DateField()
+    academic_level = models.ForeignKey(AcademicLevel)
     department = models.ForeignKey(Department)
     position = ChainedForeignKey(
         Position,

@@ -9,7 +9,7 @@ from django.db.models import Q, Max
 # Third-party apps
 # from smart_selects.db_fields import ChainedForeignKey
 # My apps
-from commons.models import PersonType
+from commons.models import PersonType, AcademicLevel
 from people.models import Person, MemberManager, MemberFamilyManager
 from housing.models import PropertyType, HouseMaterialCeilling,\
     HouseMaterialWall, HouseMaterialFloor
@@ -62,6 +62,7 @@ class Member(Person):
     disabilities = models.ManyToManyField(Disability)
     cane_number = models.ForeignKey(Cane)
     # property_type = models.ForeignKey(PropertyType)
+    academic_level = models.ForeignKey(AcademicLevel)
     currently_works = models.BooleanField(default=False)
     ocupation = models.ForeignKey(Ocupation, null=True, blank=True)
     where_work = models.CharField(
@@ -99,8 +100,8 @@ class Member(Person):
             Q(dependent_of=self.id),
             Q(kinship=3) | Q(kinship=4)
         ).count()
-        if quantity > 0:
-            quantity
+        # if quantity > 0:
+        #     return quantity
         return quantity
 
     # children_quantity.admin_order_field = 'children_number'

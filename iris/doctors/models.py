@@ -19,8 +19,9 @@ from suppliers.models import SupplierCompany, SupplierType
 
 class ClinicManager(models.Manager):
     def get_queryset(self):
+        clinic = 1
         return super(ClinicManager, self).\
-            get_queryset().filter(supplier_type=1)
+            get_queryset().filter(supplier_type=clinic)
 
 
 class Clinic(SupplierCompany):
@@ -33,7 +34,8 @@ class Clinic(SupplierCompany):
         proxy = True
 
     def save(self, *args, **kwargs):
-        self.supplier_type = SupplierType.objects.get(id=1)
+        clinic = 1
+        self.supplier_type = SupplierType.objects.get(id=clinic)
         super(Clinic, self).save(*args, **kwargs)
 
     def __unicode__(self):

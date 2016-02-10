@@ -71,6 +71,7 @@ class EmployeeAdmin(AdminImageMixin, admin.ModelAdmin):
                 'email',
                 'birth_day',
                 'nationality',
+                'academic_level',
                 'marital_status',
                 'gender',
                 'document_type',
@@ -119,6 +120,7 @@ class EmployeeAdmin(AdminImageMixin, admin.ModelAdmin):
         "gender": admin.VERTICAL,
         "document_type": admin.HORIZONTAL,
         "marital_status": admin.HORIZONTAL,
+        "academic_level": admin.HORIZONTAL,
     }
 
     search_fields = ['name']

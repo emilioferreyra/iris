@@ -207,12 +207,15 @@
       <column name="employee_type_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="position_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="workSchedule_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="academic_level_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <primary-key columns="person_ptr_id"/>
-      <foreign-key name="#FAKE_employees_employee_1" columns="workSchedule_id" ref-table="employees_work_schedule" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
-      <foreign-key name="#FAKE_employees_employee_2" columns="position_id" ref-table="employees_position" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
-      <foreign-key name="#FAKE_employees_employee_3" columns="employee_type_id" ref-table="employees_employee_type" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
-      <foreign-key name="#FAKE_employees_employee_4" columns="department_id" ref-table="employees_department" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
-      <foreign-key name="#FAKE_employees_employee_5" columns="person_ptr_id" ref-table="people_person" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_employees_employee_1" columns="academic_level_id" ref-table="commons_academic_level" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_employees_employee_2" columns="workSchedule_id" ref-table="employees_work_schedule" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_employees_employee_3" columns="position_id" ref-table="employees_position" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_employees_employee_4" columns="employee_type_id" ref-table="employees_employee_type" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_employees_employee_5" columns="department_id" ref-table="employees_department" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_employees_employee_6" columns="person_ptr_id" ref-table="people_person" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="employees_employee_9a41005a" unique="true" columns="academic_level_id"/>
       <index name="employees_employee_5809ec1a" unique="true" columns="workSchedule_id"/>
       <index name="employees_employee_bce5bd07" unique="true" columns="position_id"/>
       <index name="employees_employee_83590748" unique="true" columns="employee_type_id"/>
@@ -353,10 +356,13 @@
       <column name="cane_number_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="ocupation_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
       <column name="member_number" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="academic_level_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
       <primary-key columns="person_ptr_id"/>
-      <foreign-key name="#FAKE_members_member_1" columns="ocupation_id" ref-table="members_ocupation" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
-      <foreign-key name="#FAKE_members_member_2" columns="cane_number_id" ref-table="members_cane" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
-      <foreign-key name="#FAKE_members_member_3" columns="person_ptr_id" ref-table="people_person" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_members_member_1" columns="academic_level_id" ref-table="commons_academic_level" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_members_member_2" columns="ocupation_id" ref-table="members_ocupation" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_members_member_3" columns="cane_number_id" ref-table="members_cane" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_members_member_4" columns="person_ptr_id" ref-table="people_person" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="members_member_9a41005a" unique="true" columns="academic_level_id"/>
       <index name="members_member_6f6cbe59" unique="true" columns="ocupation_id"/>
       <index name="members_member_a35ee834" unique="true" columns="cane_number_id"/>
     </table>

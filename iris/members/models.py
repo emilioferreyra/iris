@@ -96,9 +96,11 @@ class Member(Person):
     is_mother.short_description = 'Is mother?'
 
     def children_quantity(self):
+        son = 3
+        daughter = 4
         quantity = Person.member_families.filter(
             Q(dependent_of=self.id),
-            Q(kinship=3) | Q(kinship=4)
+            Q(kinship=son) | Q(kinship=daughter)
         ).count()
         # if quantity > 0:
         #     return quantity

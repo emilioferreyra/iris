@@ -2,16 +2,34 @@
 # Django core
 from __future__ import absolute_import, unicode_literals
 from django.contrib import admin
+from django import forms
+# from django.forms import RadioChoiceInput
 from django.db import models
-from django.forms import CheckboxSelectMultiple
+from django.forms import CheckboxSelectMultiple, RadioSelect
 
 # My apps
 from .models import Member, Disability, Cane,\
     House, Ocupation, MemberFamily
 from people.admin import PersonAddressInline, PersonPhoneInline
+from people.models import PersonAddress, PersonPhone
+
+#
+# class PersonAddressForm(forms.ModelForm):
+#     class Meta:
+#         model = PersonAddress
+#         fields = "__all__"
+#         yes_no = forms.BooleanField(widget=RadioChoiceInput(choices=[(True, 'Yes'),
+#                                                             (False, 'No')]))
 
 
 class MemberAddressInline(PersonAddressInline):
+    # form = PersonAddressForm
+    # radio_fields = {
+    #     "default": admin.VERTICAL
+    # }
+    # formfield_overrides = {
+    #         models.BooleanField: {'widget': RadioSelect},
+    #     }
     suit_classes = 'suit-tab suit-tab-memberaddress'
 
 

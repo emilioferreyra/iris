@@ -134,7 +134,7 @@ class Person(TimeStampedModel, AuthStampedModel):
     def main_address(self):
         address = PersonAddress.objects.filter(
             person_name_id=self.id,
-            default=True
+            is_default=True
             ).order_by('id').first()
         if address:
             return address
@@ -149,7 +149,7 @@ class Person(TimeStampedModel, AuthStampedModel):
     def main_phone(self):
         phone = PersonPhone.objects.filter(
             person_name_id=self.id,
-            default=True
+            is_default=True
             ).order_by('id').first()
         if phone:
             return phone
@@ -175,6 +175,7 @@ class Person(TimeStampedModel, AuthStampedModel):
 
 
 class PersonAddress(models.Model):
+    BOOL_CHOICES = ((True, 'Yes'), (False, 'No'))
     person_name = models.ForeignKey(Person)
     country = models.ForeignKey(Country, default=1)
     region = models.ForeignKey(Region)
@@ -192,9 +193,10 @@ class PersonAddress(models.Model):
     building = models.CharField(max_length=20, null=True, blank=True)
     apartment = models.CharField(max_length=20, null=True, blank=True)
     street = models.CharField(max_length=40)
-    default = models.BooleanField(
+    is_default = models.BooleanField(
         default=False,
-        verbose_name='Default Address'
+        verbose_name='Default Address',
+        # choices=BOOL_CHOICES,
     )
 
     class Meta:
@@ -210,7 +212,7 @@ class PersonPhone(models.Model):
     phone_type = models.ForeignKey(PhoneType)
     phone_number = PhoneNumberField(help_text='999-999-9999')
     person_name = models.ForeignKey(Person)
-    default = models.BooleanField(
+    is_default = models.BooleanField(
         default=False,
         verbose_name='default phone'
         )

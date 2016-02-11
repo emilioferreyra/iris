@@ -22,10 +22,11 @@ class PersonAddressInline(admin.StackedInline):
         'region',
         'province',
         'town',
-        'default',
+        'is_default',
         ]
     min_num = 1
     max_num = max_num_addresses
+    # radio_fields = {"is_default": admin.VERTICAL}
     suit_classes = 'suit-tab suit-tab-addresses'
 
 

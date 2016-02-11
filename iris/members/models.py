@@ -56,12 +56,14 @@ def number():
         return value + 1
 
 
+son = 3
+daughter = 4
+
 class Member(Person):
     objects = MemberManager()
     member_number = models.IntegerField(unique=True, default=number)
     disabilities = models.ManyToManyField(Disability)
     cane_number = models.ForeignKey(Cane)
-    # property_type = models.ForeignKey(PropertyType)
     academic_level = models.ForeignKey(AcademicLevel)
     currently_works = models.BooleanField(default=False)
     ocupation = models.ForeignKey(Ocupation, null=True, blank=True)
@@ -85,8 +87,8 @@ class Member(Person):
         mother = False
         children = Person.member_families.filter(
             Q(dependent_of=self.id),
-            Q(kinship=3) | Q(kinship=4)
-        )
+            Q(kinship=son) | Q(kinship=daughter)
+        ).count()
         if children > 0 and self.gender == 'F':
             mother = True
         return mother
@@ -98,7 +100,7 @@ class Member(Person):
     def children_quantity(self):
         quantity = Person.member_families.filter(
             Q(dependent_of=self.id),
-            Q(kinship=3) | Q(kinship=4)
+            Q(kinship=son) | Q(kinship=daughter)
         ).count()
         # if quantity > 0:
         #     return quantity

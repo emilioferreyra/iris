@@ -116,7 +116,7 @@ class Employee(Person):
                 today.year, today.month, today.day):
             raise ValidationError(
                 {'birth_day': _('Must be at least 18 years old to register.')})
-        if self.hiring_date > today:
+        if self.hiring_date <= today:
             raise ValidationError(
                 {'hiring_date': _('The hiring date must to be minor or iqual \
                     to today.')})

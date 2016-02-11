@@ -356,7 +356,7 @@
       <column name="cane_number_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="ocupation_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
       <column name="member_number" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
-      <column name="academic_level_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="academic_level_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <primary-key columns="person_ptr_id"/>
       <foreign-key name="#FAKE_members_member_1" columns="academic_level_id" ref-table="commons_academic_level" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
       <foreign-key name="#FAKE_members_member_2" columns="ocupation_id" ref-table="members_ocupation" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
@@ -425,13 +425,13 @@
       <column name="building" sqlType="VARCHAR(20)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
       <column name="apartment" sqlType="VARCHAR(20)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
       <column name="street" sqlType="VARCHAR(40)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
-      <column name="default" sqlType="BOOL" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="address_type_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="country_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="person_name_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="province_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="region_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="town_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="is_default" sqlType="BOOL" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <primary-key columns="id"/>
       <foreign-key name="#FAKE_people_person_address_1" columns="town_id" ref-table="location_town" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
       <foreign-key name="#FAKE_people_person_address_2" columns="region_id" ref-table="location_region" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
@@ -449,9 +449,9 @@
     <table name="people_person_phone" schema="" catalog="" type="TABLE">
       <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="phone_number" sqlType="VARCHAR(20)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
-      <column name="default" sqlType="BOOL" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="person_name_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="phone_type_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="is_default" sqlType="BOOL" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <primary-key columns="id"/>
       <foreign-key name="#FAKE_people_person_phone_1" columns="phone_type_id" ref-table="commons_phone_type" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
       <foreign-key name="#FAKE_people_person_phone_2" columns="person_name_id" ref-table="people_person" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>

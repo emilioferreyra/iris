@@ -6,9 +6,12 @@ from django import forms
 # from django.forms import RadioChoiceInput
 from django.db import models
 from django.forms import CheckboxSelectMultiple, RadioSelect
+<<<<<<< HEAD
 
 #  Third party apps
 from sorl.thumbnail.admin import AdminImageMixin
+=======
+>>>>>>> 92c74705d199ebfae4d25e203a2c29deedba661d
 
 # My apps
 from .models import Member, Disability, Cane,\

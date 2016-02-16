@@ -88,7 +88,7 @@ class Person(TimeStampedModel, AuthStampedModel):
         help_text='000-0000000-0',
         null=True
     )
-    email = models.EmailField(blank=True)
+    email = models.EmailField(verbose_name="e-mail", blank=True)
     person_type = models.ForeignKey(PersonType, null=True)
     dependent_of = models.ForeignKey(
         'self',
@@ -120,7 +120,7 @@ class Person(TimeStampedModel, AuthStampedModel):
             self.mother_last_name
         )
     full_name.short_description = "Name"
-    # full_name.admin_order_field = "name"
+    full_name.admin_order_field = "names"
 
     def calculate_age(self):
         today = date.today()
@@ -129,7 +129,7 @@ class Person(TimeStampedModel, AuthStampedModel):
             (self.birth_day.month, self.birth_day.day)
         )
     calculate_age.short_description = "Age"
-    # calculate_age.admin_order_field = "age"
+    calculate_age.admin_order_field = "-birth_day"
 
     def main_address(self):
         address = PersonAddress.objects.filter(

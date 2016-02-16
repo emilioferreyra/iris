@@ -4,14 +4,12 @@ from __future__ import absolute_import, unicode_literals
 from django.contrib import admin
 from django.db import models
 from django.forms import CheckboxSelectMultiple
-from datetime import date
-from sorl.thumbnail.admin import AdminImageMixin
+# from datetime import date
 # from django.forms import ModelForm
 from django import forms
-
 # Third party apps
-from suit.widgets import EnclosedInput
-
+# from suit.widgets import EnclosedInput
+from sorl.thumbnail.admin import AdminImageMixin
 # My models
 from .models import Employee, Department, Position,\
     EmployeeType, Workday, WorkSchedule, EmployeeFamily, PositionLevel

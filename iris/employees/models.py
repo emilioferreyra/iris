@@ -116,7 +116,7 @@ class Employee(Person):
                 today.year, today.month, today.day):
             raise ValidationError(
                 {'birth_day': _('Must be at least 18 years old to register.')})
-        if self.hiring_date > today:
+        if self.hiring_date <= today:
             raise ValidationError(
                 {'hiring_date': _('The hiring date must to be minor or iqual \
                     to today.')})
@@ -133,12 +133,7 @@ class Employee(Person):
             (eaf.hiring_date.month, eaf.hiring_date.day)
         )
     years_of_work.short_description = "Years of work"
-
-    # def get_position_level(self):
-    #     position_level = Position.objects.filter(id=self.position_id)
-    #     for e in position_level:
-    #         return e.position_level_id
-    # get_position_level.short_description = "Position level"
+    years_of_work.admin_order_field = "-hiring_date"
 
 
 class EmployeeFamily(Person):

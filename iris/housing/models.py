@@ -13,8 +13,10 @@ class HousePart(models.Model):
     def __unicode__(self):
         return self.name
 
+"""
+House parts variables:
+"""
 
-# House parts variables
 ceilling, wall, floor = 1, 2, 3
 
 
@@ -44,7 +46,7 @@ class HouseMaterial(models.Model):
     name = models.CharField(max_length=20)
 
     class Meta:
-        unique_together = (('name', 'house_part'), )
+        # unique_together = (('name', 'house_part'), )
         db_table = 'housing_house_material'
         ordering = ['id']
 
@@ -56,8 +58,8 @@ class HouseMaterialCeilling(HouseMaterial):
     objects = CeillingManager()
 
     class Meta:
-        verbose_name = "HouseMaterialCeilling"
-        verbose_name_plural = "HouseMaterialCeillings"
+        verbose_name = "House Material Ceilling"
+        verbose_name_plural = "House Material Ceillings"
         proxy = True
 
 
@@ -65,8 +67,8 @@ class HouseMaterialWall(HouseMaterial):
     objects = WallManager()
 
     class Meta:
-        verbose_name = "HouseMaterialWall"
-        verbose_name_plural = "HouseMaterialWalls"
+        verbose_name = "House Material Wall"
+        verbose_name_plural = "House Material Walls"
         proxy = True
 
 
@@ -74,8 +76,8 @@ class HouseMaterialFloor(HouseMaterial):
     objects = FloorManager()
 
     class Meta:
-        verbose_name = "HouseMaterialFloor"
-        verbose_name_plural = "HouseMaterialFloors"
+        verbose_name = "House Material  Floor"
+        verbose_name_plural = "House Material Floors"
         proxy = True
 
 

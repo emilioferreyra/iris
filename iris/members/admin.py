@@ -2,22 +2,21 @@
 # Django core
 from __future__ import absolute_import, unicode_literals
 from django.contrib import admin
-from django import forms
+# from django import forms
 # from django.forms import RadioChoiceInput
 from django.db import models
-from django.forms import CheckboxSelectMultiple, RadioSelect
-<<<<<<< HEAD
+from django.forms import CheckboxSelectMultiple
+from django.utils.translation import ugettext_lazy as _
+# from django.db.models import Q
 
 #  Third party apps
 from sorl.thumbnail.admin import AdminImageMixin
-=======
->>>>>>> 92c74705d199ebfae4d25e203a2c29deedba661d
 
 # My apps
 from .models import Member, Disability, Cane,\
     House, Ocupation, MemberFamily
 from people.admin import PersonAddressInline, PersonPhoneInline
-from people.models import PersonAddress, PersonPhone
+# from people.models import PersonAddress, PersonPhone
 
 #
 # class PersonAddressForm(forms.ModelForm):
@@ -114,13 +113,14 @@ class MemberAdmin(AdminImageMixin, admin.ModelAdmin):
         # 'father_last_name',
         # 'mother_last_name',
         'gender',
-        'is_mother',
+        'member_is_mother',
+        # 'is_mother',
         'children_quantity',
         # 'email',
         'main_phone',
         'calculate_age',
         # 'birth_day',
-        'was_created_recently',
+        # 'was_created_recently',
         # 'main_address',
         ]
 
@@ -131,8 +131,14 @@ class MemberAdmin(AdminImageMixin, admin.ModelAdmin):
 
     list_filter = [
         'status',
-        'marital_status',
+        'created',
+        'is_mother',
         'gender',
+        ('marital_status', admin.RelatedOnlyFieldListFilter),
+        ('academic_level', admin.RelatedOnlyFieldListFilter),
+        ('ocupation', admin.RelatedOnlyFieldListFilter),
+        'house__property_type',
+        'personaddress__town',
     ]
     radio_fields = {
         "gender": admin.VERTICAL,
@@ -159,6 +165,8 @@ class MemberAdmin(AdminImageMixin, admin.ModelAdmin):
     ]
 
     readonly_fields = ('member_number',)
+
+    list_per_page = 10
 
     suit_form_tabs = (
         ('general', 'General'),

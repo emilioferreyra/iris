@@ -55,9 +55,13 @@ def number():
     else:
         return value + 1
 
+"""
+Children variables declaration to be used in member_is_mother
+and children_quantity functions.
+"""
 
-son = 3
-daughter = 4
+son, daughter = 3, 4
+
 
 class Member(Person):
     objects = MemberManager()
@@ -73,6 +77,7 @@ class Member(Person):
         blank=True
     )
     observations = models.TextField(null=True, blank=True)
+    is_mother = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = "Member"
@@ -83,29 +88,27 @@ class Member(Person):
         self.person_type = PersonType.objects.get(name="Member")
         super(Member, self).save(*args, **kwargs)
 
-    def is_mother(self):
-        mother = False
+    def member_is_mother(self):
+        is_mother = self.is_mother
         children = Person.member_families.filter(
             Q(dependent_of=self.id),
             Q(kinship=son) | Q(kinship=daughter)
         ).count()
         if children > 0 and self.gender == 'F':
-            mother = True
-        return mother
+            Member.objects.filter(id=self.id).update(is_mother=True)
+        if children == 0 and self.gender == 'F':
+            Member.objects.filter(id=self.id).update(is_mother=False)
+        return is_mother
 
-    # is_mother.admin_order_field = 'mother'
-    is_mother.boolean = True
-    is_mother.short_description = 'Is mother?'
+    member_is_mother.admin_order_field = 'is_mother'
+    member_is_mother.boolean = True
+    member_is_mother.short_description = 'Is mother'
 
     def children_quantity(self):
-        son = 3
-        daughter = 4
         quantity = Person.member_families.filter(
             Q(dependent_of=self.id),
             Q(kinship=son) | Q(kinship=daughter)
         ).count()
-        # if quantity > 0:
-        #     return quantity
         return quantity
 
     # children_quantity.admin_order_field = 'children_number'

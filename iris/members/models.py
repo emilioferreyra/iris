@@ -144,3 +144,17 @@ class MemberFamily(Person):
     def save(self, *args, **kwargs):
         self.person_type = PersonType.objects.get(name="Member Family")
         super(MemberFamily, self).save(*args, **kwargs)
+
+
+"""
+
+Academic level report:
+
+from django.db.models import Count
+from members.models import Member
+
+field = 'academic_level__name'
+for i in Member.objects.order_by(field).values(field).annotate(al_count=Count(field)):
+...     print i
+
+"""

@@ -8,7 +8,7 @@ from django.db import models
 
 
 class DocumentType(models.Model):
-    document_type = models.CharField(max_length=20, unique=True)
+    name = models.CharField(max_length=20, unique=True)
 
     class Meta:
         verbose_name = "Document Type"
@@ -16,7 +16,7 @@ class DocumentType(models.Model):
         db_table = 'commons_document_type'
 
     def __unicode__(self):
-        return self.document_type
+        return self.name
 
 
 class MaritalStatus(models.Model):
@@ -43,13 +43,13 @@ class PhoneType(models.Model):
 
 
 class AcademicLevel(models.Model):
-    academic_level = models.CharField(unique=True, max_length=45)
+    name = models.CharField(unique=True, max_length=45)
 
     class Meta:
         db_table = 'commons_academic_level'
 
     def __unicode__(self):
-        return self.academic_level
+        return self.name
 
 
 class Kinship(models.Model):

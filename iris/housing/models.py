@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
+from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
 
 
@@ -13,31 +14,30 @@ class HousePart(models.Model):
     def __unicode__(self):
         return self.name
 
-"""
-House parts variables:
-"""
 
-ceilling, wall, floor = 1, 2, 3
+# House parts dictionary:
+d = dict(ceilling=1, wall=2, floor=3)
 
 
 class CeillingManager(models.Manager):
     def get_queryset(self):
         return super(CeillingManager, self).\
-            get_queryset().filter(house_part_id=ceilling)
+            get_queryset().filter(house_part_id=d['ceilling'])
 
 
 class WallManager(models.Manager):
     def get_queryset(self):
         return super(WallManager, self).\
-            get_queryset().filter(house_part_id=wall)
+            get_queryset().filter(house_part_id=d['wall'])
 
 
 class FloorManager(models.Manager):
     def get_queryset(self):
         return super(FloorManager, self).\
-            get_queryset().filter(house_part_id=floor)
+            get_queryset().filter(house_part_id=d['floor'])
 
 
+@python_2_unicode_compatible
 class HouseMaterial(models.Model):
     ceilling = CeillingManager()
     wall = WallManager()
@@ -50,7 +50,7 @@ class HouseMaterial(models.Model):
         db_table = 'housing_house_material'
         ordering = ['id']
 
-    def __unicode__(self):
+    def __str__(self):
         return '%s of %s' % (self.house_part, self.name)
 
 
@@ -81,6 +81,7 @@ class HouseMaterialFloor(HouseMaterial):
         proxy = True
 
 
+@python_2_unicode_compatible
 class PropertyType(models.Model):
     name = models.CharField(max_length=45, unique=True)
 
@@ -88,5 +89,5 @@ class PropertyType(models.Model):
         ordering = ['id']
         db_table = 'housing_property_type'
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name

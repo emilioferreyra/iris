@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Django core
 from __future__ import absolute_import, unicode_literals
+from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
 from datetime import date
 # from django.utils import timezone
@@ -24,6 +25,7 @@ class ClinicManager(models.Manager):
             get_queryset().filter(supplier_type=clinic)
 
 
+@python_2_unicode_compatible
 class Clinic(SupplierCompany):
     objects = ClinicManager()
 
@@ -38,10 +40,11 @@ class Clinic(SupplierCompany):
         self.supplier_type = SupplierType.objects.get(id=clinic)
         super(Clinic, self).save(*args, **kwargs)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
+@python_2_unicode_compatible
 class Speciality(models.Model):
     name = models.CharField(max_length=60, unique=True)
 
@@ -49,10 +52,11 @@ class Speciality(models.Model):
         verbose_name = "Speciality"
         verbose_name_plural = "Specialities"
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
+@python_2_unicode_compatible
 class Doctor(Person):
     objects = DoctorManager()
     specialities = models.ManyToManyField(Speciality)
@@ -78,7 +82,7 @@ class Doctor(Person):
 
     doctor_name.short_description = 'Name'
 
-    def __unicode__(self):
+    def __str__(self):
         if self.gender == 'F':
             return "Dra. %s %s %s" % (
                 self.names,
@@ -97,6 +101,7 @@ class Doctor(Person):
         super(Doctor, self).save(*args, **kwargs)
 
 
+@python_2_unicode_compatible
 class Appointment(models.Model):
     member = models.ForeignKey(Member)
     clinic = models.ForeignKey(Clinic)
@@ -115,10 +120,11 @@ class Appointment(models.Model):
         verbose_name_plural = "Appointments"
         unique_together = (("member", "doctor", "appointment_date"),)
 
-    def __unicode__(self):
+    def __str__(self):
         return '%s with %s at %s' % (self.member, self.doctor, self.clinic)
 
 
+@python_2_unicode_compatible
 class Medicine(models.Model):
     name = models.CharField(max_length=50, unique=True)
 
@@ -126,10 +132,11 @@ class Medicine(models.Model):
         verbose_name = "Medicine"
         verbose_name_plural = "Medicines"
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
+@python_2_unicode_compatible
 class PrescribedMedicine(models.Model):
     UNIT_CHOICES = (
         ("G", "Gout"),
@@ -155,7 +162,7 @@ class PrescribedMedicine(models.Model):
         verbose_name_plural = "Prescribed Medicines"
         db_table = "doctors_prescribed_medicines"
 
-    def __unicode__(self):
+    def __str__(self):
         return '%s %s %s %s cada %s' % (
             self.medicine,
             self.quantity,

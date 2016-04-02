@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Django core
 from __future__ import absolute_import, unicode_literals
+from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
 import datetime
 from django.utils import timezone
@@ -8,13 +9,19 @@ from django.db.models import Q, Max
 
 # Third-party apps
 # from smart_selects.db_fields import ChainedForeignKey
-# My apps
-from commons.models import PersonType, AcademicLevel
-from people.models import Person, MemberManager, MemberFamilyManager
-from housing.models import PropertyType, HouseMaterialCeilling,\
-    HouseMaterialWall, HouseMaterialFloor
+# My modules
+from commons.models import PersonType
+from commons.models import AcademicLevel
+from people.models import Person
+from people.models import MemberManager
+from people.models import MemberFamilyManager
+from housing.models import PropertyType
+from housing.models import HouseMaterialCeilling
+from housing.models import HouseMaterialWall
+from housing.models import HouseMaterialFloor
 
 
+@python_2_unicode_compatible
 class Disability(models.Model):
     name = models.CharField(unique=True, max_length=40)
 
@@ -22,20 +29,22 @@ class Disability(models.Model):
         verbose_name_plural = 'Disabilities'
         ordering = ['name']
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
+@python_2_unicode_compatible
 class Cane(models.Model):
     name = models.PositiveIntegerField()
 
     class Meta:
         ordering = ['id']
 
-    def __unicode__(self):
+    def __str__(self):
         return str(self.name)
 
 
+@python_2_unicode_compatible
 class Ocupation(models.Model):
     name = models.CharField(max_length=40, unique=True)
 
@@ -43,7 +52,7 @@ class Ocupation(models.Model):
         verbose_name = "Ocupation"
         verbose_name_plural = "Ocupations"
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -56,11 +65,11 @@ def number():
         return value + 1
 
 """
-Children variables declaration to be used in member_is_mother
+Children dictionary to be used in member_is_mother
 and children_quantity functions.
 """
-
-son, daughter = 3, 4
+d = dict(son=3, daughter=4 )
+# son, daughter = 3, 4
 
 
 class Member(Person):
@@ -92,7 +101,7 @@ class Member(Person):
         is_mother = self.is_mother
         children = Person.member_families.filter(
             Q(dependent_of=self.id),
-            Q(kinship=son) | Q(kinship=daughter)
+            Q(kinship=d['son']) | Q(kinship=d['daughter'])
         ).count()
         if children > 0 and self.gender == 'F':
             Member.objects.filter(id=self.id).update(is_mother=True)
@@ -107,7 +116,7 @@ class Member(Person):
     def children_quantity(self):
         quantity = Person.member_families.filter(
             Q(dependent_of=self.id),
-            Q(kinship=son) | Q(kinship=daughter)
+            Q(kinship=d['son']) | Q(kinship=d['daughter'])
         ).count()
         return quantity
 

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Django core
 from __future__ import absolute_import, unicode_literals
+from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
 from datetime import date
 from django.core.exceptions import ValidationError
@@ -14,6 +15,7 @@ from commons.models import PersonType, AcademicLevel
 from people.models import Person, EmployeeManager, EmployeeFamilyManager
 
 
+@python_2_unicode_compatible
 class EmployeeType(models.Model):
     name = models.CharField(max_length=45, unique=True)
 
@@ -22,10 +24,11 @@ class EmployeeType(models.Model):
         verbose_name_plural = "Employee Types"
         db_table = "employees_employee_type"
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
+@python_2_unicode_compatible
 class Department(models.Model):
     name = models.CharField(max_length=45, unique=True)
 
@@ -33,10 +36,11 @@ class Department(models.Model):
         verbose_name = "Department"
         verbose_name_plural = "Departments"
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
+@python_2_unicode_compatible
 class PositionLevel(models.Model):
     name = models.CharField(max_length=45, unique=True)
     description = models.CharField(max_length=45, unique=True, null=True)
@@ -46,10 +50,11 @@ class PositionLevel(models.Model):
         verbose_name_plural = "Position Levels"
         db_table = "employees_position_lavels"
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
+@python_2_unicode_compatible
 class Position(models.Model):
     department = models.ForeignKey(Department)
     position_level = models.ForeignKey(PositionLevel, null=True)
@@ -59,10 +64,11 @@ class Position(models.Model):
         verbose_name = "Position"
         verbose_name_plural = "Positions"
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
+@python_2_unicode_compatible
 class Workday(models.Model):
     name = models.CharField(max_length=10, unique=True)
 
@@ -71,10 +77,11 @@ class Workday(models.Model):
         verbose_name_plural = "Workdays"
         ordering = ['id']
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
+@python_2_unicode_compatible
 class WorkSchedule(models.Model):
     name = models.CharField(max_length=45, unique=True)
     start_hour = models.TimeField()
@@ -86,7 +93,7 @@ class WorkSchedule(models.Model):
         verbose_name_plural = "Work Schedules"
         db_table = "employees_work_schedule"
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 

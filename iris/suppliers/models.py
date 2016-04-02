@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
+from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
 
 # Third-party modules
@@ -9,7 +10,7 @@ from smart_selects.db_fields import ChainedForeignKey
 from localflavor.us.models import PhoneNumberField
 from sorl.thumbnail import ImageField
 
-# My apps
+# My modules
 from commons.models import PersonType
 from people.models import Person, SupplierManager
 from location.models import Country, Region, Province, Town
@@ -26,6 +27,7 @@ class SupplierType(models.Model):
         return self.name
 
 
+@python_2_unicode_compatible
 class SupplierCompany(models.Model):
     name = models.CharField(max_length=60, unique=True)
     supplier_type = models.ForeignKey(SupplierType)
@@ -61,7 +63,7 @@ class SupplierCompany(models.Model):
         db_table = "suppliers_supplier_company"
         ordering = ['name']
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 

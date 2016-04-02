@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
+from django.utils.encoding import python_2_unicode_compatible
 from datetime import date
 from django.db import models
 
@@ -11,14 +12,22 @@ from sorl.thumbnail import ImageField
 from localflavor.us.models import PhoneNumberField
 
 # My modules
-from commons.models import MaritalStatus, DocumentType, Kinship,\
-    PersonType, PhoneType
-from location.models import Nationality, Country, Region, Province,\
-    Town, AddressType
-
+from commons.models import MaritalStatus
+from commons.models import DocumentType
+from commons.models import Kinship
+from commons.models import PersonType
+from commons.models import PhoneType
+from location.models import Nationality
+from location.models import Country
+from location.models import Region
+from location.models import Province
+from location.models import Town
+from location.models import AddressType
 #  PersonType variables.
-employee, member, doctor, supplier, employee_family, member_family = \
-    1, 2, 3, 4, 5, 6
+# employee, member, doctor, supplier, employee_family, member_family = \
+#     1, 2, 3, 4, 5, 6
+
+d = dict(employee=1 , member=2 , doctor=3 , supplier=4 , employee_family=5 , member_family=6)
 
 # Men and women variables.
 men, women = "M", "F"
@@ -27,7 +36,7 @@ men, women = "M", "F"
 class EmployeeManager(models.Manager):
     def get_queryset(self):
         return super(EmployeeManager, self).\
-            get_queryset().filter(person_type=employee)
+            get_queryset().filter(person_type=d['employee'])
 
 
 # class EmployeeQuerySet(models.QuerySet):
@@ -38,31 +47,31 @@ class EmployeeManager(models.Manager):
 class MemberManager(models.Manager):
     def get_queryset(self):
         return super(MemberManager, self).\
-            get_queryset().filter(person_type=member)
+            get_queryset().filter(person_type=d['member'])
 
 
 class DoctorManager(models.Manager):
     def get_queryset(self):
         return super(DoctorManager, self).\
-            get_queryset().filter(person_type=doctor)
+            get_queryset().filter(person_type=d['doctor'])
 
 
 class SupplierManager(models.Manager):
     def get_queryset(self):
         return super(SupplierManager, self).\
-            get_queryset().filter(person_type=supplier)
+            get_queryset().filter(person_type=d['supplier'])
 
 
 class EmployeeFamilyManager(models.Manager):
     def get_queryset(self):
         return super(EmployeeFamilyManager, self).\
-            get_queryset().filter(person_type=employee_family)
+            get_queryset().filter(person_type=d['employee_family'])
 
 
 class MemberFamilyManager(models.Manager):
     def get_queryset(self):
         return super(MemberFamilyManager, self).\
-            get_queryset().filter(person_type=member_family)
+            get_queryset().filter(person_type=d['member_family'])
 
 
 class MaleManager(models.Manager):
@@ -75,6 +84,7 @@ class FemaleManager(models.Manager):
         return super(FemaleManager, self).get_query_set().filter(gender=women)
 
 
+@python_2_unicode_compatible
 class Person(TimeStampedModel, AuthStampedModel):
     names = models.CharField(max_length=100)
     father_last_name = models.CharField(max_length=50)
@@ -168,7 +178,7 @@ class Person(TimeStampedModel, AuthStampedModel):
 
     main_phone.short_description = "Phone"
 
-    def __unicode__(self):
+    def __str__(self):
         return '%s %s %s' % (
             self.names,
             self.father_last_name,
@@ -181,6 +191,7 @@ class Person(TimeStampedModel, AuthStampedModel):
     image_tag.allow_tags = True
 
 
+@python_2_unicode_compatible
 class PersonAddress(models.Model):
     BOOL_CHOICES = ((True, 'Yes'), (False, 'No'))
     person_name = models.ForeignKey(Person)
@@ -211,10 +222,11 @@ class PersonAddress(models.Model):
         verbose_name_plural = "Addresses"
         db_table = "people_person_address"
 
-    def __unicode__(self):
+    def __str__(self):
         return '%s %s %s' % (self.building, self.apartment, self.street)
 
 
+@python_2_unicode_compatible
 class PersonPhone(models.Model):
     phone_type = models.ForeignKey(PhoneType)
     phone_number = PhoneNumberField(help_text='999-999-9999')
@@ -230,5 +242,5 @@ class PersonPhone(models.Model):
         db_table = "people_person_phone"
         unique_together = (("person_name", "phone_type"),)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.phone_number

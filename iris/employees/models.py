@@ -92,6 +92,7 @@ class WorkSchedule(models.Model):
 
 class Employee(Person):
     objects = EmployeeManager()
+
     hiring_date = models.DateField()
     academic_level = models.ForeignKey(AcademicLevel)
     department = models.ForeignKey(Department)
@@ -118,7 +119,7 @@ class Employee(Person):
                 {'birth_day': _('Must be at least 18 years old to register.')})
         if self.hiring_date <= today:
             raise ValidationError(
-                {'hiring_date': _('The hiring date must to be minor or iqual \
+                {'hiring_date': _('The hiring date must to be minor or equal \
                     to today.')})
 
     def save(self, *args, **kwargs):

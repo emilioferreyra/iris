@@ -30,6 +30,11 @@ class EmployeeManager(models.Manager):
             get_queryset().filter(person_type=employee)
 
 
+# class EmployeeQuerySet(models.QuerySet):
+#     def is_employee(self):
+#         return self.filter(person_type=employee)
+
+
 class MemberManager(models.Manager):
     def get_queryset(self):
         return super(MemberManager, self).\
@@ -99,8 +104,10 @@ class Person(TimeStampedModel, AuthStampedModel):
     kinship = models.ForeignKey(Kinship, null=True)
     picture = ImageField(upload_to='people_pictures', null=True, blank=True)
     status = models.BooleanField(default=True, verbose_name='active')
+
     people = models.Manager()
     employees = EmployeeManager()
+    # employees = EmployeeQuerySet.as_manager()
     members = MemberManager()
     doctors = DoctorManager()
     suppliers = SupplierManager()

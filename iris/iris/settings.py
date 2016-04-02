@@ -30,6 +30,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
+    # 'modeltranslation',
     'suit',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -74,10 +75,10 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
-        # 'TEMPLATE_CONTEXT_PROCESSORS': ['django.core.context_processors.request'],
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
+                'django.core.context_processors.request',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
@@ -101,7 +102,21 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'es'
+
+# MODELTRANSLATION_DEFAULT_LANGUAGE = 'en'
+
+# gettext = lambda s: s
+# LANGUAGES = (
+#     ('es', gettext('Spanish')),
+#     ('en', gettext('English')),
+# )
+#
+#
+# MODELTRANSLATION_TRANSLATION_FILES = (
+#     'members.translation',
+#     # 'employees.translation',
+# )
 
 TIME_ZONE = 'America/Santo_Domingo'
 

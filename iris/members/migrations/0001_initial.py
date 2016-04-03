@@ -2,14 +2,15 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
-import smart_selects.db_fields
+import members.models
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('people', '0001_initial'),
-        ('housing', '0001_initial'),
+        ('people', '0008_auto_20160215_2303'),
+        ('housing', '0006_auto_20160403_1217'),
+        ('commons', '0005_auto_20160216_0133'),
     ]
 
     operations = [
@@ -38,21 +39,25 @@ class Migration(migrations.Migration):
             name='House',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('house_material', smart_selects.db_fields.ChainedForeignKey(chained_model_field='house_part', to='housing.HouseMaterial', chained_field='house_part')),
-                ('house_part', models.ForeignKey(to='housing.HousePart')),
+                ('ceiling', models.ForeignKey(to='housing.HouseMaterialCeiling')),
+                ('floor', models.ForeignKey(to='housing.HouseMaterialFloor')),
             ],
         ),
         migrations.CreateModel(
             name='Member',
             fields=[
                 ('person_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='people.Person')),
+                ('member_number', models.IntegerField(default=members.models.number, unique=True)),
                 ('currently_works', models.BooleanField(default=False)),
                 ('where_work', models.CharField(max_length=100, null=True, blank=True)),
                 ('observations', models.TextField(null=True, blank=True)),
+                ('is_mother', models.BooleanField(default=False)),
+                ('academic_level', models.ForeignKey(to='commons.AcademicLevel')),
                 ('cane_number', models.ForeignKey(to='members.Cane')),
                 ('disabilities', models.ManyToManyField(to='members.Disability')),
             ],
             options={
+                'ordering': ['-id'],
                 'verbose_name': 'Member',
                 'verbose_name_plural': 'Members',
             },
@@ -65,8 +70,9 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(unique=True, max_length=40)),
             ],
             options={
-                'verbose_name': 'Ocupation',
-                'verbose_name_plural': 'Ocupations',
+                'db_table': 'members_ocupation',
+                'verbose_name': 'Occupation',
+                'verbose_name_plural': 'Occupations',
             },
         ),
         migrations.CreateModel(
@@ -86,17 +92,18 @@ class Migration(migrations.Migration):
             field=models.ForeignKey(blank=True, to='members.Ocupation', null=True),
         ),
         migrations.AddField(
-            model_name='member',
+            model_name='house',
+            name='member_name',
+            field=models.ForeignKey(to='members.Member'),
+        ),
+        migrations.AddField(
+            model_name='house',
             name='property_type',
             field=models.ForeignKey(to='housing.PropertyType'),
         ),
         migrations.AddField(
             model_name='house',
-            name='member_name',
-            field=models.ForeignKey(to='members.Member'),
-        ),
-        migrations.AlterUniqueTogether(
-            name='house',
-            unique_together=set([('member_name', 'house_part')]),
+            name='wall',
+            field=models.ForeignKey(to='housing.HouseMaterialWall'),
         ),
     ]

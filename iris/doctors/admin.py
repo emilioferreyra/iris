@@ -181,6 +181,7 @@ class ClinicAdmin(admin.ModelAdmin):
         'phone_number',
         'email'
         ]
+    list_display_links = ['id', 'name']
 
 
 admin.site.register(Speciality)

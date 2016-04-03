@@ -1,15 +1,22 @@
 # -*- coding: utf-8 -*-
-# Django core
-from __future__ import absolute_import, unicode_literals
+"""
+    commons app:
+    This app contain the models used by other apps like complement
+    information.
+"""
+
+from __future__ import absolute_import
+from __future__ import unicode_literals
 from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
-
-# Third-party apps
-# from localflavor.us.models import PhoneNumberField
 
 
 @python_2_unicode_compatible
 class DocumentType(models.Model):
+    """
+        Stores all types of documents id for identify a person,
+        related to :model:`people.Person`.
+    """
     name = models.CharField(max_length=20, unique=True)
 
     class Meta:
@@ -23,6 +30,9 @@ class DocumentType(models.Model):
 
 @python_2_unicode_compatible
 class MaritalStatus(models.Model):
+    """
+        Stores the marital status related to :model:`people.Person`
+    """
     name = models.CharField(unique=True, max_length=45)
 
     class Meta:
@@ -36,6 +46,9 @@ class MaritalStatus(models.Model):
 
 @python_2_unicode_compatible
 class PhoneType(models.Model):
+    """
+        Stores the phones types related to :model:`people.Person`
+    """
     name = models.CharField(unique=True, max_length=45)
 
     class Meta:
@@ -48,6 +61,9 @@ class PhoneType(models.Model):
 
 @python_2_unicode_compatible
 class AcademicLevel(models.Model):
+    """
+        Stores the academics levels related to :model:`people.Person`
+    """
     name = models.CharField(unique=True, max_length=45)
 
     class Meta:
@@ -59,6 +75,9 @@ class AcademicLevel(models.Model):
 
 @python_2_unicode_compatible
 class Kinship(models.Model):
+    """
+        Stores the kinship related to :model:`people.Person`
+    """
     name = models.CharField(unique=True, max_length=45)
 
     def __str__(self):
@@ -67,6 +86,9 @@ class Kinship(models.Model):
 
 @python_2_unicode_compatible
 class PersonType(models.Model):
+    """
+        Stores the person types related to :model:`people.Person`
+    """
     name = models.CharField(max_length=45, unique=True)
 
     class Meta:

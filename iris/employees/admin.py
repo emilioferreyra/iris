@@ -4,6 +4,7 @@ from __future__ import absolute_import, unicode_literals
 from django.contrib import admin
 from django.db import models
 from django.forms import CheckboxSelectMultiple
+from django.core.urlresolvers import reverse
 # from datetime import date
 # from django.forms import ModelForm
 from django import forms
@@ -57,7 +58,12 @@ class EmployeeFamilyInline(admin.StackedInline):
 
 
 class EmployeeAdmin(AdminImageMixin, admin.ModelAdmin):
-    # form = EmployeeForm
+    # def delete(self, obj):
+    #     return '<input type="button" value="Delete" onclick="location.href=\%s/delete/\'" />'.format(obj.pk)
+
+    # delete.allow_tags = True
+    # delete.short_description = 'Delete object'
+
     fieldsets = [
         (None, {
             'classes': ('suit-tab', 'suit-tab-general',),
@@ -94,7 +100,7 @@ class EmployeeAdmin(AdminImageMixin, admin.ModelAdmin):
     list_display = [
         'id',
         'full_name',
-        'get_position_level',
+        # 'get_position_level',
         'position',
         'department',
         'email',
@@ -103,7 +109,10 @@ class EmployeeAdmin(AdminImageMixin, admin.ModelAdmin):
         'years_of_work',
         # 'birth_day',
         # 'calculate_age',
-        'status'
+        'status',
+        # 'delete_link',
+        # 'edit_link',
+        # 'delete',
         ]
 
     list_display_links = ['id', 'full_name']

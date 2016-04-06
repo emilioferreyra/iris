@@ -15,6 +15,7 @@ class DoctorPhoneInline(PersonPhoneInline):
     suit_classes = 'suit-tab suit-tab-phones'
 
 
+@admin.register(Doctor)
 class DoctorAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {
@@ -102,6 +103,7 @@ class PrescribedMedicineInlines(admin.StackedInline):
     suit_classes = 'suit-tab suit-tab-prescribedmedicine'
 
 
+@admin.register(Appointment)
 class AppointmentAdmin(admin.ModelAdmin):
     """docstring for AppointmentAdmin"""
     fieldsets = [
@@ -159,6 +161,7 @@ class AppointmentAdmin(admin.ModelAdmin):
         )
 
 
+@admin.register(Clinic)
 class ClinicAdmin(admin.ModelAdmin):
     fields = [
         'name',
@@ -171,16 +174,15 @@ class ClinicAdmin(admin.ModelAdmin):
         'company_logo',
         ]
     list_display = [
+        'id',
         'name',
         'town',
         'address',
         'phone_number',
         'email'
         ]
+    list_display_links = ['id', 'name']
 
 
-admin.site.register(Doctor, DoctorAdmin)
-admin.site.register(Clinic, ClinicAdmin)
 admin.site.register(Speciality)
-admin.site.register(Appointment, AppointmentAdmin)
 admin.site.register(Medicine)

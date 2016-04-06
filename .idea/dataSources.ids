@@ -64,12 +64,12 @@
     </table>
     <table name="commons_academic_level" schema="" catalog="" type="TABLE">
       <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
-      <column name="academic_level" sqlType="VARCHAR(45)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="name" sqlType="VARCHAR(45)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
       <primary-key columns="id"/>
     </table>
     <table name="commons_document_type" schema="" catalog="" type="TABLE">
       <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
-      <column name="document_type" sqlType="VARCHAR(20)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="name" sqlType="VARCHAR(20)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
       <primary-key columns="id"/>
     </table>
     <table name="commons_kinship" schema="" catalog="" type="TABLE">
@@ -357,6 +357,7 @@
       <column name="ocupation_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
       <column name="member_number" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="academic_level_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="is_mother" sqlType="BOOL" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <primary-key columns="person_ptr_id"/>
       <foreign-key name="#FAKE_members_member_1" columns="academic_level_id" ref-table="commons_academic_level" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
       <foreign-key name="#FAKE_members_member_2" columns="ocupation_id" ref-table="members_ocupation" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
@@ -391,33 +392,33 @@
       <column name="gender" sqlType="VARCHAR(1)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
       <column name="birth_day" sqlType="DATE" precision="0" scale="-1" nullable="false" jdbcType="12"/>
       <column name="document_id" sqlType="VARCHAR(22)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
-      <column name="email" sqlType="VARCHAR(254)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
       <column name="picture" sqlType="VARCHAR(100)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
       <column name="status" sqlType="BOOL" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="created_by_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="dependent_of_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
       <column name="document_type_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
       <column name="kinship_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
       <column name="marital_status_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="modified_by_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
       <column name="nationality_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="person_type_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
-      <column name="dependent_of_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="email" sqlType="VARCHAR(254)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
       <primary-key columns="id"/>
-      <foreign-key name="#FAKE_people_person_1" columns="dependent_of_id" ref-table="people_person" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
-      <foreign-key name="#FAKE_people_person_2" columns="person_type_id" ref-table="commons_person_type" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
-      <foreign-key name="#FAKE_people_person_3" columns="nationality_id" ref-table="location_nationality" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
-      <foreign-key name="#FAKE_people_person_4" columns="modified_by_id" ref-table="auth_user" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
-      <foreign-key name="#FAKE_people_person_5" columns="marital_status_id" ref-table="commons_marital_status" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
-      <foreign-key name="#FAKE_people_person_6" columns="kinship_id" ref-table="commons_kinship" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
-      <foreign-key name="#FAKE_people_person_7" columns="document_type_id" ref-table="commons_document_type" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_people_person_1" columns="person_type_id" ref-table="commons_person_type" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_people_person_2" columns="nationality_id" ref-table="location_nationality" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_people_person_3" columns="modified_by_id" ref-table="auth_user" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_people_person_4" columns="marital_status_id" ref-table="commons_marital_status" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_people_person_5" columns="kinship_id" ref-table="commons_kinship" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_people_person_6" columns="document_type_id" ref-table="commons_document_type" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_people_person_7" columns="dependent_of_id" ref-table="people_person" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
       <foreign-key name="#FAKE_people_person_8" columns="created_by_id" ref-table="auth_user" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
-      <index name="people_person_e68927fe" unique="true" columns="dependent_of_id"/>
       <index name="people_person_c9aa9980" unique="true" columns="person_type_id"/>
       <index name="people_person_663581ef" unique="true" columns="nationality_id"/>
       <index name="people_person_b3da0983" unique="true" columns="modified_by_id"/>
       <index name="people_person_a37b2a05" unique="true" columns="marital_status_id"/>
       <index name="people_person_1c0e99d9" unique="true" columns="kinship_id"/>
       <index name="people_person_bd49ca7f" unique="true" columns="document_type_id"/>
+      <index name="people_person_e68927fe" unique="true" columns="dependent_of_id"/>
       <index name="people_person_e93cb7eb" unique="true" columns="created_by_id"/>
     </table>
     <table name="people_person_address" schema="" catalog="" type="TABLE">

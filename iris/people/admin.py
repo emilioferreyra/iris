@@ -38,7 +38,7 @@ class PersonPhoneInline(admin.TabularInline):
     max_num = max_num_phones
     suit_classes = 'suit-tab suit-tab-phones'
 
-
+@admin.register(Person)
 class PersonAdmin(AdminImageMixin, admin.ModelAdmin):
     list_display_links = ('id', 'full_name',)
     # list_editable = ['status']
@@ -100,6 +100,8 @@ class PersonAdmin(AdminImageMixin, admin.ModelAdmin):
         ('phones', 'Phones'),
         )
 
+    list_per_page = 10
+
 
 admin.site.register(PersonType)
-admin.site.register(Person, PersonAdmin)
+# admin.site.register(Person, PersonAdmin)

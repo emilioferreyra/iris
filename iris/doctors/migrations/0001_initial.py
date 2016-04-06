@@ -2,16 +2,16 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
-import localflavor.us.models
 import smart_selects.db_fields
+import datetime
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('people', '0001_initial'),
-        ('members', '0001_initial'),
-        ('location', '0001_initial'),
+        ('people', '0008_auto_20160215_2303'),
+        ('members', '0003_auto_20160403_1220'),
+        ('suppliers', '0004_auto_20160131_0218'),
     ]
 
     operations = [
@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
             name='Appointment',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('date', models.DateField()),
+                ('appointment_date', models.DateField(default=datetime.date(2016, 4, 3))),
                 ('symptomatology', models.TextField(max_length=300)),
                 ('prescription', models.TextField(max_length=300, null=True, blank=True)),
                 ('date_next_appoitment', models.DateField(null=True, blank=True)),
@@ -30,27 +30,9 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-            name='Clinic',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('name', models.CharField(unique=True, max_length=50)),
-                ('address', models.TextField(max_length=150, null=True, blank=True)),
-                ('phone_number', localflavor.us.models.PhoneNumberField(help_text='999-999-9999', max_length=20, null=True, blank=True)),
-                ('province', smart_selects.db_fields.ChainedForeignKey(chained_model_field='region', to='location.Province', chained_field='region')),
-                ('region', models.ForeignKey(default=1, to='location.Region', null=True)),
-                ('town', smart_selects.db_fields.ChainedForeignKey(chained_model_field='province', to='location.Town', chained_field='province')),
-            ],
-            options={
-                'ordering': ['name'],
-                'verbose_name': 'Clinic',
-                'verbose_name_plural': 'Clinics',
-            },
-        ),
-        migrations.CreateModel(
             name='Doctor',
             fields=[
                 ('person_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='people.Person')),
-                ('clinics', models.ManyToManyField(to='doctors.Clinic')),
             ],
             options={
                 'verbose_name': 'Doctor',
@@ -97,6 +79,23 @@ class Migration(migrations.Migration):
                 'verbose_name_plural': 'Specialities',
             },
         ),
+        migrations.CreateModel(
+            name='Clinic',
+            fields=[
+            ],
+            options={
+                'ordering': ['name'],
+                'verbose_name': 'Clinic',
+                'proxy': True,
+                'verbose_name_plural': 'Clinics',
+            },
+            bases=('suppliers.suppliercompany',),
+        ),
+        migrations.AddField(
+            model_name='doctor',
+            name='clinic',
+            field=models.ManyToManyField(to='doctors.Clinic'),
+        ),
         migrations.AddField(
             model_name='doctor',
             name='specialities',
@@ -119,6 +118,6 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterUniqueTogether(
             name='appointment',
-            unique_together=set([('member', 'doctor', 'date')]),
+            unique_together=set([('member', 'doctor', 'appointment_date')]),
         ),
     ]

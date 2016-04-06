@@ -2,19 +2,16 @@
 # Django core
 from __future__ import absolute_import, unicode_literals
 from django.contrib import admin
-# from django import forms
-# from django.forms import RadioChoiceInput
+
 from django.db import models
 from django.forms import CheckboxSelectMultiple
 from django.utils.translation import ugettext_lazy as _
-# from django.db.models import Q
 
-#  Third party apps
 from sorl.thumbnail.admin import AdminImageMixin
 
 # My apps
 from .models import Member, Disability, Cane,\
-    House, Ocupation, MemberFamily
+    House, Occupation, MemberFamily
 from people.admin import PersonAddressInline, PersonPhoneInline
 # from people.models import PersonAddress, PersonPhone
 
@@ -98,7 +95,7 @@ class MemberAdmin(AdminImageMixin, admin.ModelAdmin):
                 'cane_number',
                 # 'property_type',
                 'currently_works',
-                'ocupation',
+                'occupation',
                 'where_work',
                 'observations',
                 ]
@@ -136,7 +133,7 @@ class MemberAdmin(AdminImageMixin, admin.ModelAdmin):
         'gender',
         ('marital_status', admin.RelatedOnlyFieldListFilter),
         ('academic_level', admin.RelatedOnlyFieldListFilter),
-        ('ocupation', admin.RelatedOnlyFieldListFilter),
+        ('occupation', admin.RelatedOnlyFieldListFilter),
         'house__property_type',
         'personaddress__town',
     ]
@@ -180,4 +177,4 @@ class MemberAdmin(AdminImageMixin, admin.ModelAdmin):
 admin.site.register(Disability)
 admin.site.register(Cane)
 admin.site.register(Member, MemberAdmin)
-admin.site.register(Ocupation)
+admin.site.register(Occupation)

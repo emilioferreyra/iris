@@ -25,7 +25,14 @@ from location.models import Town
 from location.models import AddressType
 
 #  PersonType variables.
-d = dict(employee=1, member=2, doctor=3, supplier=4, employee_family=5, member_family=6)
+d = dict(
+    employee=1,
+    member=2,
+    doctor=3,
+    supplier=4,
+    employee_family=5,
+    member_family=6
+    )
 
 # Men and women variables.
 men, women = "M", "F"

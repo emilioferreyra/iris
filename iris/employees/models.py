@@ -229,5 +229,5 @@ class EmployeeFamily(Person):
         value to person_type field.
         :return: Person type equal to "Employee Family" by default.
         """
-        self.person_type = PersonType.objects.get(name="Employee Family")
+        self.person_type = PersonType.objects.get(id=5)
         super(EmployeeFamily, self).save(*args, **kwargs)

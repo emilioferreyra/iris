@@ -5,7 +5,7 @@ from django.contrib import admin
 
 from django.db import models
 from django.forms import CheckboxSelectMultiple
-from django.utils.translation import ugettext_lazy as _
+# from django.utils.translation import ugettext_lazy as _
 
 from sorl.thumbnail.admin import AdminImageMixin
 
@@ -178,3 +178,5 @@ admin.site.register(Disability)
 admin.site.register(Cane)
 admin.site.register(Member, MemberAdmin)
 admin.site.register(Occupation)
+
+# admin.site.register(MemberFamily)

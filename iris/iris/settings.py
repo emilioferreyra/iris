@@ -106,11 +106,11 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
-LANGUAGE_CODE = 'es'
+LANGUAGE_CODE = 'en'
 
 # MODELTRANSLATION_DEFAULT_LANGUAGE = 'en'
 
-# gettext = lambda s: s
+# gettext = lambda s:
 # LANGUAGES = (
 #     ('es', gettext('Spanish')),
 #     ('en', gettext('English')),

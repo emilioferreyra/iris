@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="19058d6e-98d2-477e-804f-b2b6e563880f" name="Default" comment="" />
+=======
+    <list default="true" id="19058d6e-98d2-477e-804f-b2b6e563880f" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
+>>>>>>> b7ffbc3530e41bf45f7a0f3a2cf87dae6eeb73ea
     <ignored path="iris.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -558,6 +564,7 @@
       <option name="project" value="LOCAL" />
       <updated>1463852213006</updated>
     </task>
+<<<<<<< HEAD
     <task id="LOCAL-00004" summary="Members screen shots added.">
       <created>1463856987353</created>
       <option name="number" value="00004" />
@@ -566,6 +573,9 @@
       <updated>1463856987353</updated>
     </task>
     <option name="localTasksCounter" value="5" />
+=======
+    <option name="localTasksCounter" value="4" />
+>>>>>>> b7ffbc3530e41bf45f7a0f3a2cf87dae6eeb73ea
     <servers />
   </component>
   <component name="TodoView">

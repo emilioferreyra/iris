@@ -2,15 +2,12 @@
 from __future__ import absolute_import, unicode_literals
 from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
+from django.shortcuts import get_object_or_404
 
-# Third-party modules
-# from model_utils.models import TimeStampedModel
-# from audit_log.models import AuthStampedModel
 from smart_selects.db_fields import ChainedForeignKey
 from localflavor.us.models import PhoneNumberField
 from sorl.thumbnail import ImageField
 
-# My modules
 from commons.models import PersonType
 from people.models import Person, SupplierManager
 from location.models import Country, Region, Province, Town
@@ -52,11 +49,6 @@ class SupplierCompany(models.Model):
         blank=True
         )
 
-    def image_tag(self):
-        return u'<img src="%s" />' % self.company_logo.url
-    image_tag.short_description = 'Image'
-    image_tag.allow_tags = True
-
     class Meta:
         verbose_name = "Supplier Company"
         verbose_name_plural = "Supplier Companies"
@@ -65,6 +57,16 @@ class SupplierCompany(models.Model):
 
     def __str__(self):
         return self.name
+
+    def image_tag(self):
+        if self.company_logo:
+            return u'<img src="%s" width="100" height="75" />' % self.company_logo.url
+        else:
+            return ' '
+
+    image_tag.short_description = 'Logo'
+    image_tag.allow_tags = True
+    image_tag.admin_order_field = 'name'
 
 
 class SupplierContact(Person):
@@ -76,5 +78,6 @@ class SupplierContact(Person):
         verbose_name_plural = "Supplier Contacts"
 
     def save(self, *args, **kwargs):
-        self.person_type = PersonType.objects.get(name="Supplier")
+        # self.person_type = PersonType.objects.get(name="Supplier")
+        self.person_type = get_object_or_404(PersonType, name="Supplier")
         super(SupplierContact, self).save(*args, **kwargs)

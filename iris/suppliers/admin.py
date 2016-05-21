@@ -75,12 +75,14 @@ class SupplierContactInline(admin.StackedInline):
 
 class SupplierCompanyAdmin(AdminImageMixin, admin.ModelAdmin):
     list_display = [
+        'image_tag',
         'name',
         'supplier_type',
         'address',
         'phone_number',
         'email',
         ]
+    list_display_links = ['name', 'image_tag']
 
     fieldsets = [
         (None, {
@@ -112,6 +114,8 @@ class SupplierCompanyAdmin(AdminImageMixin, admin.ModelAdmin):
         ('general', 'General'),
         # ('suppliercontact', 'Contacts'),
         )
+    list_per_page = 5
+
 
 
 admin.site.register(SupplierContact, SupplierContactAdmin)

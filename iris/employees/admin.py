@@ -59,7 +59,8 @@ class EmployeeFamilyInline(admin.StackedInline):
 
 class EmployeeAdmin(AdminImageMixin, admin.ModelAdmin):
     # def delete(self, obj):
-    #     return '<input type="button" value="Delete" onclick="location.href=\%s/delete/\'" />'.format(obj.pk)
+    #     return '<input type="button" value="Delete" \
+    # onclick="location.href=\%s/delete/\'" />'.format(obj.pk)
 
     # delete.allow_tags = True
     # delete.short_description = 'Delete object'

@@ -10,28 +10,18 @@ from django.forms import CheckboxSelectMultiple
 from sorl.thumbnail.admin import AdminImageMixin
 
 # My apps
-from .models import Member, Disability, Cane,\
-    House, Occupation, MemberFamily
+from .models import (
+    Member,
+    Disability,
+    Cane,
+    House,
+    Occupation,
+    MemberFamily
+    )
 from people.admin import PersonAddressInline, PersonPhoneInline
-# from people.models import PersonAddress, PersonPhone
-
-#
-# class PersonAddressForm(forms.ModelForm):
-#     class Meta:
-#         model = PersonAddress
-#         fields = "__all__"
-#         yes_no = forms.BooleanField(widget=RadioChoiceInput(choices=[(True, 'Yes'),
-#                                                             (False, 'No')]))
 
 
 class MemberAddressInline(PersonAddressInline):
-    # form = PersonAddressForm
-    # radio_fields = {
-    #     "default": admin.VERTICAL
-    # }
-    # formfield_overrides = {
-    #         models.BooleanField: {'widget': RadioSelect},
-    #     }
     suit_classes = 'suit-tab suit-tab-memberaddress'
 
 
@@ -102,23 +92,15 @@ class MemberAdmin(AdminImageMixin, admin.ModelAdmin):
             })]
 
     list_display = [
-        # 'id',
         'member_number',
         'status',
         'full_name',
-        # 'names',
-        # 'father_last_name',
-        # 'mother_last_name',
         'gender',
         'member_is_mother',
-        # 'is_mother',
         'children_quantity',
-        # 'email',
         'main_phone',
         'calculate_age',
-        # 'birth_day',
-        # 'was_created_recently',
-        # 'main_address',
+        'academic_level',
         ]
 
     list_display_links = [

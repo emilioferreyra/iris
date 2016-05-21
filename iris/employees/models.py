@@ -188,7 +188,7 @@ class Employee(Person):
 
     def years_of_work(self):
         """
-        Return number of years worked by a employee.
+        Return number of years worked by an employee.
         """
         today = date.today()
         eaf = Employee.objects.get(id=self.id)

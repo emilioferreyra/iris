@@ -4,8 +4,5 @@
     <data-source name="Django default" uuid="419c443b-a5c7-4e5a-af0b-deb1adf584d7">
       <auth-required>false</auth-required>
     </data-source>
-    <data-source name="Django default2" uuid="f07ae68e-263c-4ce0-a432-6153091709b8">
-      <auth-required>false</auth-required>
-    </data-source>
   </component>
 </project>

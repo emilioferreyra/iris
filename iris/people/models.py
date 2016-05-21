@@ -246,9 +246,13 @@ class Person(TimeStampedModel, AuthStampedModel):
         )
 
     def image_tag(self):
-        return u'<img src="%s" />' % self.picture.url
-    image_tag.short_description = 'Image'
+        if self.picture:
+            return u'<img src="%s" width="100" height="75" />' % self.picture.url
+        else:
+            return ' '
+    image_tag.short_description = 'Picture'
     image_tag.allow_tags = True
+    image_tag.admin_order_field = 'names'
 
 
 @python_2_unicode_compatible

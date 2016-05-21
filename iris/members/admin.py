@@ -93,6 +93,7 @@ class MemberAdmin(AdminImageMixin, admin.ModelAdmin):
 
     list_display = [
         'member_number',
+        'image_tag',
         'status',
         'full_name',
         'gender',
@@ -105,6 +106,7 @@ class MemberAdmin(AdminImageMixin, admin.ModelAdmin):
 
     list_display_links = [
         'member_number',
+        'image_tag',
         'full_name',
         ]
 
@@ -155,6 +157,7 @@ class MemberAdmin(AdminImageMixin, admin.ModelAdmin):
         ('memberfamily', 'Family'),
         ('house', 'House Type'),
         )
+    ordering = ['-member_number']
 
 admin.site.register(Disability)
 admin.site.register(Cane)

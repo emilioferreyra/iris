@@ -92,9 +92,8 @@ class MemberAdmin(AdminImageMixin, admin.ModelAdmin):
             })]
 
     list_display = [
-        'member_number',
+        # 'member_number',
         'image_tag',
-        'status',
         'full_name',
         'gender',
         'member_is_mother',
@@ -102,10 +101,11 @@ class MemberAdmin(AdminImageMixin, admin.ModelAdmin):
         'main_phone',
         'calculate_age',
         'academic_level',
+        'status',
         ]
 
     list_display_links = [
-        'member_number',
+        # 'member_number',
         'image_tag',
         'full_name',
         ]

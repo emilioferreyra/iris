@@ -62,3 +62,10 @@ Iris is a web application developed in Python via Django web framework, which al
 
 
 ##Screen shots:
+
+![Member form](https://github.com/emilioferreyra/iris/blob/dev/ScreenShots/member_form.png?raw=true)
+
+![Member list](https://github.com/emilioferreyra/iris/blob/dev/ScreenShots/member_list.png?raw=true)
+
+![Member menu](https://github.com/emilioferreyra/iris/blob/dev/ScreenShots/member_menu.png?raw=true)
+ 

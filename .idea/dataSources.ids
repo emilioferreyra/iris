@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component name="dataSourceStorage">
-  <data-source name="Django default" uuid="419c443b-a5c7-4e5a-af0b-deb1adf584d7">
-    <database-info product="SQLite" version="3.8.9" jdbc-version="2.1" driver-name="SQLiteJDBC" driver-version="native"/>
+  <data-source name="Django default" uuid="770bd16d-4d4b-4fcd-87af-79ae3b88c3ef">
+    <database-info product="SQLite" version="3.8.11" jdbc-version="2.1" driver-name="SQLiteJDBC" driver-version="native"/>
     <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed"/>
     <schema name="" catalog=""/>
     <table name="auth_group" schema="" catalog="" type="TABLE">
@@ -458,6 +458,82 @@
       <foreign-key name="#FAKE_people_person_phone_2" columns="person_name_id" ref-table="people_person" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
       <index name="people_person_phone_177d5f16" unique="true" columns="phone_type_id"/>
       <index name="people_person_phone_0be13933" unique="true" columns="person_name_id"/>
+    </table>
+    <table name="report_builder_displayfield" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="path" sqlType="VARCHAR(2000)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="path_verbose" sqlType="VARCHAR(2000)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="field" sqlType="VARCHAR(2000)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="field_verbose" sqlType="VARCHAR(2000)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="name" sqlType="VARCHAR(2000)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="sort" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="width" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="aggregate" sqlType="VARCHAR(5)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="position" sqlType="SMALLINT UNSIGNED" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="total" sqlType="BOOL" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="group" sqlType="BOOL" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="display_format_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="report_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="sort_reverse" sqlType="BOOL" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="id"/>
+      <foreign-key name="#FAKE_report_builder_displayfield_1" columns="report_id" ref-table="report_builder_report" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_report_builder_displayfield_2" columns="display_format_id" ref-table="report_builder_format" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="report_builder_displayfield_6f78b20c" unique="true" columns="report_id"/>
+      <index name="report_builder_displayfield_e648f564" unique="true" columns="display_format_id"/>
+    </table>
+    <table name="report_builder_filterfield" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="path" sqlType="VARCHAR(2000)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="path_verbose" sqlType="VARCHAR(2000)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="field" sqlType="VARCHAR(2000)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="field_verbose" sqlType="VARCHAR(2000)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="filter_value" sqlType="VARCHAR(2000)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="filter_value2" sqlType="VARCHAR(2000)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="exclude" sqlType="BOOL" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="position" sqlType="SMALLINT UNSIGNED" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="report_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="filter_type" sqlType="VARCHAR(20)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="id"/>
+      <foreign-key name="#FAKE_report_builder_filterfield_1" columns="report_id" ref-table="report_builder_report" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="report_builder_filterfield_6f78b20c" unique="true" columns="report_id"/>
+    </table>
+    <table name="report_builder_format" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(50)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="string" sqlType="VARCHAR(300)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="id"/>
+    </table>
+    <table name="report_builder_report" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(255)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="description" sqlType="TEXT" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="created" sqlType="DATE" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="modified" sqlType="DATE" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="distinct" sqlType="BOOL" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="report_file" sqlType="VARCHAR(100)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="report_file_creation" sqlType="DATETIME" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+      <column name="root_model_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="user_created_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="user_modified_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="slug" sqlType="VARCHAR(50)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <primary-key columns="id"/>
+      <foreign-key name="#FAKE_report_builder_report_1" columns="user_modified_id" ref-table="auth_user" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_report_builder_report_2" columns="user_created_id" ref-table="auth_user" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_report_builder_report_3" columns="root_model_id" ref-table="django_content_type" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="report_builder_report_2dbcba41" unique="true" columns="slug"/>
+      <index name="report_builder_report_a39a1b44" unique="true" columns="user_modified_id"/>
+      <index name="report_builder_report_f07db5fb" unique="true" columns="user_created_id"/>
+      <index name="report_builder_report_a2fd02a8" unique="true" columns="root_model_id"/>
+    </table>
+    <table name="report_builder_report_starred" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="report_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="user_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="id"/>
+      <foreign-key name="#FAKE_report_builder_report_starred_1" columns="user_id" ref-table="auth_user" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_report_builder_report_starred_2" columns="report_id" ref-table="report_builder_report" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="report_builder_report_starred_e8701ad4" unique="true" columns="user_id"/>
+      <index name="report_builder_report_starred_6f78b20c" unique="true" columns="report_id"/>
     </table>
     <table name="sqlite_sequence" schema="" catalog="" type="TABLE">
       <column name="name" sqlType="" precision="0" scale="-1" nullable="true" jdbcType="12"/>

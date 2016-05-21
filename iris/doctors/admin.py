@@ -2,12 +2,15 @@
 # Django core
 from __future__ import absolute_import, unicode_literals
 from django.contrib import admin
-# from django.db import models
-# from django.forms import CheckboxSelectMultiple
 
-# My apps
-from .models import Doctor, Clinic, Speciality, \
-    Appointment, Medicine, PrescribedMedicine
+from .models import (
+    Doctor,
+    Clinic,
+    Speciality,
+    Appointment,
+    Medicine,
+    PrescribedMedicine
+)
 from people.admin import PersonPhoneInline
 
 
@@ -159,6 +162,7 @@ class AppointmentAdmin(admin.ModelAdmin):
         ('prescription', 'Prescription'),
         ('prescribedmedicine', 'Prescribed Medicines'),
         )
+    list_per_page = 5
 
 
 @admin.register(Clinic)

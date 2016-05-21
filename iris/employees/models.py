@@ -6,6 +6,7 @@ from django.db import models
 from datetime import date
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
+from django.shortcuts import get_object_or_404
 
 from smart_selects.db_fields import ChainedForeignKey
 
@@ -183,7 +184,8 @@ class Employee(Person):
                     to today.')})
 
     def save(self, *args, **kwargs):
-        self.person_type = PersonType.objects.get(name="Employee")
+        # self.person_type = PersonType.objects.get(name="Employee")
+        self.person_type = get_object_or_404(PersonType, name="Employee")
         super(Employee, self).save(*args, **kwargs)
 
     def years_of_work(self):
@@ -191,7 +193,8 @@ class Employee(Person):
         Return number of years worked by an employee.
         """
         today = date.today()
-        eaf = Employee.objects.get(id=self.id)
+        # eaf = Employee.objects.get(id=self.id)
+        eaf = get_object_or_404(Employee, id=self.id)
         return today.year - eaf.hiring_date.year - (
             (today.month, today.day) <
             (eaf.hiring_date.month, eaf.hiring_date.day)
@@ -229,5 +232,6 @@ class EmployeeFamily(Person):
         value to person_type field.
         :return: Person type equal to "Employee Family" by default.
         """
-        self.person_type = PersonType.objects.get(id=5)
+        # self.person_type = PersonType.objects.get(id=5)
+        self.person_type = get_object_or_404(PersonType, id=5)
         super(EmployeeFamily, self).save(*args, **kwargs)

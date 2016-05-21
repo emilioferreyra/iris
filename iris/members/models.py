@@ -7,6 +7,7 @@ from django.db import models
 import datetime
 from django.utils import timezone
 from django.db.models import Q, Max
+from django.shortcuts import get_object_or_404
 
 from commons.models import PersonType
 from commons.models import AcademicLevel
@@ -135,7 +136,8 @@ class Member(Person):
         Modify original save method to make the field person_type
         equal to "member" by default when registry is saved.
         """
-        self.person_type = PersonType.objects.get(name="Member")
+        # self.person_type = PersonType.objects.get(name="Member")
+        self.person_type = get_object_or_404(PersonType, name="Member")
         super(Member, self).save(*args, **kwargs)
 
     def member_is_mother(self):
@@ -228,5 +230,6 @@ class MemberFamily(Person):
         Modify original save method to make the field person_type
         equal to "member_family" by default when the registry is saved.
         """
-        self.person_type = PersonType.objects.get(id=6)
+        # self.person_type = PersonType.objects.get(id=6)
+        self.person_type = get_object_or_404(PersonType, name="Member")
         super(MemberFamily, self).save(*args, **kwargs)

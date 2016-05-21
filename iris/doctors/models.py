@@ -3,18 +3,13 @@
 from __future__ import absolute_import, unicode_literals
 from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
-from datetime import date
-# from django.utils import timezone
+from django.shortcuts import get_object_or_404
 
-# Third-party apps
 from smart_selects.db_fields import ChainedForeignKey
-# from localflavor.us.models import PhoneNumberField
 
-# My apps
 from commons.models import PersonType
 from people.models import Person, DoctorManager
 from members.models import Member
-# from location.models import Region, Province, Town
 from suppliers.models import SupplierCompany, SupplierType
 
 
@@ -97,7 +92,8 @@ class Doctor(Person):
                 )
 
     def save(self, *args, **kwargs):
-        self.person_type = PersonType.objects.get(name="Doctor")
+        # self.person_type = PersonType.objects.get(name="Doctor")
+        self.person_type = get_object_or_404(PersonType, name="Doctor")
         super(Doctor, self).save(*args, **kwargs)
 
 
@@ -110,7 +106,7 @@ class Appointment(models.Model):
         chained_field="clinic",
         chained_model_field="clinic",
         )
-    appointment_date = models.DateField(default=date.today())
+    appointment_date = models.DateField()
     symptomatology = models.TextField(max_length=300)
     prescription = models.TextField(max_length=300, null=True, blank=True)
     date_next_appoitment = models.DateField(null=True, blank=True)

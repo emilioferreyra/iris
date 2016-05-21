@@ -168,7 +168,7 @@ class Member(Person):
         return quantity
 
     # children_quantity.admin_order_field = 'children_number'
-    children_quantity.short_description = 'Children number'
+    children_quantity.short_description = 'Children Qty'
 
     def was_created_recently(self):
         """

@@ -2,18 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6a516055-81c1-44ae-89d0-466b88f9fa96" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/iris/db.sqlite3" afterPath="$PROJECT_DIR$/iris/db.sqlite3" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/iris.iml" afterPath="$PROJECT_DIR$/.idea/iris.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/iris/doctors/admin.py" afterPath="$PROJECT_DIR$/iris/doctors/admin.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/iris/doctors/models.py" afterPath="$PROJECT_DIR$/iris/doctors/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/iris/employees/models.py" afterPath="$PROJECT_DIR$/iris/employees/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/iris/iris/settings.py" afterPath="$PROJECT_DIR$/iris/iris/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/iris/iris/urls.py" afterPath="$PROJECT_DIR$/iris/iris/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/iris/members/models.py" afterPath="$PROJECT_DIR$/iris/members/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/iris/suppliers/admin.py" afterPath="$PROJECT_DIR$/iris/suppliers/admin.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/iris/suppliers/models.py" afterPath="$PROJECT_DIR$/iris/suppliers/models.py" />
     </list>
     <ignored path="iris.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -222,7 +211,7 @@
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="settings.github" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
   </component>
   <component name="RunManager" selected="Django server.Runserver">
@@ -506,7 +495,14 @@
       <option name="project" value="LOCAL" />
       <updated>1463860277364</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Warnnings when run server fixed.">
+      <created>1463868490361</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1463868490366</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -550,7 +546,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Screen shots added to README.md" />
-    <option name="LAST_COMMIT_MESSAGE" value="Screen shots added to README.md" />
+    <MESSAGE value="Warnnings when run server fixed." />
+    <option name="LAST_COMMIT_MESSAGE" value="Warnnings when run server fixed." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />

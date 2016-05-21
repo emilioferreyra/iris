@@ -88,7 +88,6 @@ and children_quantity functions.
 """
 
 d = dict(son=3, daughter=4)
-# son, daughter = 3, 4
 
 
 class Member(Person):
@@ -182,6 +181,7 @@ class Member(Person):
     was_created_recently.short_description = 'Created recently?'
 
 
+@python_2_unicode_compatible
 class House(models.Model):
     """
         Stores the House whit other information.
@@ -198,7 +198,7 @@ class House(models.Model):
     wall = models.ForeignKey(HouseMaterialWall)
     floor = models.ForeignKey(HouseMaterialFloor)
 
-    def __unicode__(self):
+    def __str__(self):
         return '%s %s' % (self.member_name, self.property_type)
 
 
@@ -228,5 +228,5 @@ class MemberFamily(Person):
         Modify original save method to make the field person_type
         equal to "member_family" by default when the registry is saved.
         """
-        self.person_type = PersonType.objects.get(name="Member Family")
+        self.person_type = PersonType.objects.get(id=6)
         super(MemberFamily, self).save(*args, **kwargs)

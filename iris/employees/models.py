@@ -188,7 +188,7 @@ class Employee(Person):
 
     def years_of_work(self):
         """
-        Return number of years worked by a employee.
+        Return number of years worked by an employee.
         """
         today = date.today()
         eaf = Employee.objects.get(id=self.id)
@@ -229,5 +229,5 @@ class EmployeeFamily(Person):
         value to person_type field.
         :return: Person type equal to "Employee Family" by default.
         """
-        self.person_type = PersonType.objects.get(name="Employee Family")
+        self.person_type = PersonType.objects.get(id=5)
         super(EmployeeFamily, self).save(*args, **kwargs)

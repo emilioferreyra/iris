@@ -38,6 +38,7 @@ class PersonPhoneInline(admin.TabularInline):
     max_num = max_num_phones
     suit_classes = 'suit-tab suit-tab-phones'
 
+
 @admin.register(Person)
 class PersonAdmin(AdminImageMixin, admin.ModelAdmin):
     list_display_links = ('id', 'full_name',)

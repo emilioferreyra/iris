@@ -43,6 +43,8 @@ INSTALLED_APPS = (
     'smart_selects',
     'localflavor',
     'sorl.thumbnail',
+    'report_builder',
+    'bootstrap3',
     # My apps
     'location',
     'commons',

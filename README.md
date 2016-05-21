@@ -14,7 +14,9 @@ Iris is a web application developed in Python via Django web framework, which al
 ***
 
 ##List of requirements:
-- [Django==1.8.9](https://www.djangoproject.com/download/) 
+- [Django==1.8.13](https://www.djangoproject.com/download/)
+- blessings==1.6
+- bootstrap-admin==0.3.6
 - [MySQL-python==1.2.5](https://pypi.python.org/pypi/MySQL-python/1.2.5) 
 - [Pillow==3.0.0](https://pillow.readthedocs.org/en/3.1.x/) 
 - [Pygments==2.0.2](https://github.com/odeoncg/django-pygments) 
@@ -54,7 +56,7 @@ Iris is a web application developed in Python via Django web framework, which al
 
 **People:** This app contains reusable models entities employees, members, doctor, family member and family employee contact supplier.
 
-**Housing: **This app contains the models that identify the characteristics of housing for members.
+**Housing:** This app contains the models that identify the characteristics of housing for members.
 
 ***
 

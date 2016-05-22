@@ -35,7 +35,7 @@ Iris is a web application developed in Python via Django web framework, which al
 - [wsgiref==0.1.2](https://pypi.python.org/pypi/wsgiref?) 
 
 
-##List of top Apps:
+##Main Modules:
 
 **Employees:** This app allows the registration of employees and the department to which it belongs, position and supervisor.
 
@@ -48,7 +48,7 @@ Iris is a web application developed in Python via Django web framework, which al
 ***
 
 
-##List of auxiliary apps:
+##Other Modules:
 
 **Common:** Contains common models used in the main apps.
 

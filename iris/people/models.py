@@ -173,6 +173,13 @@ class Person(TimeStampedModel, AuthStampedModel):
         verbose_name = "Person"
         verbose_name_plural = "People"
 
+    def __str__(self):
+        return '%s %s %s' % (
+            self.names,
+            self.father_last_name,
+            self.mother_last_name
+        )
+
     def full_name(self):
         """
             Returns person's full name.
@@ -237,13 +244,6 @@ class Person(TimeStampedModel, AuthStampedModel):
             return phone
 
     main_phone.short_description = "Phone"
-
-    def __str__(self):
-        return '%s %s %s' % (
-            self.names,
-            self.father_last_name,
-            self.mother_last_name
-        )
 
     def image_tag(self):
         if self.picture:

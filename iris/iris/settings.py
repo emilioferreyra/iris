@@ -45,6 +45,7 @@ INSTALLED_APPS = (
     'sorl.thumbnail',
     'report_builder',
     'bootstrap3',
+    'django_extensions',
     # My apps
     'location',
     'commons',
@@ -138,7 +139,7 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-USE_DJANGO_JQUERY = False
+# USE_DJANGO_JQUERY = False
 
 # Django Suit configuration example
 SUIT_CONFIG = {

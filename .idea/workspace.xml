@@ -4,7 +4,9 @@
     <list default="true" id="6a516055-81c1-44ae-89d0-466b88f9fa96" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/iris/db.sqlite3" afterPath="$PROJECT_DIR$/iris/db.sqlite3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/iris/people/models.py" afterPath="$PROJECT_DIR$/iris/people/models.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/iris/employees/models.py" afterPath="$PROJECT_DIR$/iris/employees/models.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/iris/iris/settings.py" afterPath="$PROJECT_DIR$/iris/iris/settings.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/iris/iris/urls.py" afterPath="$PROJECT_DIR$/iris/iris/urls.py" />
     </list>
     <ignored path="iris.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -32,9 +34,30 @@
       <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/iris/iris/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2331">
-              <caret line="112" column="21" selection-start-line="112" selection-start-column="21" selection-end-line="112" selection-end-column="21" />
-              <folding />
+            <state relative-caret-position="2352">
+              <caret line="115" column="15" selection-start-line="115" selection-start-column="15" selection-end-line="115" selection-end-column="15" />
+              <folding>
+                <marker date="1465328570864" expanded="true" signature="0:303" placeholder="&quot;&quot;&quot;Django settings for iris project....&quot;&quot;&quot;" />
+                <marker date="1465328570864" expanded="false" signature="377:461" placeholder="import ..." />
+                <marker date="1465328570864" expanded="true" signature="535:737" placeholder="..." />
+                <marker date="1465328570864" expanded="true" signature="980:1493" placeholder="..." />
+                <marker date="1465328570864" expanded="true" signature="1524:1985" placeholder="..." />
+                <marker date="1465328570864" expanded="true" signature="2016:2109" placeholder="..." />
+                <marker date="1465328570864" expanded="true" signature="2124:2714" placeholder="..." />
+                <marker date="1465328570864" expanded="true" signature="2130:2711" placeholder="..." />
+                <marker date="1465328570864" expanded="true" signature="2302:2704" placeholder="..." />
+                <marker date="1465328570864" expanded="true" signature="2338:2665" placeholder="..." />
+                <marker date="1465328570864" expanded="true" signature="2761:2835" placeholder="..." />
+                <marker date="1465328570864" expanded="true" signature="2850:2976" placeholder="..." />
+                <marker date="1465328570864" expanded="true" signature="2867:2974" placeholder="..." />
+                <marker date="1465328570864" expanded="true" signature="2979:3054" placeholder="..." />
+                <marker date="1465328570864" expanded="true" signature="3078:3342" placeholder="..." />
+                <marker date="1465328570864" expanded="true" signature="3430:3530" placeholder="..." />
+                <marker date="1465328570864" expanded="true" signature="3625:3689" placeholder="..." />
+                <marker date="1465328570864" expanded="true" signature="3757:3961" placeholder="..." />
+                <marker date="1465328570864" expanded="true" signature="4025:4371" placeholder="..." />
+                <marker date="1465328570864" expanded="true" signature="4411:4786" placeholder="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -43,8 +66,10 @@
         <entry file="file://$PROJECT_DIR$/iris/iris/urls.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="651">
-              <caret line="31" column="46" selection-start-line="31" selection-start-column="46" selection-end-line="31" selection-end-column="46" />
-              <folding />
+              <caret line="34" column="46" selection-start-line="34" selection-start-column="46" selection-end-line="34" selection-end-column="46" />
+              <folding>
+                <marker date="1465510116621" expanded="true" signature="894:1488" placeholder="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -52,8 +77,8 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/iris/people/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1827">
-              <caret line="180" column="9" selection-start-line="180" selection-start-column="9" selection-end-line="180" selection-end-column="9" />
+            <state relative-caret-position="5460">
+              <caret line="260" column="8" selection-start-line="260" selection-start-column="8" selection-end-line="260" selection-end-column="8" />
               <folding>
                 <element signature="e#25#63#0" expanded="true" />
               </folding>
@@ -94,9 +119,9 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="59" />
+    <option name="x" value="55" />
     <option name="y" value="24" />
-    <option name="width" value="1541" />
+    <option name="width" value="1545" />
     <option name="height" value="876" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
@@ -143,7 +168,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -176,44 +200,9 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="iris" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="iris" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="iris" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="people" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="iris" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="iris" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="iris" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="members" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -552,27 +541,27 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="59" y="24" width="1541" height="876" extended-state="6" />
-    <editor active="true" />
+    <frame x="55" y="24" width="1545" height="876" extended-state="6" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17458194" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18478987" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32947233" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32947233" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32947233" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32818532" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32947233" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32818532" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="manage.py@iris" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32818532" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -605,9 +594,30 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/iris/iris/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2331">
-          <caret line="112" column="21" selection-start-line="112" selection-start-column="21" selection-end-line="112" selection-end-column="21" />
-          <folding />
+        <state relative-caret-position="2352">
+          <caret line="113" column="15" selection-start-line="113" selection-start-column="15" selection-end-line="113" selection-end-column="15" />
+          <folding>
+            <marker date="1465328570864" expanded="true" signature="0:303" placeholder="&quot;&quot;&quot;Django settings for iris project....&quot;&quot;&quot;" />
+            <marker date="1465328570864" expanded="false" signature="377:461" placeholder="import ..." />
+            <marker date="1465328570864" expanded="true" signature="535:737" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="980:1493" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="1524:1985" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2016:2109" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2124:2714" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2130:2711" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2302:2704" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2338:2665" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2761:2835" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2850:2976" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2867:2974" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2979:3054" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3078:3342" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3430:3530" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3625:3689" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3757:3961" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="4025:4371" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="4411:4786" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -615,7 +625,195 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="651">
           <caret line="31" column="46" selection-start-line="31" selection-start-column="46" selection-end-line="31" selection-end-column="46" />
-          <folding />
+          <folding>
+            <marker date="1465510116621" expanded="true" signature="894:1488" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/iris/people/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#25#63#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/iris/iris/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2352">
+          <caret line="113" column="15" selection-start-line="113" selection-start-column="15" selection-end-line="113" selection-end-column="15" />
+          <folding>
+            <marker date="1465328570864" expanded="true" signature="0:303" placeholder="&quot;&quot;&quot;Django settings for iris project....&quot;&quot;&quot;" />
+            <marker date="1465328570864" expanded="false" signature="377:461" placeholder="import ..." />
+            <marker date="1465328570864" expanded="true" signature="535:737" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="980:1493" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="1524:1985" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2016:2109" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2124:2714" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2130:2711" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2302:2704" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2338:2665" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2761:2835" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2850:2976" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2867:2974" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2979:3054" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3078:3342" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3430:3530" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3625:3689" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3757:3961" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="4025:4371" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="4411:4786" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/iris/iris/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="651">
+          <caret line="31" column="46" selection-start-line="31" selection-start-column="46" selection-end-line="31" selection-end-column="46" />
+          <folding>
+            <marker date="1465510116621" expanded="true" signature="894:1488" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/iris/people/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#25#63#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/iris/iris/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2331">
+          <caret line="112" column="21" selection-start-line="112" selection-start-column="21" selection-end-line="112" selection-end-column="21" />
+          <folding>
+            <marker date="1465328570864" expanded="true" signature="0:303" placeholder="&quot;&quot;&quot;Django settings for iris project....&quot;&quot;&quot;" />
+            <marker date="1465328570864" expanded="false" signature="377:461" placeholder="import ..." />
+            <marker date="1465328570864" expanded="true" signature="535:737" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="980:1493" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="1524:1985" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2016:2109" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2124:2714" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2130:2711" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2302:2704" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2338:2665" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2761:2835" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2850:2976" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2867:2974" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2979:3054" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3078:3342" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3430:3530" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3625:3689" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3757:3961" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="4025:4371" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="4411:4786" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/iris/iris/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="651">
+          <caret line="31" column="46" selection-start-line="31" selection-start-column="46" selection-end-line="31" selection-end-column="46" />
+          <folding>
+            <marker date="1465510116621" expanded="true" signature="894:1488" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/iris/people/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#25#63#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/iris/iris/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1465328570864" expanded="true" signature="0:303" placeholder="&quot;&quot;&quot;Django settings for iris project....&quot;&quot;&quot;" />
+            <marker date="1465328570864" expanded="false" signature="377:461" placeholder="import ..." />
+            <marker date="1465328570864" expanded="true" signature="535:737" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="980:1493" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="1524:1985" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2016:2109" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2124:2714" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2130:2711" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2302:2704" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2338:2665" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2761:2835" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2850:2976" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2867:2974" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2979:3054" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3078:3342" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3430:3530" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3625:3689" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3757:3961" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="4025:4371" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="4411:4786" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/iris/iris/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="651">
+          <caret line="31" column="46" selection-start-line="31" selection-start-column="46" selection-end-line="31" selection-end-column="46" />
+          <folding>
+            <marker date="1465510116621" expanded="true" signature="894:1488" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/iris/iris/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2331">
+          <caret line="112" column="21" selection-start-line="112" selection-start-column="21" selection-end-line="112" selection-end-column="21" />
+          <folding>
+            <marker date="1465328570864" expanded="true" signature="0:303" placeholder="&quot;&quot;&quot;Django settings for iris project....&quot;&quot;&quot;" />
+            <marker date="1465328570864" expanded="false" signature="377:461" placeholder="import ..." />
+            <marker date="1465328570864" expanded="true" signature="535:737" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="980:1493" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="1524:1985" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2016:2109" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2124:2714" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2130:2711" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2302:2704" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2338:2665" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2761:2835" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2850:2976" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2867:2974" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2979:3054" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3078:3342" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3430:3530" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3625:3689" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3757:3961" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="4025:4371" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="4411:4786" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/iris/iris/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="651">
+          <caret line="31" column="46" selection-start-line="31" selection-start-column="46" selection-end-line="31" selection-end-column="46" />
+          <folding>
+            <marker date="1465510116621" expanded="true" signature="894:1488" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -633,7 +831,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -641,7 +838,28 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1465328570864" expanded="true" signature="0:303" placeholder="&quot;&quot;&quot;Django settings for iris project....&quot;&quot;&quot;" />
+            <marker date="1465328570864" expanded="false" signature="377:461" placeholder="import ..." />
+            <marker date="1465328570864" expanded="true" signature="535:737" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="980:1493" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="1524:1985" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2016:2109" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2124:2714" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2130:2711" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2302:2704" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2338:2665" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2761:2835" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2850:2976" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2867:2974" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2979:3054" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3078:3342" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3430:3530" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3625:3689" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3757:3961" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="4025:4371" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="4411:4786" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -649,7 +867,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="651">
           <caret line="31" column="46" selection-start-line="31" selection-start-column="46" selection-end-line="31" selection-end-column="46" />
-          <folding />
+          <folding>
+            <marker date="1465510116621" expanded="true" signature="894:1488" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -667,7 +887,28 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2331">
           <caret line="112" column="21" selection-start-line="112" selection-start-column="21" selection-end-line="112" selection-end-column="21" />
-          <folding />
+          <folding>
+            <marker date="1465328570864" expanded="true" signature="0:303" placeholder="&quot;&quot;&quot;Django settings for iris project....&quot;&quot;&quot;" />
+            <marker date="1465328570864" expanded="false" signature="377:461" placeholder="import ..." />
+            <marker date="1465328570864" expanded="true" signature="535:737" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="980:1493" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="1524:1985" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2016:2109" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2124:2714" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2130:2711" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2302:2704" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2338:2665" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2761:2835" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2850:2976" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2867:2974" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2979:3054" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3078:3342" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3430:3530" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3625:3689" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3757:3961" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="4025:4371" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="4411:4786" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -675,7 +916,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="651">
           <caret line="31" column="46" selection-start-line="31" selection-start-column="46" selection-end-line="31" selection-end-column="46" />
-          <folding />
+          <folding>
+            <marker date="1465510116621" expanded="true" signature="894:1488" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -693,7 +936,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -701,7 +943,28 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2331">
           <caret line="112" column="21" selection-start-line="112" selection-start-column="21" selection-end-line="112" selection-end-column="21" />
-          <folding />
+          <folding>
+            <marker date="1465328570864" expanded="true" signature="0:303" placeholder="&quot;&quot;&quot;Django settings for iris project....&quot;&quot;&quot;" />
+            <marker date="1465328570864" expanded="false" signature="377:461" placeholder="import ..." />
+            <marker date="1465328570864" expanded="true" signature="535:737" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="980:1493" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="1524:1985" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2016:2109" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2124:2714" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2130:2711" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2302:2704" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2338:2665" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2761:2835" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2850:2976" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2867:2974" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2979:3054" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3078:3342" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3430:3530" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3625:3689" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3757:3961" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="4025:4371" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="4411:4786" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -709,7 +972,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="651">
           <caret line="31" column="46" selection-start-line="31" selection-start-column="46" selection-end-line="31" selection-end-column="46" />
-          <folding />
+          <folding>
+            <marker date="1465510116621" expanded="true" signature="894:1488" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -727,7 +992,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -735,7 +999,28 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2331">
           <caret line="112" column="21" selection-start-line="112" selection-start-column="21" selection-end-line="112" selection-end-column="21" />
-          <folding />
+          <folding>
+            <marker date="1465328570864" expanded="true" signature="0:303" placeholder="&quot;&quot;&quot;Django settings for iris project....&quot;&quot;&quot;" />
+            <marker date="1465328570864" expanded="false" signature="377:461" placeholder="import ..." />
+            <marker date="1465328570864" expanded="true" signature="535:737" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="980:1493" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="1524:1985" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2016:2109" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2124:2714" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2130:2711" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2302:2704" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2338:2665" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2761:2835" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2850:2976" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2867:2974" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2979:3054" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3078:3342" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3430:3530" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3625:3689" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3757:3961" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="4025:4371" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="4411:4786" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -743,7 +1028,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1465510116621" expanded="true" signature="894:1488" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -751,7 +1038,28 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2553">
           <caret line="112" column="21" selection-start-line="112" selection-start-column="21" selection-end-line="112" selection-end-column="21" />
-          <folding />
+          <folding>
+            <marker date="1465328570864" expanded="true" signature="0:303" placeholder="&quot;&quot;&quot;Django settings for iris project....&quot;&quot;&quot;" />
+            <marker date="1465328570864" expanded="false" signature="377:461" placeholder="import ..." />
+            <marker date="1465328570864" expanded="true" signature="535:737" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="980:1493" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="1524:1985" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2016:2109" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2124:2714" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2130:2711" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2302:2704" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2338:2665" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2761:2835" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2850:2976" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2867:2974" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2979:3054" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3078:3342" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3430:3530" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3625:3689" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3757:3961" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="4025:4371" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="4411:4786" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -759,7 +1067,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1465510116621" expanded="true" signature="894:1488" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -767,7 +1077,28 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1998">
           <caret line="112" column="21" selection-start-line="112" selection-start-column="21" selection-end-line="112" selection-end-column="21" />
-          <folding />
+          <folding>
+            <marker date="1465328570864" expanded="true" signature="0:303" placeholder="&quot;&quot;&quot;Django settings for iris project....&quot;&quot;&quot;" />
+            <marker date="1465328570864" expanded="false" signature="377:461" placeholder="import ..." />
+            <marker date="1465328570864" expanded="true" signature="535:737" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="980:1493" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="1524:1985" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2016:2109" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2124:2714" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2130:2711" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2302:2704" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2338:2665" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2761:2835" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2850:2976" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2867:2974" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2979:3054" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3078:3342" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3430:3530" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3625:3689" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3757:3961" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="4025:4371" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="4411:4786" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -775,7 +1106,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1465510116621" expanded="true" signature="894:1488" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -783,7 +1116,28 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1465328570864" expanded="true" signature="0:303" placeholder="&quot;&quot;&quot;Django settings for iris project....&quot;&quot;&quot;" />
+            <marker date="1465328570864" expanded="false" signature="377:461" placeholder="import ..." />
+            <marker date="1465328570864" expanded="true" signature="535:737" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="980:1493" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="1524:1985" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2016:2109" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2124:2714" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2130:2711" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2302:2704" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2338:2665" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2761:2835" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2850:2976" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2867:2974" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2979:3054" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3078:3342" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3430:3530" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3625:3689" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3757:3961" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="4025:4371" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="4411:4786" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -791,7 +1145,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="17" column="49" selection-start-line="17" selection-start-column="49" selection-end-line="17" selection-end-column="49" />
-          <folding />
+          <folding>
+            <marker date="1465510116621" expanded="true" signature="894:1488" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -799,7 +1155,28 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
           <caret line="29" column="24" selection-start-line="29" selection-start-column="24" selection-end-line="29" selection-end-column="24" />
-          <folding />
+          <folding>
+            <marker date="1465328570864" expanded="true" signature="0:303" placeholder="&quot;&quot;&quot;Django settings for iris project....&quot;&quot;&quot;" />
+            <marker date="1465328570864" expanded="false" signature="377:461" placeholder="import ..." />
+            <marker date="1465328570864" expanded="true" signature="535:737" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="980:1493" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="1524:1985" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2016:2109" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2124:2714" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2130:2711" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2302:2704" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2338:2665" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2761:2835" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2850:2976" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2867:2974" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2979:3054" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3078:3342" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3430:3530" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3625:3689" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3757:3961" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="4025:4371" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="4411:4786" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -807,7 +1184,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1465510116621" expanded="true" signature="894:1488" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -876,17 +1255,40 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/iris/iris/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2331">
-          <caret line="112" column="21" selection-start-line="112" selection-start-column="21" selection-end-line="112" selection-end-column="21" />
-          <folding />
+        <state relative-caret-position="2352">
+          <caret line="115" column="15" selection-start-line="115" selection-start-column="15" selection-end-line="115" selection-end-column="15" />
+          <folding>
+            <marker date="1465328570864" expanded="true" signature="0:303" placeholder="&quot;&quot;&quot;Django settings for iris project....&quot;&quot;&quot;" />
+            <marker date="1465328570864" expanded="false" signature="377:461" placeholder="import ..." />
+            <marker date="1465328570864" expanded="true" signature="535:737" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="980:1493" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="1524:1985" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2016:2109" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2124:2714" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2130:2711" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2302:2704" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2338:2665" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2761:2835" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2850:2976" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2867:2974" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="2979:3054" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3078:3342" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3430:3530" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3625:3689" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="3757:3961" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="4025:4371" placeholder="..." />
+            <marker date="1465328570864" expanded="true" signature="4411:4786" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/iris/iris/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="651">
-          <caret line="31" column="46" selection-start-line="31" selection-start-column="46" selection-end-line="31" selection-end-column="46" />
-          <folding />
+          <caret line="34" column="46" selection-start-line="34" selection-start-column="46" selection-end-line="34" selection-end-column="46" />
+          <folding>
+            <marker date="1465510116621" expanded="true" signature="894:1488" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -894,7 +1296,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="450">
           <caret line="108" column="19" selection-start-line="108" selection-start-column="8" selection-end-line="108" selection-end-column="19" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -902,14 +1303,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="189">
           <caret line="54" column="26" selection-start-line="54" selection-start-column="26" selection-end-line="54" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/iris/people/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1827">
-          <caret line="180" column="9" selection-start-line="180" selection-start-column="9" selection-end-line="180" selection-end-column="9" />
+        <state relative-caret-position="5460">
+          <caret line="260" column="8" selection-start-line="260" selection-start-column="8" selection-end-line="260" selection-end-column="8" />
           <folding>
             <element signature="e#25#63#0" expanded="true" />
           </folding>

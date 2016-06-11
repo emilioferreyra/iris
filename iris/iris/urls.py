@@ -24,7 +24,10 @@ from django.contrib import admin
 
 urlpatterns = [
     # Necesario para redireccionar el root hacia el admin
-    url(r'^$', RedirectView.as_view(url=reverse_lazy('admin:index'), permanent=False)),
+    url(r'^$', RedirectView.as_view(
+        url=reverse_lazy('admin:index'), \
+        permanent=False)
+    ),
     # Url del admin normal
     url(r'^reports/', include('reports.urls')),
     url(r'^report_builder/', include('report_builder.urls')),

@@ -180,8 +180,8 @@ class Employee(Person):
                 {'birth_day': _('Must be at least 18 years old to register.')})
         if self.hiring_date <= today:
             raise ValidationError(
-                {'hiring_date': _('The hiring date must to be minor or equal \
-                    to today.')})
+                {'hiring_date': ('The hiring date must to be minor to today.')}
+                )
 
     def save(self, *args, **kwargs):
         # self.person_type = PersonType.objects.get(name="Employee")

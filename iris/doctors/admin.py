@@ -94,8 +94,8 @@ class DoctorAdmin(admin.ModelAdmin):
 
     suit_form_tabs = (
         ('general', 'General'),
-        ('additionalsfields', 'Additional Info'),
-        ('phones', 'Phones'),
+        ('additionalsfields', 'Adicional'),
+        ('phones', 'Teléfonos'),
         )
 
 
@@ -159,8 +159,8 @@ class AppointmentAdmin(admin.ModelAdmin):
 
     suit_form_tabs = (
         ('general', 'General'),
-        ('prescription', 'Prescription'),
-        ('prescribedmedicine', 'Prescribed Medicines'),
+        ('prescription', 'Prescripcion'),
+        ('prescribedmedicine', 'Medicinas prescritas'),
         )
     list_per_page = 5
 

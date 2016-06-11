@@ -10,7 +10,8 @@ from smart_selects.db_fields import ChainedForeignKey
 from commons.models import PersonType
 from people.models import Person, DoctorManager
 from members.models import Member
-from suppliers.models import SupplierCompany, SupplierType
+from suppliers.models import SupplierCompany
+from suppliers.models import SupplierType
 
 
 class ClinicManager(models.Manager):
@@ -25,8 +26,8 @@ class Clinic(SupplierCompany):
     objects = ClinicManager()
 
     class Meta:
-        verbose_name = "Clinic"
-        verbose_name_plural = "Clinics"
+        verbose_name = "Clínica"
+        verbose_name_plural = "Clínicas"
         ordering = ['name']
         proxy = True
 
@@ -41,11 +42,15 @@ class Clinic(SupplierCompany):
 
 @python_2_unicode_compatible
 class Speciality(models.Model):
-    name = models.CharField(max_length=60, unique=True)
+    name = models.CharField(
+        max_length=60,
+        unique=True,
+        verbose_name="nombre"
+    )
 
     class Meta:
-        verbose_name = "Speciality"
-        verbose_name_plural = "Specialities"
+        verbose_name = "Especialidad"
+        verbose_name_plural = "Especialidades"
 
     def __str__(self):
         return self.name
@@ -53,13 +58,20 @@ class Speciality(models.Model):
 
 @python_2_unicode_compatible
 class Doctor(Person):
+    specialities = models.ManyToManyField(
+        Speciality,
+        verbose_name="especialidades"
+    )
+    clinic = models.ManyToManyField(
+        Clinic,
+        verbose_name="clínicas"
+    )
+
     objects = DoctorManager()
-    specialities = models.ManyToManyField(Speciality)
-    clinic = models.ManyToManyField(Clinic)
 
     class Meta:
-        verbose_name = "Doctor"
-        verbose_name_plural = "Doctors"
+        verbose_name = "Médico"
+        verbose_name_plural = "Médicos"
 
     def doctor_name(self):
         if self.gender == 'F':
@@ -75,7 +87,7 @@ class Doctor(Person):
                 self.mother_last_name
                 )
 
-    doctor_name.short_description = 'Name'
+    doctor_name.short_description = 'Nombre'
 
     def __str__(self):
         if self.gender == 'F':
@@ -99,34 +111,62 @@ class Doctor(Person):
 
 @python_2_unicode_compatible
 class Appointment(models.Model):
-    member = models.ForeignKey(Member)
-    clinic = models.ForeignKey(Clinic)
+    member = models.ForeignKey(
+        Member,
+        verbose_name="miembro"
+    )
+    clinic = models.ForeignKey(
+        Clinic,
+        verbose_name="clínica"
+    )
     doctor = ChainedForeignKey(
         Doctor,
         chained_field="clinic",
         chained_model_field="clinic",
         )
-    appointment_date = models.DateField()
-    symptomatology = models.TextField(max_length=300)
-    prescription = models.TextField(max_length=300, null=True, blank=True)
-    date_next_appoitment = models.DateField(null=True, blank=True)
+    appointment_date = models.DateField(
+        verbose_name="fecha de cita"
+    )
+    symptomatology = models.TextField(
+        max_length=300,
+        verbose_name="sintomatología"
+    )
+    prescription = models.TextField(
+        max_length=300,
+        null=True,
+        blank=True,
+        verbose_name="prescripción"
+    )
+    date_next_appoitment = models.DateField(
+        null=True,
+        blank=True,
+        verbose_name="fecha de próxima cita"
+    )
 
     class Meta:
-        verbose_name = "Appointment"
-        verbose_name_plural = "Appointments"
+        verbose_name = "Cita Médica"
+        verbose_name_plural = "Citas Médicas"
         unique_together = (("member", "doctor", "appointment_date"),)
 
     def __str__(self):
-        return '%s with %s at %s' % (self.member, self.doctor, self.clinic)
+        return '%s con %s en %s' % (
+            self.member,
+            self.doctor,
+            self.clinic
+        )
 
 
 @python_2_unicode_compatible
 class Medicine(models.Model):
-    name = models.CharField(max_length=50, unique=True)
+    name = models.CharField(
+        max_length=50,
+        unique=True,
+        verbose_name="nombre"
+    )
 
     class Meta:
-        verbose_name = "Medicine"
-        verbose_name_plural = "Medicines"
+        verbose_name = "Medicina"
+        verbose_name_plural = "Medicinas"
 
     def __str__(self):
         return self.name
@@ -135,27 +175,41 @@ class Medicine(models.Model):
 @python_2_unicode_compatible
 class PrescribedMedicine(models.Model):
     UNIT_CHOICES = (
-        ("G", "Gout"),
-        ("P", "Pill"),
-        ("S", "Spoon"),
+        ("G", "Gotas"),
+        ("P", "Pildoras"),
+        ("S", "Cucharada"),
     )
     FRECUENCY_UNIT_CHOICES = (
-        ("H", "By Hour"),
-        ("D", "By Day"),
+        ("H", "Cada Hora"),
+        ("D", "Al Día"),
     )
     appointment = models.ForeignKey(Appointment)
-    medicine = models.ForeignKey(Medicine)
-    quantity = models.FloatField(default=1)
-    unit = models.CharField(max_length=1, choices=UNIT_CHOICES)
-    frecuency = models.FloatField(default=1)
+    medicine = models.ForeignKey(
+        Medicine,
+        verbose_name="medicamento"
+    )
+    quantity = models.FloatField(
+        default=1,
+        verbose_name="cantidad"
+    )
+    unit = models.CharField(
+        max_length=1,
+        choices=UNIT_CHOICES,
+        verbose_name="unidad"
+    )
+    frecuency = models.FloatField(
+        default=1,
+        verbose_name="frecuencia"
+    )
     frecuency_unit = models.CharField(
         max_length=1,
-        choices=FRECUENCY_UNIT_CHOICES
+        choices=FRECUENCY_UNIT_CHOICES,
+        verbose_name="unidade de frecuencia"
     )
 
     class Meta:
-        verbose_name = "Prescribed Medicine"
-        verbose_name_plural = "Prescribed Medicines"
+        verbose_name = "Medicina prescrita"
+        verbose_name_plural = "Medicinas prescritas"
         db_table = "doctors_prescribed_medicines"
 
     def __str__(self):

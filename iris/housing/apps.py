@@ -1,0 +1,6 @@
+from django.apps import AppConfig
+
+
+class HousingConfig(AppConfig):
+    name = "housing"
+    verbose_name = "Viviendas"

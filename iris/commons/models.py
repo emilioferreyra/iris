@@ -17,11 +17,15 @@ class DocumentType(models.Model):
         Stores all types of documents id for identify a person,
         related to :model:`people.Person`.
     """
-    name = models.CharField(max_length=20, unique=True)
+    name = models.CharField(
+        max_length=20,
+        unique=True,
+        verbose_name="nombre"
+    )
 
     class Meta:
-        verbose_name = "Document Type"
-        verbose_name_plural = "Documents types"
+        verbose_name = "Tipo de documento"
+        verbose_name_plural = "Tipos de documentos"
         db_table = 'commons_document_type'
 
     def __str__(self):
@@ -33,11 +37,16 @@ class MaritalStatus(models.Model):
     """
         Stores the marital status related to :model:`people.Person`
     """
-    name = models.CharField(unique=True, max_length=45)
+    name = models.CharField(
+        unique=True,
+        max_length=45,
+        verbose_name="nombre"
+    )
 
     class Meta:
+        verbose_name = 'Estado civil'
+        verbose_name_plural = 'Estado civil'
         db_table = 'commons_marital_status'
-        verbose_name_plural = 'Marital status'
         ordering = ['id']
 
     def __str__(self):
@@ -49,11 +58,17 @@ class PhoneType(models.Model):
     """
         Stores the phones types related to :model:`people.Person`
     """
-    name = models.CharField(unique=True, max_length=45)
+    name = models.CharField(
+        unique=True,
+        max_length=45,
+        verbose_name="nombre"
+    )
 
     class Meta:
-        ordering = ['id']
+        verbose_name = "Tipo de teléfono"
+        verbose_name_plural = "Tipos de teléfonos"
         db_table = 'commons_phone_type'
+        ordering = ['id']
 
     def __str__(self):
         return self.name
@@ -64,9 +79,15 @@ class AcademicLevel(models.Model):
     """
         Stores the academics levels related to :model:`people.Person`
     """
-    name = models.CharField(unique=True, max_length=45)
+    name = models.CharField(
+        unique=True,
+        max_length=45,
+        verbose_name="nombre"
+    )
 
     class Meta:
+        verbose_name = "Nivel académico"
+        verbose_name_plural = "Niveles académicos"
         db_table = 'commons_academic_level'
 
     def __str__(self):
@@ -78,7 +99,16 @@ class Kinship(models.Model):
     """
         Stores the kinship related to :model:`people.Person`
     """
-    name = models.CharField(unique=True, max_length=45)
+    name = models.CharField(
+        unique=True,
+        max_length=45,
+        verbose_name="nombre"
+    )
+
+    class Meta:
+        verbose_name = "Parentezco"
+        verbose_name_plural = "Parentezcos"
+        ordering = ["name"]
 
     def __str__(self):
         return self.name
@@ -89,11 +119,15 @@ class PersonType(models.Model):
     """
         Stores the person types related to :model:`people.Person`
     """
-    name = models.CharField(max_length=45, unique=True)
+    name = models.CharField(
+        max_length=45,
+        unique=True,
+        verbose_name="nombre"
+    )
 
     class Meta:
-        verbose_name = "Person Type"
-        verbose_name_plural = "Person Types"
+        verbose_name = "Tipo de persona"
+        verbose_name_plural = "Tipos de personas"
         db_table = "commons_person_type"
         ordering = ['id']
 

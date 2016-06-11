@@ -151,11 +151,11 @@ class MemberAdmin(AdminImageMixin, admin.ModelAdmin):
 
     suit_form_tabs = (
         ('general', 'General'),
-        ('additionalsfields', 'Additional Info'),
-        ('memberaddress', 'Addresses'),
-        ('memberphone', 'Phones'),
-        ('memberfamily', 'Family'),
-        ('house', 'House Type'),
+        ('additionalsfields', 'Información Adicional'),
+        ('memberaddress', 'Direcciones'),
+        ('memberphone', 'Telefonos'),
+        ('memberfamily', 'Familiares'),
+        ('house', 'Tipo de vivienda'),
         )
     ordering = ['-member_number']
 

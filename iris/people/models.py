@@ -5,6 +5,7 @@ from __future__ import unicode_literals
 from django.utils.encoding import python_2_unicode_compatible
 from datetime import date
 from django.db import models
+# from django.utils.translation import ugettext_lazy as _
 
 from model_utils.models import TimeStampedModel
 from audit_log.models import AuthStampedModel
@@ -129,34 +130,88 @@ class Person(TimeStampedModel, AuthStampedModel):
         :model:`people.PersonPhone`, :model:`people.PersonPhone` and
         :model:`suppliers.SupplierContact`.
     """
-    names = models.CharField(max_length=100)
-    father_last_name = models.CharField(max_length=50)
-    mother_last_name = models.CharField(max_length=50, null=True, blank=True)
+    names = models.CharField(
+        verbose_name="nombres",
+        help_text="Introduzca Nombres",
+        max_length=100)
+    father_last_name = models.CharField(
+        max_length=50,
+        verbose_name="Apellido Paterno",
+        help_text="Apellido del padre"
+    )
+    mother_last_name = models.CharField(
+        max_length=50,
+        null=True,
+        blank=True,
+        verbose_name="Apellido Materno",
+        help_text="Apellido de la madre"
+    )
     gender = models.CharField(
         max_length=1,
-        choices=(('M', 'Male'), ('F', 'Female'),),
-        null=True
+        choices=(
+            ('M', "Masculino"),
+            ('F', "Femenino"),
+        ),
+        null=True,
+        verbose_name="género"
     )
-    birth_day = models.DateField()
-    nationality = models.ForeignKey(Nationality, default=21)
-    marital_status = models.ForeignKey(MaritalStatus)
-    document_type = models.ForeignKey(DocumentType, null=True)
+    birth_day = models.DateField(
+        verbose_name="Fecha nacimiento",
+        help_text="Introduzca Fecha de nacimiento"
+    )
+    nationality = models.ForeignKey(
+        Nationality,
+        default=21,
+        verbose_name="nacionalidad",
+        help_text="Seleccione nacionalidad"
+    )
+    marital_status = models.ForeignKey(
+        MaritalStatus,
+        verbose_name="estado civil",
+        help_text="Seleccione estado civil"
+    )
+    document_type = models.ForeignKey(
+        DocumentType,
+        null=True,
+        verbose_name="tipo documento identidad",
+        help_text="Seleccione el tipo de documento de identidad"
+    )
     document_id = models.CharField(
         max_length=22,
-        help_text='000-0000000-0',
-        null=True
+        # help_text='000-0000000-0',
+        null=True,
+        verbose_name="documento identidad",
+        help_text="Introduzca el número de documento"
     )
-    email = models.EmailField(verbose_name="e-mail", blank=True)
-    person_type = models.ForeignKey(PersonType, null=True)
+    email = models.EmailField(blank=True, verbose_name="e-mail")
+    person_type = models.ForeignKey(
+        PersonType,
+        null=True,
+        verbose_name="tipo de persona",
+        help_text="Seleccione tipo de persona"
+    )
     dependent_of = models.ForeignKey(
         'self',
         null=True,
         blank=True,
-        verbose_name='supervisor'
+        verbose_name="supervisor"
         )
-    kinship = models.ForeignKey(Kinship, null=True)
-    picture = ImageField(upload_to='people_pictures', null=True, blank=True)
-    status = models.BooleanField(default=True, verbose_name='active')
+    kinship = models.ForeignKey(
+        Kinship,
+        null=True,
+        verbose_name="parentezco",
+        help_text="Seleccione parentezco"
+    )
+    picture = ImageField(
+        upload_to='people_pictures',
+        null=True,
+        blank=True,
+        verbose_name="fotografía",
+    )
+    status = models.BooleanField(
+        default=True,
+        verbose_name="estado"
+    )
 
     people = models.Manager()
     employees = EmployeeManager()
@@ -170,8 +225,8 @@ class Person(TimeStampedModel, AuthStampedModel):
     women = FemaleManager()
 
     class Meta:
-        verbose_name = "Person"
-        verbose_name_plural = "People"
+        verbose_name = "Persona"
+        verbose_name_plural = "Personas"
 
     def __str__(self):
         return '%s %s %s' % (
@@ -189,7 +244,7 @@ class Person(TimeStampedModel, AuthStampedModel):
             self.father_last_name,
             self.mother_last_name
         )
-    full_name.short_description = "Name"
+    full_name.short_description = "Nombre"
     full_name.admin_order_field = "names"
 
     def calculate_age(self):
@@ -201,7 +256,7 @@ class Person(TimeStampedModel, AuthStampedModel):
             (today.month, today.day) <
             (self.birth_day.month, self.birth_day.day)
         )
-    calculate_age.short_description = "Age"
+    calculate_age.short_description = "Edad"
     # Use birth_day field to order in Admin site:
     calculate_age.admin_order_field = "-birth_day"
 
@@ -223,7 +278,7 @@ class Person(TimeStampedModel, AuthStampedModel):
                 ).order_by('id').first()
             return address
 
-    main_address.short_description = "Address"
+    main_address.short_description = "Dirección"
 
     def main_phone(self):
         """
@@ -243,14 +298,14 @@ class Person(TimeStampedModel, AuthStampedModel):
                 ).order_by('id').first()
             return phone
 
-    main_phone.short_description = "Phone"
+    main_phone.short_description = "Teléfono"
 
     def image_tag(self):
         if self.picture:
             return u'<img src="%s" width="100" height="75" />' % self.picture.url
         else:
             return ' '
-    image_tag.short_description = 'Picture'
+    image_tag.short_description = 'Fotografía'
     image_tag.allow_tags = True
     image_tag.admin_order_field = 'names'
 
@@ -263,32 +318,64 @@ class PersonAddress(models.Model):
     """
     BOOL_CHOICES = ((True, 'Yes'), (False, 'No'))
     person_name = models.ForeignKey(Person)
-    country = models.ForeignKey(Country, default=1)
-    region = models.ForeignKey(Region)
+    country = models.ForeignKey(
+        Country,
+        default=1,
+        verbose_name="país",
+        help_text="Seleccione país"
+    )
+    region = models.ForeignKey(
+        Region,
+        verbose_name="región",
+        help_text="Seleccione región"
+    )
     province = ChainedForeignKey(
         Province,
         chained_field="region",
-        chained_model_field="region"
+        chained_model_field="region",
+        verbose_name="provincia",
+        help_text="Seleccione provincia"
         )
     town = ChainedForeignKey(
         Town,
         chained_field="province",
-        chained_model_field="province"
+        chained_model_field="province",
+        verbose_name="municipio",
+        help_text="Seleccione municipio"
         )
-    address_type = models.ForeignKey(AddressType)
-    building = models.CharField(max_length=20, null=True, blank=True)
-    apartment = models.CharField(max_length=20, null=True, blank=True)
-    street = models.CharField(max_length=40)
+    address_type = models.ForeignKey(
+        AddressType,
+        verbose_name="tipo dirección",
+        help_text="Seleccione tipo de dirección"
+    )
+    building = models.CharField(
+        max_length=20,
+        null=True,
+        blank=True,
+        verbose_name="edificio"
+    )
+    apartment = models.CharField(
+        max_length=20,
+        null=True,
+        blank=True,
+        verbose_name="apartamento",
+        help_text="Escriba número de apartamento"
+    )
+    street = models.CharField(
+        max_length=40,
+        verbose_name="calle",
+        help_text="Escriba nombre de calle"
+    )
     # The next field its used to mark the address as default.
     is_default = models.BooleanField(
         default=False,
-        verbose_name='Default Address',
+        verbose_name='dirección principal',
         # choices=BOOL_CHOICES,
     )
 
     class Meta:
-        verbose_name = "Address"
-        verbose_name_plural = "Addresses"
+        verbose_name = "Dirección"
+        verbose_name_plural = "Direcciones"
         db_table = "people_person_address"
 
     def __str__(self):
@@ -302,17 +389,23 @@ class PersonPhone(models.Model):
         Related models:
         :model:`people.Person` and :model:`commons.PhoneType`
     """
-    phone_type = models.ForeignKey(PhoneType)
-    phone_number = PhoneNumberField(help_text='999-999-9999')
+    phone_type = models.ForeignKey(
+        PhoneType,
+        verbose_name="tipo de teléfono"
+    )
+    phone_number = PhoneNumberField(
+        verbose_name="número de teléfono",
+        help_text='999-999-9999'
+    )
     person_name = models.ForeignKey(Person)
     is_default = models.BooleanField(
         default=False,
-        verbose_name='default phone'
+        verbose_name='teléfono principal'
         )
 
     class Meta:
-        verbose_name = "Phone"
-        verbose_name_plural = "Phones"
+        verbose_name = "Teléfono"
+        verbose_name_plural = "Teléfonos"
         db_table = "people_person_phone"
         unique_together = (("person_name", "phone_type"),)
 

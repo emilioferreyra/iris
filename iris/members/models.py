@@ -7,7 +7,7 @@ from django.db import models
 import datetime
 from django.utils import timezone
 from django.db.models import Q, Max
-from django.shortcuts import get_object_or_404
+# from django.shortcuts import get_object_or_404
 
 from commons.models import PersonType
 from commons.models import AcademicLevel
@@ -20,6 +20,10 @@ from housing.models import HouseMaterialWall
 from housing.models import HouseMaterialFloor
 
 
+member_id = 2
+member_family_id = 6
+
+
 @python_2_unicode_compatible
 class Disability(models.Model):
     """
@@ -27,10 +31,15 @@ class Disability(models.Model):
         Related model:
         :model:`members.Member`.
     """
-    name = models.CharField(unique=True, max_length=40)
+    name = models.CharField(
+        unique=True,
+        max_length=40,
+        verbose_name="nombre"
+    )
 
     class Meta:
-        verbose_name_plural = 'Disabilities'
+        verbose_name = "Discapacidad"
+        verbose_name_plural = "Discapacidades"
         ordering = ['name']
 
     def __str__(self):
@@ -44,9 +53,13 @@ class Cane(models.Model):
         Related model:
         :model:`members.Member`.
     """
-    name = models.PositiveIntegerField()
+    name = models.PositiveIntegerField(
+        verbose_name="número de bastón"
+    )
 
     class Meta:
+        verbose_name = "Bastón"
+        verbose_name_plural = "Bastones"
         ordering = ['id']
 
     def __str__(self):
@@ -60,12 +73,17 @@ class Occupation(models.Model):
         Related model:
         :model:`members.Member`.
     """
-    name = models.CharField(max_length=40, unique=True)
+    name = models.CharField(
+        max_length=40,
+        unique=True,
+        verbose_name="nombre"
+    )
 
     class Meta:
-        verbose_name = "Occupation"
-        verbose_name_plural = "Occupations"
+        verbose_name = "Ocupación"
+        verbose_name_plural = "Ocupaciones"
         db_table = "members_occupation"
+        ordering = ["name"]
 
     def __str__(self):
         return self.name
@@ -112,23 +130,58 @@ class Member(Person):
         :model:`people.PersonPhone`.
     """
     objects = MemberManager()
-    member_number = models.IntegerField(unique=True, default=number)
-    disabilities = models.ManyToManyField(Disability)
-    cane_number = models.ForeignKey(Cane)
-    academic_level = models.ForeignKey(AcademicLevel)
-    currently_works = models.BooleanField(default=False)
-    occupation = models.ForeignKey(Occupation, null=True, blank=True)
+    member_number = models.IntegerField(
+        unique=True,
+        default=number,
+        verbose_name="número de miembro"
+    )
+    disabilities = models.ManyToManyField(
+        Disability,
+        verbose_name="discapacidades"
+    )
+    cane_number = models.ForeignKey(
+        Cane,
+        verbose_name="número de bastón"
+    )
+    academic_level = models.ForeignKey(
+        AcademicLevel,
+        verbose_name="nivel académico",
+        help_text="Seleccione nivel académico"
+    )
+    currently_works = models.BooleanField(
+        default=False,
+        verbose_name="trabaja actualmente",
+        help_text="Indique si actualmente tiene trabajo"
+    )
+    occupation = models.ForeignKey(
+        Occupation,
+        null=True,
+        blank=True,
+        verbose_name="ocupación",
+        help_text="Seleccione ocupación"
+    )
     where_work = models.CharField(
         max_length=100,
         null=True,
-        blank=True
+        blank=True,
+        verbose_name="donde trabaja",
+        help_text="Empresa o lugar donde trabaja"
     )
-    observations = models.TextField(null=True, blank=True)
-    is_mother = models.BooleanField(default=False)
+    observations = models.TextField(
+        null=True,
+        blank=True,
+        verbose_name="observaciones",
+        help_text="Escribir observaciones adicionales"
+    )
+    is_mother = models.BooleanField(
+        default=False,
+        verbose_name="Es madre",
+        help_text="Indica si la miembro es madre"
+    )
 
     class Meta:
-        verbose_name = "Member"
-        verbose_name_plural = "Members"
+        verbose_name = "Miembro"
+        verbose_name_plural = "Miembros"
         ordering = ['-id']
 
     def save(self, *args, **kwargs):
@@ -136,8 +189,7 @@ class Member(Person):
         Modify original save method to make the field person_type
         equal to "member" by default when registry is saved.
         """
-        # self.person_type = PersonType.objects.get(name="Member")
-        self.person_type = get_object_or_404(PersonType, name="Member")
+        self.person_type = member_id
         super(Member, self).save(*args, **kwargs)
 
     def member_is_mother(self):
@@ -158,7 +210,7 @@ class Member(Person):
 
     member_is_mother.admin_order_field = 'is_mother'
     member_is_mother.boolean = True
-    member_is_mother.short_description = 'Is mother'
+    member_is_mother.short_description = 'Es madre?'
 
     def children_quantity(self):
         quantity = Person.member_families.filter(
@@ -168,7 +220,7 @@ class Member(Person):
         return quantity
 
     # children_quantity.admin_order_field = 'children_number'
-    children_quantity.short_description = 'Children Qty'
+    children_quantity.short_description = 'Cantidad de hijos'
 
     def was_created_recently(self):
         """
@@ -180,7 +232,7 @@ class Member(Person):
 
     was_created_recently.admin_order_field = 'created'
     was_created_recently.boolean = True
-    was_created_recently.short_description = 'Created recently?'
+    was_created_recently.short_description = 'Creado recientemente?'
 
 
 @python_2_unicode_compatible
@@ -195,13 +247,34 @@ class House(models.Model):
         :model:`housing.HouseMaterialWall`.
     """
     member_name = models.ForeignKey(Member)
-    property_type = models.ForeignKey(PropertyType)
-    ceiling = models.ForeignKey(HouseMaterialCeiling)
-    wall = models.ForeignKey(HouseMaterialWall)
-    floor = models.ForeignKey(HouseMaterialFloor)
+    property_type = models.ForeignKey(
+        PropertyType,
+        verbose_name="Tipo de propiedad",
+        help_text="Seleccione tipo de propiedad"
+    )
+    ceiling = models.ForeignKey(
+        HouseMaterialCeiling,
+        verbose_name="techo",
+        help_text="Seleccione techo"
+    )
+    wall = models.ForeignKey(
+        HouseMaterialWall,
+        verbose_name="pared",
+        help_text="Seleccione pared"
+    )
+    floor = models.ForeignKey(
+        HouseMaterialFloor,
+        verbose_name="piso",
+        help_text="Seleccione piso"
+    )
 
+    class Meta:
+        verbose_name = "Vivienda"
+        verbose_name_plural = "Características de la Vivienda"
+
+    @property
     def __str__(self):
-        return '%s %s' % (self.member_name, self.property_type)
+        return "%s" % self.property_type
 
 
 class MemberFamily(Person):
@@ -221,8 +294,8 @@ class MemberFamily(Person):
     objects = MemberFamilyManager()
 
     class Meta:
-        verbose_name = "Member Family"
-        verbose_name_plural = "Member Families"
+        verbose_name = "Familiar del miembro"
+        verbose_name_plural = "Familiares del miembro"
         proxy = True
 
     def save(self, *args, **kwargs):
@@ -230,6 +303,5 @@ class MemberFamily(Person):
         Modify original save method to make the field person_type
         equal to "member_family" by default when the registry is saved.
         """
-        # self.person_type = PersonType.objects.get(id=6)
-        self.person_type = get_object_or_404(PersonType, name="Member")
+        self.person_type = member_family_id
         super(MemberFamily, self).save(*args, **kwargs)

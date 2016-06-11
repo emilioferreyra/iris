@@ -31,15 +31,15 @@ class SupplierContactAdmin(AdminImageMixin, admin.ModelAdmin):
                 'nationality',
                 'marital_status',
                 'gender',
-                ]
-            })]
+            ]
+        })]
 
     list_display = [
         'supplier_company',
         'full_name',
         'main_phone',
         'email',
-        ]
+    ]
 
     inlines = [SupplierContactPhoneInline]
     search_fields = ['name', 'supplier_company']
@@ -47,11 +47,11 @@ class SupplierContactAdmin(AdminImageMixin, admin.ModelAdmin):
     list_filter = (
         ('supplier_company', admin.RelatedOnlyFieldListFilter),
         'supplier_company__supplier_type'
-        )
+    )
     suit_form_tabs = (
         ('general', 'General'),
-        ('suppliercontactphone', 'Phones'),
-        )
+        ('suppliercontactphone', 'Teléfonos'),
+    )
 
 
 class SupplierContactInline(admin.StackedInline):
@@ -67,7 +67,7 @@ class SupplierContactInline(admin.StackedInline):
         'nationality',
         'marital_status',
         'gender',
-        ]
+    ]
     min_num = 0
     extra = 0
     suit_classes = 'suit-tab suit-tab-suppliercontact'
@@ -81,7 +81,7 @@ class SupplierCompanyAdmin(AdminImageMixin, admin.ModelAdmin):
         'address',
         'phone_number',
         'email',
-        ]
+    ]
     list_display_links = ['name', 'image_tag']
 
     fieldsets = [
@@ -98,8 +98,8 @@ class SupplierCompanyAdmin(AdminImageMixin, admin.ModelAdmin):
                 "address",
                 "phone_number",
                 "email",
-                ]
-            })]
+            ]
+        })]
     # inlines = [SupplierContactInline]
 
     search_fields = ['name']
@@ -108,14 +108,13 @@ class SupplierCompanyAdmin(AdminImageMixin, admin.ModelAdmin):
 
     list_filter = (
         ('supplier_type', admin.RelatedOnlyFieldListFilter),
-        )
+    )
 
     suit_form_tabs = (
         ('general', 'General'),
         # ('suppliercontact', 'Contacts'),
-        )
+    )
     list_per_page = 5
-
 
 
 admin.site.register(SupplierContact, SupplierContactAdmin)

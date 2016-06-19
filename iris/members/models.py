@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Django core
+
 from __future__ import absolute_import
 from __future__ import unicode_literals
 from django.utils.encoding import python_2_unicode_compatible
@@ -7,7 +7,6 @@ from django.db import models
 import datetime
 from django.utils import timezone
 from django.db.models import Q, Max
-# from django.shortcuts import get_object_or_404
 
 from commons.models import PersonType
 from commons.models import AcademicLevel
@@ -20,8 +19,8 @@ from housing.models import HouseMaterialWall
 from housing.models import HouseMaterialFloor
 
 
-member_id = 2
-member_family_id = 6
+member = 2
+member_family = 6
 
 
 @python_2_unicode_compatible
@@ -129,7 +128,6 @@ class Member(Person):
         :model:`people.PersonAddress` and
         :model:`people.PersonPhone`.
     """
-    objects = MemberManager()
     member_number = models.IntegerField(
         unique=True,
         default=number,
@@ -179,6 +177,8 @@ class Member(Person):
         help_text="Indica si la miembro es madre"
     )
 
+    objects = MemberManager()
+
     class Meta:
         verbose_name = "Miembro"
         verbose_name_plural = "Miembros"
@@ -189,7 +189,7 @@ class Member(Person):
         Modify original save method to make the field person_type
         equal to "member" by default when registry is saved.
         """
-        self.person_type = member_id
+        self.person_type = PersonType.objects.get(id=member)
         super(Member, self).save(*args, **kwargs)
 
     def member_is_mother(self):
@@ -272,9 +272,8 @@ class House(models.Model):
         verbose_name = "Vivienda"
         verbose_name_plural = "Características de la Vivienda"
 
-    @property
     def __str__(self):
-        return "%s" % self.property_type
+        return "%s" % (str(self.property_type))
 
 
 class MemberFamily(Person):
@@ -303,5 +302,5 @@ class MemberFamily(Person):
         Modify original save method to make the field person_type
         equal to "member_family" by default when the registry is saved.
         """
-        self.person_type = member_family_id
+        self.person_type = PersonType.objects.get(id=member_family)
         super(MemberFamily, self).save(*args, **kwargs)

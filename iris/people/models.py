@@ -5,7 +5,6 @@ from __future__ import unicode_literals
 from django.utils.encoding import python_2_unicode_compatible
 from datetime import date
 from django.db import models
-# from django.utils.translation import ugettext_lazy as _
 
 from model_utils.models import TimeStampedModel
 from audit_log.models import AuthStampedModel
@@ -215,7 +214,6 @@ class Person(TimeStampedModel, AuthStampedModel):
 
     people = models.Manager()
     employees = EmployeeManager()
-    # employees = EmployeeQuerySet.as_manager()
     members = MemberManager()
     doctors = DoctorManager()
     suppliers = SupplierManager()
@@ -302,7 +300,7 @@ class Person(TimeStampedModel, AuthStampedModel):
 
     def image_tag(self):
         if self.picture:
-            return u'<img src="%s" width="100" height="75" />' % self.picture.url
+            return u'<img iris="%s" width="100" height="75" />' % self.picture.url
         else:
             return ' '
     image_tag.short_description = 'Fotografía'

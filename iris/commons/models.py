@@ -27,6 +27,7 @@ class DocumentType(models.Model):
         verbose_name = "Tipo de documento"
         verbose_name_plural = "Tipos de documentos"
         db_table = 'commons_document_type'
+        ordering = ['id']
 
     def __str__(self):
         return self.name
@@ -89,6 +90,7 @@ class AcademicLevel(models.Model):
         verbose_name = "Nivel académico"
         verbose_name_plural = "Niveles académicos"
         db_table = 'commons_academic_level'
+        ordering = ['id']
 
     def __str__(self):
         return self.name

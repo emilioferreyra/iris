@@ -95,7 +95,7 @@ class SupplierCompany(models.Model):
 
     def image_tag(self):
         if self.company_logo:
-            return u'<img src="%s" width="100" height="75" />' % self.company_logo.url
+            return u'<img iris="%s" width="100" height="75" />' % self.company_logo.url
         else:
             return ' '
 

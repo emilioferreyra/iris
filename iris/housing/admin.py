@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 from django.contrib import admin
+
+from import_export.admin import ImportExportModelAdmin
+
 from .models import HouseMaterial
 from .models import HousePart
 from .models import PropertyType
@@ -16,7 +19,7 @@ class HouseMaterialInline(admin.TabularInline):
 class HousePartAdmin(admin.ModelAdmin):
     inlines = [HouseMaterialInline]
 
-#
-# admin.site.register(HouseMaterial)
-# admin.site.register(HousePart)
-admin.site.register(PropertyType)
+
+@admin.register(PropertyType)
+class PropertyTypeAdmin(ImportExportModelAdmin):
+    pass

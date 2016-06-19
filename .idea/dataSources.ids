@@ -129,13 +129,13 @@
     </table>
     <table name="doctors_appointment" schema="" catalog="" type="TABLE">
       <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
-      <column name="symptomatology" sqlType="TEXT" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="appointment_date" sqlType="DATE" precision="0" scale="-1" nullable="false" jdbcType="12"/>
       <column name="prescription" sqlType="TEXT" precision="0" scale="-1" nullable="true" jdbcType="12"/>
       <column name="date_next_appoitment" sqlType="DATE" precision="0" scale="-1" nullable="true" jdbcType="12"/>
       <column name="clinic_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="doctor_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="member_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
-      <column name="appointment_date" sqlType="DATE" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="symptomatology" sqlType="TEXT" precision="0" scale="-1" nullable="false" jdbcType="12"/>
       <primary-key columns="id"/>
       <foreign-key name="#FAKE_doctors_appointment_1" columns="member_id" ref-table="members_member" ref-schema="" ref-catalog="" ref-columns="person_ptr_id" update-rule="3" delete-rule="3" deferrability="1"/>
       <foreign-key name="#FAKE_doctors_appointment_2" columns="doctor_id" ref-table="doctors_doctor" ref-schema="" ref-catalog="" ref-columns="person_ptr_id" update-rule="3" delete-rule="3" deferrability="1"/>
@@ -177,11 +177,11 @@
     <table name="doctors_prescribed_medicines" schema="" catalog="" type="TABLE">
       <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="quantity" sqlType="REAL" precision="0" scale="-1" nullable="false" jdbcType="6"/>
-      <column name="unit" sqlType="VARCHAR(1)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
       <column name="frecuency" sqlType="REAL" precision="0" scale="-1" nullable="false" jdbcType="6"/>
       <column name="frecuency_unit" sqlType="VARCHAR(1)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
       <column name="appointment_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="medicine_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="unit" sqlType="VARCHAR(1)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
       <primary-key columns="id"/>
       <foreign-key name="#FAKE_doctors_prescribed_medicines_1" columns="medicine_id" ref-table="doctors_medicine" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
       <foreign-key name="#FAKE_doctors_prescribed_medicines_2" columns="appointment_id" ref-table="doctors_appointment" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
@@ -206,17 +206,17 @@
       <column name="department_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="employee_type_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="position_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
-      <column name="workSchedule_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="academic_level_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="workSchedule_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <primary-key columns="person_ptr_id"/>
-      <foreign-key name="#FAKE_employees_employee_1" columns="academic_level_id" ref-table="commons_academic_level" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
-      <foreign-key name="#FAKE_employees_employee_2" columns="workSchedule_id" ref-table="employees_work_schedule" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_employees_employee_1" columns="workSchedule_id" ref-table="employees_work_schedule" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_employees_employee_2" columns="academic_level_id" ref-table="commons_academic_level" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
       <foreign-key name="#FAKE_employees_employee_3" columns="position_id" ref-table="employees_position" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
       <foreign-key name="#FAKE_employees_employee_4" columns="employee_type_id" ref-table="employees_employee_type" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
       <foreign-key name="#FAKE_employees_employee_5" columns="department_id" ref-table="employees_department" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
       <foreign-key name="#FAKE_employees_employee_6" columns="person_ptr_id" ref-table="people_person" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
-      <index name="employees_employee_9a41005a" unique="true" columns="academic_level_id"/>
       <index name="employees_employee_5809ec1a" unique="true" columns="workSchedule_id"/>
+      <index name="employees_employee_9a41005a" unique="true" columns="academic_level_id"/>
       <index name="employees_employee_bce5bd07" unique="true" columns="position_id"/>
       <index name="employees_employee_83590748" unique="true" columns="employee_type_id"/>
       <index name="employees_employee_bf691be4" unique="true" columns="department_id"/>
@@ -232,22 +232,22 @@
       <column name="department_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="position_level_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
       <primary-key columns="id"/>
-      <foreign-key name="#FAKE_employees_position_1" columns="position_level_id" ref-table="employees_position_lavels" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_employees_position_1" columns="position_level_id" ref-table="employees_position_levels" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
       <foreign-key name="#FAKE_employees_position_2" columns="department_id" ref-table="employees_department" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
       <index name="employees_position_25e41b6e" unique="true" columns="position_level_id"/>
       <index name="employees_position_bf691be4" unique="true" columns="department_id"/>
     </table>
     <table name="employees_position_levels" schema="" catalog="" type="TABLE">
       <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="description" sqlType="TEXT" precision="0" scale="-1" nullable="true" jdbcType="12"/>
       <column name="name" sqlType="VARCHAR(45)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
-      <column name="description" sqlType="VARCHAR(45)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
       <primary-key columns="id"/>
     </table>
     <table name="employees_work_schedule" schema="" catalog="" type="TABLE">
       <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="name" sqlType="VARCHAR(45)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
-      <column name="start_hour" sqlType="TIME" precision="0" scale="-1" nullable="false" jdbcType="12"/>
       <column name="end_hour" sqlType="TIME" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="start_hour" sqlType="TIME" precision="0" scale="-1" nullable="false" jdbcType="12"/>
       <primary-key columns="id"/>
     </table>
     <table name="employees_work_schedule_workdays" schema="" catalog="" type="TABLE">
@@ -267,8 +267,8 @@
     </table>
     <table name="housing_house_material" schema="" catalog="" type="TABLE">
       <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
-      <column name="name" sqlType="VARCHAR(20)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
       <column name="house_part_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(20)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
       <primary-key columns="id"/>
       <foreign-key name="#FAKE_housing_house_material_1" columns="house_part_id" ref-table="housing_house_part" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
       <index name="housing_house_material_08033f8b" unique="true" columns="house_part_id"/>
@@ -331,35 +331,35 @@
     </table>
     <table name="members_house" schema="" catalog="" type="TABLE">
       <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="ceiling_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="floor_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="member_name_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
-      <column name="property_type_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="wall_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
-      <column name="ceiling_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="property_type_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <primary-key columns="id"/>
-      <foreign-key name="#FAKE_members_house_1" columns="ceiling_id" ref-table="housing_house_material" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_members_house_1" columns="property_type_id" ref-table="housing_property_type" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
       <foreign-key name="#FAKE_members_house_2" columns="wall_id" ref-table="housing_house_material" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
-      <foreign-key name="#FAKE_members_house_3" columns="property_type_id" ref-table="housing_property_type" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
-      <foreign-key name="#FAKE_members_house_4" columns="member_name_id" ref-table="members_member" ref-schema="" ref-catalog="" ref-columns="person_ptr_id" update-rule="3" delete-rule="3" deferrability="1"/>
-      <foreign-key name="#FAKE_members_house_5" columns="floor_id" ref-table="housing_house_material" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
-      <index name="members_house_cfa4fe30" unique="true" columns="ceiling_id"/>
-      <index name="members_house_a3b09d95" unique="true" columns="wall_id"/>
+      <foreign-key name="#FAKE_members_house_3" columns="member_name_id" ref-table="members_member" ref-schema="" ref-catalog="" ref-columns="person_ptr_id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_members_house_4" columns="floor_id" ref-table="housing_house_material" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_members_house_5" columns="ceiling_id" ref-table="housing_house_material" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
       <index name="members_house_aebbaf22" unique="true" columns="property_type_id"/>
+      <index name="members_house_a3b09d95" unique="true" columns="wall_id"/>
       <index name="members_house_641accbc" unique="true" columns="member_name_id"/>
       <index name="members_house_9643d2e5" unique="true" columns="floor_id"/>
+      <index name="members_house_cfa4fe30" unique="true" columns="ceiling_id"/>
     </table>
     <table name="members_member" schema="" catalog="" type="TABLE">
       <column name="person_ptr_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="member_number" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="currently_works" sqlType="BOOL" precision="0" scale="-1" nullable="false" jdbcType="4"/>
-      <column name="where_work" sqlType="VARCHAR(100)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
       <column name="observations" sqlType="TEXT" precision="0" scale="-1" nullable="true" jdbcType="12"/>
       <column name="is_mother" sqlType="BOOL" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="academic_level_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="cane_number_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="occupation_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="where_work" sqlType="VARCHAR(100)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
       <primary-key columns="person_ptr_id"/>
-      <foreign-key name="#FAKE_members_member_1" columns="occupation_id" ref-table="members_ocupation" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_members_member_1" columns="occupation_id" ref-table="members_occupation" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
       <foreign-key name="#FAKE_members_member_2" columns="cane_number_id" ref-table="members_cane" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
       <foreign-key name="#FAKE_members_member_3" columns="academic_level_id" ref-table="commons_academic_level" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
       <foreign-key name="#FAKE_members_member_4" columns="person_ptr_id" ref-table="people_person" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
@@ -374,6 +374,8 @@
       <primary-key columns="id"/>
       <foreign-key name="#FAKE_members_member_disabilities_1" columns="disability_id" ref-table="members_disability" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
       <foreign-key name="#FAKE_members_member_disabilities_2" columns="member_id" ref-table="members_member" ref-schema="" ref-catalog="" ref-columns="person_ptr_id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="members_member_disabilities_368c3a16" unique="true" columns="disability_id"/>
+      <index name="members_member_disabilities_b5c3e75b" unique="true" columns="member_id"/>
     </table>
     <table name="members_occupation" schema="" catalog="" type="TABLE">
       <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
@@ -392,8 +394,8 @@
       <column name="gender" sqlType="VARCHAR(1)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
       <column name="birth_day" sqlType="DATE" precision="0" scale="-1" nullable="false" jdbcType="12"/>
       <column name="document_id" sqlType="VARCHAR(22)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+      <column name="email" sqlType="VARCHAR(254)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
       <column name="picture" sqlType="VARCHAR(100)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
-      <column name="status" sqlType="BOOL" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="created_by_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
       <column name="dependent_of_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
       <column name="document_type_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
@@ -402,7 +404,7 @@
       <column name="modified_by_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
       <column name="nationality_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="person_type_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
-      <column name="email" sqlType="VARCHAR(254)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="status" sqlType="BOOL" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <primary-key columns="id"/>
       <foreign-key name="#FAKE_people_person_1" columns="person_type_id" ref-table="commons_person_type" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
       <foreign-key name="#FAKE_people_person_2" columns="nationality_id" ref-table="location_nationality" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
@@ -426,13 +428,13 @@
       <column name="building" sqlType="VARCHAR(20)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
       <column name="apartment" sqlType="VARCHAR(20)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
       <column name="street" sqlType="VARCHAR(40)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="is_default" sqlType="BOOL" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="address_type_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="country_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="person_name_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="province_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="region_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="town_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
-      <column name="is_default" sqlType="BOOL" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <primary-key columns="id"/>
       <foreign-key name="#FAKE_people_person_address_1" columns="town_id" ref-table="location_town" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
       <foreign-key name="#FAKE_people_person_address_2" columns="region_id" ref-table="location_region" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
@@ -450,9 +452,9 @@
     <table name="people_person_phone" schema="" catalog="" type="TABLE">
       <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="phone_number" sqlType="VARCHAR(20)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="is_default" sqlType="BOOL" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="person_name_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="phone_type_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
-      <column name="is_default" sqlType="BOOL" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <primary-key columns="id"/>
       <foreign-key name="#FAKE_people_person_phone_1" columns="phone_type_id" ref-table="commons_phone_type" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
       <foreign-key name="#FAKE_people_person_phone_2" columns="person_name_id" ref-table="people_person" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
@@ -548,18 +550,18 @@
       <column name="company_logo" sqlType="VARCHAR(100)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
       <column name="country_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="province_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="region_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="supplier_type_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="town_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
-      <column name="region_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <primary-key columns="id"/>
-      <foreign-key name="#FAKE_suppliers_supplier_company_1" columns="region_id" ref-table="location_region" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
-      <foreign-key name="#FAKE_suppliers_supplier_company_2" columns="town_id" ref-table="location_town" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
-      <foreign-key name="#FAKE_suppliers_supplier_company_3" columns="supplier_type_id" ref-table="suppliers_suppliertype" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_suppliers_supplier_company_1" columns="town_id" ref-table="location_town" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_suppliers_supplier_company_2" columns="supplier_type_id" ref-table="suppliers_suppliertype" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_suppliers_supplier_company_3" columns="region_id" ref-table="location_region" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
       <foreign-key name="#FAKE_suppliers_supplier_company_4" columns="province_id" ref-table="location_province" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
       <foreign-key name="#FAKE_suppliers_supplier_company_5" columns="country_id" ref-table="location_country" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
-      <index name="suppliers_supplier_company_0f442f96" unique="true" columns="region_id"/>
       <index name="suppliers_supplier_company_9534176a" unique="true" columns="town_id"/>
       <index name="suppliers_supplier_company_80e9f6d4" unique="true" columns="supplier_type_id"/>
+      <index name="suppliers_supplier_company_0f442f96" unique="true" columns="region_id"/>
       <index name="suppliers_supplier_company_4a5754ed" unique="true" columns="province_id"/>
       <index name="suppliers_supplier_company_93bfec8a" unique="true" columns="country_id"/>
     </table>

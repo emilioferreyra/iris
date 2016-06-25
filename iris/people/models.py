@@ -205,7 +205,7 @@ class Person(TimeStampedModel, AuthStampedModel):
         upload_to='people_pictures',
         null=True,
         blank=True,
-        verbose_name="fotografía",
+        # verbose_name="foto",
     )
     status = models.BooleanField(
         default=True,
@@ -303,7 +303,7 @@ class Person(TimeStampedModel, AuthStampedModel):
             return u'<img iris="%s" width="100" height="75" />' % self.picture.url
         else:
             return ' '
-    image_tag.short_description = 'Fotografía'
+    image_tag.short_description = 'Foto'
     image_tag.allow_tags = True
     image_tag.admin_order_field = 'names'
 

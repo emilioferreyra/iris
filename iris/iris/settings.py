@@ -153,7 +153,7 @@ STATICFILES_DIRS = (
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-# USE_DJANGO_JQUERY = False
+USE_DJANGO_JQUERY = False
 
 # Django Suit configuration example
 SUIT_CONFIG = {

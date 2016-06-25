@@ -70,6 +70,7 @@ class PersonAdmin(AdminImageMixin, admin.ModelAdmin):
 
     list_display = [
         'id',
+        'image_tag',
         'status',
         'person_type',
         'full_name',

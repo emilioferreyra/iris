@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import absolute_import, unicode_literals
+
 from django.contrib import admin
 from django.db import models
 from django.forms import CheckboxSelectMultiple
+
 from sorl.thumbnail.admin import AdminImageMixin
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin

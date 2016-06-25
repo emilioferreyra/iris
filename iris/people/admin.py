@@ -22,6 +22,7 @@ class PersonAddressInline(admin.StackedInline):
         'region',
         'province',
         'town',
+        'location',
         'is_default',
         ]
     min_num = 1

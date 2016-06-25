@@ -120,6 +120,24 @@ class Town(models.Model):
 
 
 @python_2_unicode_compatible
+class Location(models.Model):
+    """
+    Stores the location related to :model: `people.PersonAddress`,
+    :model:`location.Town`, :model:`suppliers.SupplierCompany`.
+    """
+    name = models.CharField(max_length=100, verbose_name="nombre", unique=True)
+    town = models.ForeignKey(Town, default=203, verbose_name="municipio")
+
+    class Meta:
+        verbose_name = "Localidad"
+        verbose_name_plural = "Localidades"
+        ordering = ['name']
+
+    def __str__(self):
+        return self.name
+
+
+@python_2_unicode_compatible
 class AddressType(models.Model):
     """
     Stores the address types related to :model:`people.PersonAddress`.

@@ -22,6 +22,7 @@ from location.models import Country
 from location.models import Region
 from location.models import Province
 from location.models import Town
+from location.models import Location
 from location.models import AddressType
 
 #  PersonType variables.
@@ -312,7 +313,8 @@ class Person(TimeStampedModel, AuthStampedModel):
 class PersonAddress(models.Model):
     """
         Store person's address.
-
+        Related models:
+        :model:`people.Person` and :model:`commons.AddressType`
     """
     BOOL_CHOICES = ((True, 'Yes'), (False, 'No'))
     person_name = models.ForeignKey(Person)
@@ -341,6 +343,13 @@ class PersonAddress(models.Model):
         verbose_name="municipio",
         help_text="Seleccione municipio"
         )
+    location = ChainedForeignKey(
+        Location,
+        chained_field="town",
+        chained_model_field="town",
+        verbose_name="localidad",
+        help_text="Seleccione Localidad", null=True
+    )
     address_type = models.ForeignKey(
         AddressType,
         verbose_name="tipo dirección",

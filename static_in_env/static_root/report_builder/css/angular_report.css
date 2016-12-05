@@ -1,0 +1,148 @@
+html, body, .fullheight {
+   height: 100%;
+}
+
+.field:hover {
+    background: #F2F2F2;
+}
+
+.angular-ui-tree-nodes .angular-ui-tree-nodes {
+  padding-left: 8px;
+}
+
+.angular-ui-tree-node {
+  padding-left: 4px;
+}
+
+div.col_sort {
+  max-width: 80px;
+}
+
+div.col_checkbox {
+  max-width: 50px;
+}
+
+input[type="text"].small_input {
+  width: 2em;
+g}
+
+.move_trash {
+  max-width: 53px;
+}
+
+.col_aggregate {
+  max-width: 5em;
+  min-width: 5em;
+}
+
+.col_format {
+  min-width: 4em; 
+}
+
+.col_filter_type {
+  min-width: 14em;
+}
+input[type="text"] {
+  width: 100%; 
+  box-sizing: border-box;
+  -webkit-box-sizing:border-box;
+  -moz-box-sizing: border-box;
+}
+
+.md-button.md-fab.md-fab-bottom-left{
+      bottom: 16px;
+      left: 16px;
+}
+.md-button.md-fab.md-fab-bottom-right{
+      bottom: 16px;
+      right: 16px;
+}
+
+body {
+  overflow:hidden;
+}
+
+.fullscreen:fullscreen {
+  display: none;
+} 
+
+.caps {
+  text-transform: capitalize;
+}
+
+.form {
+  max-width: 864px;
+  margin: auto;
+}
+
+#reportapp ul {
+    list-style-type: none;
+    padding-left:0;
+}
+
+.searchInput {
+    margin-top: 5px;
+    width: 165px;
+}
+
+
+.handsontable table.htCore {
+    padding-top: 0px;
+}
+.ht_clone_top {
+    z-index: 58;
+}
+
+.sidebar-left-search {
+  padding-bottom: 5px;
+}
+
+.sidenav-report-link {
+    text-transform: none !important;
+    border-radius: 0px !important;
+}
+
+.sidenav-report-link .report-meta-data {
+    font-size: 0.8em;
+    color: #bbb;
+}
+
+.sort-by-label {
+  font-size: 0.7em;
+  color: #bbb;
+}
+
+.sort-button {
+  text-transform: none !important;
+}
+
+#reportapp .report-list-header {
+  padding-left: 6px;
+}
+
+md-checkbox {
+  display: inline;
+  margin: 6px;
+}
+#reportapp .md-button {
+    margin: 0px;
+    min-width: 0;
+    min-height: 0;
+}
+
+.report-tabs-height {
+  height: calc(100% - 32px);
+}
+
+.angular-ui-tree-empty {
+  background-image: none;
+  background-color: inherit;
+  border: none;
+}
+
+.options-icon {
+  position: relative;
+  width: 1.5em; 
+  padding-right: 10px; 
+  top: 4px; 
+}

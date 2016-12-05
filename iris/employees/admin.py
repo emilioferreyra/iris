@@ -1,21 +1,23 @@
 # -*- coding: utf-8 -*-
-# Django core
+
 from __future__ import absolute_import, unicode_literals
 from django.contrib import admin
 from django.db import models
 from django.forms import CheckboxSelectMultiple
-from django.core.urlresolvers import reverse
-# from datetime import date
-# from django.forms import ModelForm
 from django import forms
-# Third party apps
-# from suit.widgets import EnclosedInput
+
 from sorl.thumbnail.admin import AdminImageMixin
-# My models
-from .models import Employee, Department, Position,\
-    EmployeeType, Workday, WorkSchedule, EmployeeFamily, PositionLevel
-from people.admin import PersonAddressInline, PersonPhoneInline
-# from people.admin import PersonAdmin
+
+from .models import Employee
+from .models import Department
+from .models import Position
+from .models import EmployeeType
+from .models import Workday
+from .models import WorkSchedule
+from .models import EmployeeFamily
+from .models import PositionLevel
+from people.admin import PersonAddressInline
+from people.admin import PersonPhoneInline
 
 
 class EmployeeForm(forms.ModelForm):
@@ -57,6 +59,7 @@ class EmployeeFamilyInline(admin.StackedInline):
     suit_classes = 'suit-tab suit-tab-employeefamily'
 
 
+@admin.register(Employee)
 class EmployeeAdmin(AdminImageMixin, admin.ModelAdmin):
     # def delete(self, obj):
     #     return '<input type="button" value="Delete" \
@@ -84,7 +87,7 @@ class EmployeeAdmin(AdminImageMixin, admin.ModelAdmin):
                 'status',
                 ]
             }),
-        ('Additional Info', {
+        ('Información Adicional', {
             'classes': ('suit-tab', 'suit-tab-additionalsfields',),
             'fields': [
                 'hiring_date',
@@ -161,13 +164,14 @@ class EmployeeAdmin(AdminImageMixin, admin.ModelAdmin):
 
     suit_form_tabs = (
         ('general', 'General'),
-        ('additionalsfields', 'Additional Info'),
-        ('employeeaddress', 'Addresses'),
-        ('employeephone', 'Phones'),
-        ('employeefamily', 'Family'),
+        ('additionalsfields', 'Adicional'),
+        ('employeeaddress', 'Direcciones'),
+        ('employeephone', 'Teléfonos'),
+        ('employeefamily', 'Familiares'),
         )
 
 
+@admin.register(WorkSchedule)
 class WorkScheduleAdmin(admin.ModelAdmin):
     # filter_horizontal = ['workdays']
     formfield_overrides = {
@@ -175,10 +179,8 @@ class WorkScheduleAdmin(admin.ModelAdmin):
     }
 
 
-admin.site.register(Employee, EmployeeAdmin)
 admin.site.register(Department)
 admin.site.register(Position)
 admin.site.register(EmployeeType)
 admin.site.register(Workday)
-admin.site.register(WorkSchedule, WorkScheduleAdmin)
 admin.site.register(PositionLevel)

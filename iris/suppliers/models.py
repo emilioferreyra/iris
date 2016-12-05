@@ -2,57 +2,94 @@
 from __future__ import absolute_import, unicode_literals
 from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
-from django.shortcuts import get_object_or_404
+# from django.shortcuts import get_object_or_404
 
 from smart_selects.db_fields import ChainedForeignKey
-from localflavor.us.models import PhoneNumberField
 from sorl.thumbnail import ImageField
+from localflavor.us.models import PhoneNumberField
 
 from commons.models import PersonType
 from people.models import Person, SupplierManager
 from location.models import Country, Region, Province, Town
 
+supplier_id = 4
 
+
+@python_2_unicode_compatible
 class SupplierType(models.Model):
-    name = models.CharField(max_length=45, unique=True)
+    name = models.CharField(
+        max_length=45,
+        unique=True,
+        verbose_name="nombre"
+    )
 
     class Meta:
-        verbose_name = "Supplier Type"
-        verbose_name_plural = "Supplier Types"
+        verbose_name = "Tipo de Suplidor"
+        verbose_name_plural = "Tipos de Suplidores"
+        db_table = "suppliers_type"
+        ordering = ['name']
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
 @python_2_unicode_compatible
 class SupplierCompany(models.Model):
-    name = models.CharField(max_length=60, unique=True)
-    supplier_type = models.ForeignKey(SupplierType)
-    address = models.CharField(max_length=100)
-    country = models.ForeignKey(Country, default=1)
-    region = models.ForeignKey(Region, default=1)
+    name = models.CharField(
+        max_length=60,
+        unique=True,
+        verbose_name="nombre"
+    )
+    supplier_type = models.ForeignKey(
+        SupplierType,
+        verbose_name="tipo de suplidor"
+    )
+    address = models.CharField(
+        max_length=100,
+        verbose_name="dirección"
+    )
+    country = models.ForeignKey(
+        Country,
+        default=1,
+        verbose_name="país"
+    )
+    region = models.ForeignKey(
+        Region,
+        default=1,
+        verbose_name="región"
+    )
     province = ChainedForeignKey(
         Province,
         chained_field="region",
-        chained_model_field="region"
-        )
+        chained_model_field="region",
+        verbose_name="provincia"
+    )
     town = ChainedForeignKey(
         Town,
         chained_field="province",
-        chained_model_field="province"
-        )
-    phone_number = PhoneNumberField(help_text='999-999-9999')
-    email = models.EmailField(null=True, blank=True)
+        chained_model_field="province",
+        verbose_name="municipio"
+    )
+    phone_number = PhoneNumberField(
+        verbose_name="número de teléfono",
+        help_text='999-999-9999'
+    )
+    email = models.EmailField(
+        null=True,
+        blank=True,
+        verbose_name="e-mail"
+    )
     company_logo = ImageField(
         upload_to='suppliers_logos',
         null=True,
-        blank=True
-        )
+        blank=True,
+        verbose_name="logo de la empresa"
+    )
 
     class Meta:
-        verbose_name = "Supplier Company"
-        verbose_name_plural = "Supplier Companies"
-        db_table = "suppliers_supplier_company"
+        verbose_name = "Empresa Suplidora"
+        verbose_name_plural = "Empresas Suplidoras"
+        db_table = "suppliers_company"
         ordering = ['name']
 
     def __str__(self):
@@ -60,7 +97,7 @@ class SupplierCompany(models.Model):
 
     def image_tag(self):
         if self.company_logo:
-            return u'<img src="%s" width="100" height="75" />' % self.company_logo.url
+            return u'<img iris="%s" width="100" height="75" />' % self.company_logo.url
         else:
             return ' '
 
@@ -69,15 +106,27 @@ class SupplierCompany(models.Model):
     image_tag.admin_order_field = 'name'
 
 
-class SupplierContact(Person):
-    objects = SupplierManager()
+@python_2_unicode_compatible
+class SupplierContact(models.Model):
+    name = models.CharField("nombre", max_length=100)
+    email = models.EmailField("e-mail", null=True, blank=True)
+    phone_number = PhoneNumberField(
+        "teléfono",
+        null=True,
+        blank=True
+    )
+    extension_number = models.PositiveSmallIntegerField(
+        "número de extensión",
+        null=True,
+        blank=True
+    )
+    mobile_number = PhoneNumberField("teléfono móvil", null=True, blank=True)
     supplier_company = models.ForeignKey(SupplierCompany)
 
     class Meta:
-        verbose_name = "Supplier Contact"
-        verbose_name_plural = "Supplier Contacts"
+        verbose_name = "Contacto"
+        verbose_name_plural = "Contactos"
+        db_table = "suppliers_contact"
 
-    def save(self, *args, **kwargs):
-        # self.person_type = PersonType.objects.get(name="Supplier")
-        self.person_type = get_object_or_404(PersonType, name="Supplier")
-        super(SupplierContact, self).save(*args, **kwargs)
+    def __str__(self):
+        return "%s, %s" % (self.supplier_company, self.name)

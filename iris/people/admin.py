@@ -22,6 +22,7 @@ class PersonAddressInline(admin.StackedInline):
         'region',
         'province',
         'town',
+        'location',
         'is_default',
         ]
     min_num = 1
@@ -70,6 +71,7 @@ class PersonAdmin(AdminImageMixin, admin.ModelAdmin):
 
     list_display = [
         'id',
+        'image_tag',
         'status',
         'person_type',
         'full_name',

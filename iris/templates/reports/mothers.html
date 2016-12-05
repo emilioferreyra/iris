@@ -1,0 +1,35 @@
+{% extends "reports/index.html" %}
+
+{% block content %}
+
+    <div class="container">
+    <h2>{{ title }}</h2>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+             <thead>
+            <tr>
+{#                <th>#</th>#}
+                <th>Estado Civil</th>
+                <th>Total</th>
+            </tr>
+            </thead>
+                {% for obj in object_list %}
+            <tr>
+{#                <td>{{ forloop.counter }}</td>#}
+                <td><a href="">{{ obj.marital_status__name }}</a></td>
+                <td>{{ obj.total }}</td>
+            </tr>
+                {% endfor %}
+            <thead>
+            <tr>
+
+                <td><strong>Total de Madres: </strong> </td>
+{#                <td></td>#}
+                <td><strong>{{ total_mothers }}</strong></td>
+            </tr>
+            </thead>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

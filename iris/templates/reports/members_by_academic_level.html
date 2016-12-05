@@ -1,0 +1,27 @@
+{% extends "reports/index.html" %}
+
+{% block content %}
+
+    <div class="container">
+    <h2>{{ title }}</h2>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+             <thead>
+            <tr>
+                <th>#</th>
+                <th>Nivel Academico</th>
+                <th>Total</th>
+            </tr>
+            </thead>
+                {% for obj in object_list %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td><a href="{% url 'admin:members_member_changelist' %}">{{ obj.academic_level__name }}</a></td>
+                <td>{{ obj.total }}</td>
+            </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

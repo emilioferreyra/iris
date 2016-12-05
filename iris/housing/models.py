@@ -10,9 +10,15 @@ class HousePart(models.Model):
         Stores House Parts.
         Related to model: :model:`housing.HouseMaterial`.
     """
-    name = models.CharField(unique=True, max_length=20)
+    name = models.CharField(
+        unique=True,
+        max_length=20,
+        verbose_name="nombre"
+    )
 
     class Meta:
+        verbose_name = "Parte de la vivienda"
+        verbose_name_plural = "Partes de la vivienda"
         ordering = ['id']
         db_table = 'housing_house_part'
 
@@ -60,19 +66,27 @@ class HouseMaterial(models.Model):
         Store House Material. Related to model:
         :model:`housing.HousePart`.
     """
-    ceiling = CeilingManager()
-    wall = WallManager()
-    floor = FloorManager()
-    house_part = models.ForeignKey(HousePart)
-    name = models.CharField(max_length=20)
+    name = models.CharField(
+        max_length=20,
+        verbose_name="nombre"
+    )
+    house_part = models.ForeignKey(
+        HousePart,
+        verbose_name="parte de casa"
+    )
+
+    # ceiling = CeilingManager()
+    # wall = WallManager()
+    # floor = FloorManager()
 
     class Meta:
-        # unique_together = (('name', 'house_part'), )
+        verbose_name = "Material de la vivienda"
+        verbose_name_plural = "Martiales de la vivienda"
         db_table = 'housing_house_material'
         ordering = ['id']
 
     def __str__(self):
-        return '%s of %s' % (self.house_part, self.name)
+        return self.name
 
 
 class HouseMaterialCeiling(HouseMaterial):
@@ -85,8 +99,8 @@ class HouseMaterialCeiling(HouseMaterial):
     objects = CeilingManager()
 
     class Meta:
-        verbose_name = "House Material Ceiling"
-        verbose_name_plural = "House Material Ceilings"
+        verbose_name = "Material del Techo"
+        verbose_name_plural = "Materiales del Techo"
         proxy = True
 
 
@@ -100,8 +114,8 @@ class HouseMaterialWall(HouseMaterial):
     objects = WallManager()
 
     class Meta:
-        verbose_name = "House Material Wall"
-        verbose_name_plural = "House Material Walls"
+        verbose_name = "Material de la pared"
+        verbose_name_plural = "Materiales de la pared"
         proxy = True
 
 
@@ -115,8 +129,8 @@ class HouseMaterialFloor(HouseMaterial):
     objects = FloorManager()
 
     class Meta:
-        verbose_name = "House Material  Floor"
-        verbose_name_plural = "House Material Floors"
+        verbose_name = "Material del piso"
+        verbose_name_plural = "Materiales del piso"
         proxy = True
 
 
@@ -127,9 +141,15 @@ class PropertyType(models.Model):
         Related model:
         :model:`members.House`.
     """
-    name = models.CharField(max_length=45, unique=True)
+    name = models.CharField(
+        max_length=45,
+        unique=True,
+        verbose_name="nombre"
+    )
 
     class Meta:
+        verbose_name = "Tipo de propiedad"
+        verbose_name_plural = "Tipos de propiedades"
         ordering = ['id']
         db_table = 'housing_property_type'
 

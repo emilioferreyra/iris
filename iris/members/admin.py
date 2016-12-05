@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
-# Django core
-from __future__ import absolute_import, unicode_literals
-from django.contrib import admin
 
+from __future__ import absolute_import, unicode_literals
+
+from django.contrib import admin
 from django.db import models
 from django.forms import CheckboxSelectMultiple
-# from django.utils.translation import ugettext_lazy as _
 
 from sorl.thumbnail.admin import AdminImageMixin
+from import_export import resources
+from import_export.admin import ImportExportModelAdmin
 
-# My apps
 from .models import (
     Member,
     Disability,
@@ -19,6 +19,27 @@ from .models import (
     MemberFamily
     )
 from people.admin import PersonAddressInline, PersonPhoneInline
+
+
+class MemberResource(resources.ModelResource):
+
+    class Meta:
+        model = Member
+        fields = (
+            'member_number',
+            'names',
+            'father_last_name',
+            'mother_last_name',
+            'email',
+            'birth_day',
+            'academic_level__name',
+            'nationality__name',
+            'marital_status__name',
+            'gender',
+            'document_type__name',
+            'document_id',
+            'status'
+        )
 
 
 class MemberAddressInline(PersonAddressInline):
@@ -57,7 +78,8 @@ class HouseInline(admin.StackedInline):
     suit_classes = 'suit-tab suit-tab-house'
 
 
-class MemberAdmin(AdminImageMixin, admin.ModelAdmin):
+@admin.register(Member)
+class MemberAdmin(AdminImageMixin, ImportExportModelAdmin):
     fieldsets = [
         (None, {
             'classes': ('suit-tab', 'suit-tab-general',),
@@ -83,7 +105,6 @@ class MemberAdmin(AdminImageMixin, admin.ModelAdmin):
             'fields': [
                 'disabilities',
                 'cane_number',
-                # 'property_type',
                 'currently_works',
                 'occupation',
                 'where_work',
@@ -151,17 +172,14 @@ class MemberAdmin(AdminImageMixin, admin.ModelAdmin):
 
     suit_form_tabs = (
         ('general', 'General'),
-        ('additionalsfields', 'Additional Info'),
-        ('memberaddress', 'Addresses'),
-        ('memberphone', 'Phones'),
-        ('memberfamily', 'Family'),
-        ('house', 'House Type'),
+        ('additionalsfields', 'Información Adicional'),
+        ('memberaddress', 'Direcciones'),
+        ('memberphone', 'Telefonos'),
+        ('memberfamily', 'Familiares'),
+        ('house', 'Tipo de vivienda'),
         )
     ordering = ['-member_number']
 
 admin.site.register(Disability)
 admin.site.register(Cane)
-admin.site.register(Member, MemberAdmin)
 admin.site.register(Occupation)
-
-# admin.site.register(MemberFamily)

@@ -45,6 +45,8 @@ INSTALLED_APPS = (
     'sorl.thumbnail',
     'report_builder',
     'bootstrap3',
+    'django_extensions',
+    'import_export',
     # My apps
     'location',
     'commons',
@@ -65,6 +67,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    # 'django.middleware.locale.LocaleMiddleware',
 )
 
 ROOT_URLCONF = 'iris.urls'
@@ -83,6 +86,7 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.core.context_processors.request',
                 'django.template.context_processors.request',
+                # 'django.core.context_processors.i18n',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
@@ -106,7 +110,7 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'es'
 
 # MODELTRANSLATION_DEFAULT_LANGUAGE = 'en'
 
@@ -134,6 +138,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(
+    os.path.dirname(BASE_DIR),
+    "static_in_env", "static_root"
+    )
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static_in_pro", "our_static"),
+    # os.path.join(BASE_DIR, "static_in_env"),
+    # '/var/www/static/',
+)
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'

@@ -33,7 +33,7 @@ d = dict(
     supplier=4,
     employee_family=5,
     member_family=6
-    )
+)
 
 # Men and women variables.
 men, women = "M", "F"
@@ -41,8 +41,8 @@ men, women = "M", "F"
 
 class EmployeeManager(models.Manager):
     """
-         Manage Employees query set to only return
-         person type = employee
+    Manage Employees query set to only return
+    person type = employee
     """
     def get_queryset(self):
         return super(EmployeeManager, self).\
@@ -51,8 +51,8 @@ class EmployeeManager(models.Manager):
 
 class MemberManager(models.Manager):
     """
-         Manage Members query set to only return
-         person type = member
+    Manage Members query set to only return
+    person type = member
     """
     def get_queryset(self):
         return super(MemberManager, self).\
@@ -61,8 +61,8 @@ class MemberManager(models.Manager):
 
 class DoctorManager(models.Manager):
     """
-         Manage Doctors query set to only return
-         person type = doctor
+    Manage Doctors query set to only return
+    person type = doctor
     """
     def get_queryset(self):
         return super(DoctorManager, self).\
@@ -71,8 +71,8 @@ class DoctorManager(models.Manager):
 
 class SupplierManager(models.Manager):
     """
-         Manage Suppliers query set to only return
-         person type = supplier
+    Manage Suppliers query set to only return
+    person type = supplier
     """
     def get_queryset(self):
         return super(SupplierManager, self).\
@@ -81,8 +81,8 @@ class SupplierManager(models.Manager):
 
 class EmployeeFamilyManager(models.Manager):
     """
-         Manage Employee Family query set to only return
-         person type = employee_family
+    Manage Employee Family query set to only return
+    person type = employee_family
     """
     def get_queryset(self):
         return super(EmployeeFamilyManager, self).\
@@ -91,8 +91,8 @@ class EmployeeFamilyManager(models.Manager):
 
 class MemberFamilyManager(models.Manager):
     """
-         Manage Member Family query set to only return
-         person type = member_family
+    Manage Member Family query set to only return
+    person type = member_family
     """
     def get_queryset(self):
         return super(MemberFamilyManager, self).\
@@ -101,34 +101,34 @@ class MemberFamilyManager(models.Manager):
 
 class MaleManager(models.Manager):
     """
-         Manage Male query set to only return
-         gender = men
+    Manage Male query set to only return
+    gender = men
     """
     def get_query_set(self):
-        return super(MaleManager, self).get_query_set().filter(gender=men)
+        return super(MaleManager, self).get_query_set().filter(gender='M')
 
 
 class FemaleManager(models.Manager):
     """
-         Manage Female query set to only return
-         gender = women
+    Manage Female query set to only return
+    gender = women
     """
     def get_query_set(self):
-        return super(FemaleManager, self).get_query_set().filter(gender=women)
+        return super(FemaleManager, self).get_query_set().filter(gender='F')
 
 
 @python_2_unicode_compatible
 class Person(TimeStampedModel, AuthStampedModel):
     """
-        Stores person information. Related objects:
-        :model:`auth.User`, :model:`people.Person`,
-        :model:`doctors.Doctor`, :model:`commons.DocumentType`,
-        :model:`employees.Employee`, :model:`commons.Kinship`,
-        :model:`commons.MaritalStatus`, :model:`members.Member`,
-        :model:`location.Nationality`, :model:`people.Person`,
-        :model:`commons.PersonType`, :model:`people.PersonAddress`,
-        :model:`people.PersonPhone`, :model:`people.PersonPhone` and
-        :model:`suppliers.SupplierContact`.
+    Stores person information. Related objects:
+    :model:`auth.User`, :model:`people.Person`,
+    :model:`doctors.Doctor`, :model:`commons.DocumentType`,
+    :model:`employees.Employee`, :model:`commons.Kinship`,
+    :model:`commons.MaritalStatus`, :model:`members.Member`,
+    :model:`location.Nationality`, :model:`people.Person`,
+    :model:`commons.PersonType`, :model:`people.PersonAddress`,
+    :model:`people.PersonPhone`, :model:`people.PersonPhone` and
+    :model:`suppliers.SupplierContact`.
     """
     names = models.CharField(
         verbose_name="nombres",
@@ -195,7 +195,7 @@ class Person(TimeStampedModel, AuthStampedModel):
         null=True,
         blank=True,
         verbose_name="supervisor"
-        )
+    )
     kinship = models.ForeignKey(
         Kinship,
         null=True,
@@ -268,13 +268,13 @@ class Person(TimeStampedModel, AuthStampedModel):
         address = PersonAddress.objects.filter(
             person_name_id=self.id,
             is_default=True
-            ).order_by('id').first()
+        ).order_by('id').first()
         if address:
             return address
         else:
             address = PersonAddress.objects.filter(
                 person_name_id=self.id
-                ).order_by('id').first()
+            ).order_by('id').first()
             return address
 
     main_address.short_description = "Dirección"
@@ -288,20 +288,21 @@ class Person(TimeStampedModel, AuthStampedModel):
         phone = PersonPhone.objects.filter(
             person_name_id=self.id,
             is_default=True
-            ).order_by('id').first()
+        ).order_by('id').first()
         if phone:
             return phone
         else:
             phone = PersonPhone.objects.filter(
                 person_name_id=self.id
-                ).order_by('id').first()
+            ).order_by('id').first()
             return phone
 
     main_phone.short_description = "Teléfono"
 
     def image_tag(self):
         if self.picture:
-            return u'<img iris="%s" width="100" height="75" />' % self.picture.url
+            return u'<img src="%s" width="100" height="75" />' \
+                % self.picture.url
         else:
             return ' '
     image_tag.short_description = 'Foto'
@@ -335,14 +336,14 @@ class PersonAddress(models.Model):
         chained_model_field="region",
         verbose_name="provincia",
         help_text="Seleccione provincia"
-        )
+    )
     town = ChainedForeignKey(
         Town,
         chained_field="province",
         chained_model_field="province",
         verbose_name="municipio",
         help_text="Seleccione municipio"
-        )
+    )
     location = ChainedForeignKey(
         Location,
         chained_field="town",
@@ -408,7 +409,7 @@ class PersonPhone(models.Model):
     is_default = models.BooleanField(
         default=False,
         verbose_name='teléfono principal'
-        )
+    )
 
     class Meta:
         verbose_name = "Teléfono"

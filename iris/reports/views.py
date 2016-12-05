@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.db.models import Count
-from django.db.models import Q
+# from django.db.models import Q
 from django.shortcuts import render
 
 from members.models import Member
@@ -30,8 +30,9 @@ address_type_home = 1
 def members_by_location(request):
     field = 'location__name'
     queryset = PersonAddress.objects.filter(
-        Q(person_name__person_type_id=person_type_member) & Q(address_type_id=address_type_home)
-        ).exclude(location__isnull=True).values(field).\
+        person_name__person_type_id=person_type_member,
+        address_type_id=address_type_home).\
+        exclude(location__isnull=True).values(field).\
         annotate(total=Count(field)).\
         order_by("-total")
     context = {

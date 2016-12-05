@@ -26,9 +26,13 @@ class NationalityAdmin(ImportExportModelAdmin):
     list_per_page = 10
 
 
+class ProvinceInline(admin.TabularInline):
+    model = Province
+
+
 @admin.register(Region)
 class RegionAdmin(ImportExportModelAdmin):
-    pass
+    inlines = [ProvinceInline]
 
 
 @admin.register(Province)

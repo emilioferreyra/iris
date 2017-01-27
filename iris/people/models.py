@@ -105,7 +105,7 @@ class MaleManager(models.Manager):
     gender = men
     """
     def get_query_set(self):
-        return super(MaleManager, self).get_query_set().filter(gender='M')
+        return super(MaleManager, self).get_query_set().filter(gender=women)
 
 
 class FemaleManager(models.Manager):
@@ -114,7 +114,7 @@ class FemaleManager(models.Manager):
     gender = women
     """
     def get_query_set(self):
-        return super(FemaleManager, self).get_query_set().filter(gender='F')
+        return super(FemaleManager, self).get_query_set().filter(gender=men)
 
 
 @python_2_unicode_compatible
@@ -214,14 +214,14 @@ class Person(TimeStampedModel, AuthStampedModel):
     )
 
     people = models.Manager()
+    men = MaleManager()
+    women = FemaleManager()
     employees = EmployeeManager()
     members = MemberManager()
     doctors = DoctorManager()
     suppliers = SupplierManager()
     employee_families = EmployeeFamilyManager()
     member_families = MemberFamilyManager()
-    men = MaleManager()
-    women = FemaleManager()
 
     class Meta:
         verbose_name = "Persona"

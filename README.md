@@ -6,10 +6,10 @@ This project was designed to assist in the right identification of needs for the
 Iris is a web application developed in Python and powered by Django web framework, which allows recording members information, their environment and medical history:
 
 - Basic information (name, age, phone, address, marital status, occupation, photography).
-- One or more disability type.
+- One or more disabilities type.
 - Registers member's families living with and their relationship.
 - Automatically identify mothers.
-- Identifies member's children quantity.
+- Identify member's children quantity.
 
 ***
 
@@ -35,24 +35,24 @@ Iris is a web application developed in Python and powered by Django web framewor
 - [wsgiref==0.1.2](https://pypi.python.org/pypi/wsgiref?) 
 
 
-##Main Modules:
+##Mains Modules:
 
-**Employees:** This app allows employees registration and department which it belongs, also their position and supervisor.
+**Employees:** This app allows employees control and department which they belongs, also their position and supervisor.
 
-**Members:** This app allows to save member information as well as their disability type, family information related to and home status.
+**Members:** This app allows to save member information as well as their disabilities types, family information related to and home status.
 
 **Doctors:** This app allows record clinics history, doctors who provide medicals consultations services and the member's appointments.
 
-**Suppliers:** This app allows to record suppliers contact's information and related companies.
+**Suppliers:** This app allows to record suppliers information such as contact, address and so on.
 
 ***
 
 
-##Other Modules:
+##Others Modules:
 
-**Common:** Provides common models used in the mains apps.
+**Common:** Provides commons models used in the mains apps.
 
-**Location:** Provides needed models for entities right location  (people, members, suppliers, etc.).
+**Location:** Provides models needed for entities right location (people, members, suppliers, etc.).
 
 **People:** This app provides reusable models entities like employees, members, doctors, member's family, employee's family and supplier's contact information.
 

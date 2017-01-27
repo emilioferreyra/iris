@@ -6,7 +6,7 @@ This project was designed to assist in the right identification of needs for the
 Iris is a web application developed in Python and powered by Django web framework, which allows recording members information, their environment and medical history:
 
 - Basic information (name, age, phone, address, marital status, occupation, photography).
-- One or more disabilities type.
+- One or more disabilities types.
 - Registers member's families living with and their relationship.
 - Automatically identify mothers.
 - Identify member's children quantity.

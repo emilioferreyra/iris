@@ -178,7 +178,6 @@ class Person(TimeStampedModel, AuthStampedModel):
     )
     document_id = models.CharField(
         max_length=22,
-        # help_text='000-0000000-0',
         null=True,
         verbose_name="documento identidad",
         help_text="Introduzca el número de documento"

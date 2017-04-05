@@ -64,8 +64,7 @@ class PersonAdmin(AdminImageMixin, admin.ModelAdmin):
                 'gender',
                 'document_type',
                 'document_id',
-                'status',
-                'person_type'
+                'status'
                 ]
             })]
 

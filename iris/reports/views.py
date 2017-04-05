@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from django.db.models import Count
-# from django.db.models import Q
 from django.shortcuts import render
 
 from members.models import Member
@@ -18,7 +17,6 @@ def members_by_academic_level(request):
         "title": "Miembros por Nivel Académico",
         "object_list": queryset
     }
-    # return render(request, "reports/index.html", context)
     return render(request, "reports/members_by_academic_level.html", context)
 
 

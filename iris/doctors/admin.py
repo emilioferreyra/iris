@@ -2,6 +2,9 @@
 # Django core
 from __future__ import absolute_import, unicode_literals
 from django.contrib import admin
+from django.core.urlresolvers import reverse
+from django.utils.safestring import mark_safe
+from sorl.thumbnail.admin import AdminImageMixin
 
 from .models import (
     Doctor,
@@ -36,15 +39,15 @@ class DoctorAdmin(admin.ModelAdmin):
                 'document_type',
                 'document_id',
                 'status',
-                ]
+            ]
         }),
         ('Additional Info', {
             'classes': ('suit-tab', 'suit-tab-additionalsfields',),
             'fields': [
                 'specialities',
                 'clinic'
-                ]
-            })]
+            ]
+        })]
 
     radio_fields = {
         "gender": admin.VERTICAL,
@@ -58,17 +61,17 @@ class DoctorAdmin(admin.ModelAdmin):
         'email',
         'main_phone',
         'status',
-        ]
+    ]
 
     list_display_links = [
         'id',
         'doctor_name'
-        ]
+    ]
 
     filter_vertical = [
         'specialities',
         'clinic'
-        ]
+    ]
 
     search_fields = [
         'names',
@@ -76,7 +79,7 @@ class DoctorAdmin(admin.ModelAdmin):
         'mother_last_name',
         # 'clinic',
         # 'specialities'
-        ]
+    ]
 
     # formfield_overrides = {
     #     models.ManyToManyField: {'widget': CheckboxSelectMultiple},
@@ -90,13 +93,13 @@ class DoctorAdmin(admin.ModelAdmin):
         'status',
         ('clinic', admin.RelatedOnlyFieldListFilter),
         ('specialities', admin.RelatedOnlyFieldListFilter),
-        )
+    )
 
     suit_form_tabs = (
         ('general', 'General'),
         ('additionalsfields', 'Adicional'),
         ('phones', 'Teléfonos'),
-        )
+    )
 
 
 class PrescribedMedicineInlines(admin.StackedInline):
@@ -107,7 +110,7 @@ class PrescribedMedicineInlines(admin.StackedInline):
 
 
 @admin.register(Appointment)
-class AppointmentAdmin(admin.ModelAdmin):
+class AppointmentAdmin(AdminImageMixin, admin.ModelAdmin):
     """docstring for AppointmentAdmin"""
     fieldsets = [
         (None, {
@@ -119,41 +122,45 @@ class AppointmentAdmin(admin.ModelAdmin):
                 'member',
                 'symptomatology',
                 'date_next_appoitment'
-                ]
-            }),
+            ]
+        }),
         ('Prescription', {
             'classes': ('suit-tab', 'suit-tab-prescription',),
             'fields': [
                 'prescription'
-                ]
-            })]
+            ]
+        })]
 
     list_display = [
         'id',
         'appointment_date',
         'member',
         'doctor',
+        # 'member_link',
+        # 'doctor_link',
         'clinic'
-        ]
+    ]
+
+    list_display_links = [
+        'id',
+        'appointment_date',
+    ]
+
     search_fields = [
-        'member',
-        'doctor',
-        'clinic'
-        ]
+        'member__names',
+        'member__father_last_name',
+        'member__mother_last_name',
+        'doctor__names',
+        'doctor__father_last_name',
+        'doctor__mother_last_name',
+        'clinic__name'
+    ]
     list_filter = (
         'appointment_date',
         ('clinic', admin.RelatedOnlyFieldListFilter),
         ('member', admin.RelatedOnlyFieldListFilter),
         ('doctor', admin.RelatedOnlyFieldListFilter),
     )
-    list_display_links = [
-        'id',
-        'appointment_date',
-        'member',
-        # 'doctor',
-        # 'clinic'
-        ]
-    # ordering = ['-id']
 
     inlines = [PrescribedMedicineInlines]
 
@@ -161,8 +168,26 @@ class AppointmentAdmin(admin.ModelAdmin):
         ('general', 'General'),
         ('prescription', 'Prescripcion'),
         ('prescribedmedicine', 'Medicinas prescritas'),
-        )
+    )
     list_per_page = 5
+
+    read_only_fields = ('member_link', 'doctor_link',)
+
+    def member_link(self, obj):
+        return mark_safe('<a href="{}">{}</a>'.format(
+            reverse("admin:members_member_change", args=(obj.member.pk,)),
+            obj.member.names
+        ))
+    member_link.short_description = 'miembro'
+    member_link.admin_order_field = 'member'
+
+    def doctor_link(self, obj):
+        return mark_safe('<a href="{}">{}</a>'.format(
+            reverse("admin:doctors_doctor_change", args=(obj.doctor.pk,)),
+            obj.doctor.father_last_name
+        ))
+    doctor_link.short_description = 'doctor'
+    doctor_link.admin_order_field = 'doctor'
 
 
 @admin.register(Clinic)
@@ -176,7 +201,7 @@ class ClinicAdmin(admin.ModelAdmin):
         'phone_number',
         'email',
         'company_logo',
-        ]
+    ]
     list_display = [
         'id',
         'name',
@@ -184,7 +209,7 @@ class ClinicAdmin(admin.ModelAdmin):
         'address',
         'phone_number',
         'email'
-        ]
+    ]
     list_display_links = ['id', 'name']
 
 

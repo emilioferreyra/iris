@@ -17,7 +17,7 @@ from .models import (
     House,
     Occupation,
     MemberFamily
-    )
+)
 from people.admin import PersonAddressInline, PersonPhoneInline
 
 
@@ -38,7 +38,7 @@ class MemberResource(resources.ModelResource):
             'gender',
             'document_type__name',
             'document_id',
-            'status'
+            'status',
         )
 
 
@@ -79,7 +79,8 @@ class HouseInline(admin.StackedInline):
 
 
 @admin.register(Member)
-class MemberAdmin(AdminImageMixin, ImportExportModelAdmin):
+class MemberAdmin(ImportExportModelAdmin, AdminImageMixin):
+    resources_class = MemberResource
     fieldsets = [
         (None, {
             'classes': ('suit-tab', 'suit-tab-general',),
@@ -98,8 +99,8 @@ class MemberAdmin(AdminImageMixin, ImportExportModelAdmin):
                 'document_type',
                 'document_id',
                 'status',
-                ]
-            }),
+            ]}
+        ),
         ('Additional Info', {
             'classes': ('suit-tab', 'suit-tab-additionalsfields',),
             'fields': [
@@ -109,8 +110,9 @@ class MemberAdmin(AdminImageMixin, ImportExportModelAdmin):
                 'occupation',
                 'where_work',
                 'observations',
-                ]
-            })]
+            ]}
+        )
+    ]
 
     list_display = [
         # 'member_number',
@@ -123,13 +125,13 @@ class MemberAdmin(AdminImageMixin, ImportExportModelAdmin):
         'calculate_age',
         'academic_level',
         'status',
-        ]
+    ]
 
     list_display_links = [
         # 'member_number',
         'image_tag',
         'full_name',
-        ]
+    ]
 
     list_filter = [
         'status',
@@ -140,8 +142,9 @@ class MemberAdmin(AdminImageMixin, ImportExportModelAdmin):
         ('academic_level', admin.RelatedOnlyFieldListFilter),
         ('occupation', admin.RelatedOnlyFieldListFilter),
         'house__property_type',
-        'personaddress__town',
+        'personaddress__location'
     ]
+
     radio_fields = {
         "gender": admin.VERTICAL,
         "document_type": admin.HORIZONTAL,
@@ -177,8 +180,10 @@ class MemberAdmin(AdminImageMixin, ImportExportModelAdmin):
         ('memberphone', 'Telefonos'),
         ('memberfamily', 'Familiares'),
         ('house', 'Tipo de vivienda'),
-        )
+    )
+
     ordering = ['-member_number']
+
 
 admin.site.register(Disability)
 admin.site.register(Cane)

@@ -235,7 +235,7 @@ class Person(TimeStampedModel, AuthStampedModel):
 
     def full_name(self):
         """
-            Returns person's full name.
+        Returns person's full name.
         """
         return "%s %s %s" % (
             self.names,

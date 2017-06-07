@@ -20,7 +20,7 @@ class Country(models.Model):
 
     class Meta:
         verbose_name = "País"
-        verbose_name_plural = "Paices"
+        verbose_name_plural = "Paises"
         ordering = ['name']
 
     def __str__(self):

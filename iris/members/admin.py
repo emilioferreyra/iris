@@ -141,8 +141,7 @@ class MemberAdmin(ImportExportModelAdmin, AdminImageMixin):
         ('marital_status', admin.RelatedOnlyFieldListFilter),
         ('academic_level', admin.RelatedOnlyFieldListFilter),
         ('occupation', admin.RelatedOnlyFieldListFilter),
-        'house__property_type',
-        'personaddress__location'
+        'house__property_type'
     ]
 
     radio_fields = {

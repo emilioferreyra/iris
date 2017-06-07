@@ -1,3 +1,4 @@
 iris.sublime-project
 iris.sublime-workspace
 *.pyc
+db_sqlite3

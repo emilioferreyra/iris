@@ -160,6 +160,7 @@ class AppointmentAdmin(AdminImageMixin, admin.ModelAdmin):
         ('clinic', admin.RelatedOnlyFieldListFilter),
         ('member', admin.RelatedOnlyFieldListFilter),
         ('doctor', admin.RelatedOnlyFieldListFilter),
+        'prescribedmedicine__medicine',
     )
 
     inlines = [PrescribedMedicineInlines]

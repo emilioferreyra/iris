@@ -79,13 +79,13 @@ class Doctor(Person):
                 self.names,
                 self.father_last_name,
                 self.mother_last_name
-                )
+            )
         else:
             return "Dr. %s %s %s" % (
                 self.names,
                 self.father_last_name,
                 self.mother_last_name
-                )
+            )
 
     doctor_name.short_description = 'Nombre'
 
@@ -95,13 +95,13 @@ class Doctor(Person):
                 self.names,
                 self.father_last_name,
                 self.mother_last_name
-                )
+            )
         else:
             return "Dr. %s %s %s" % (
                 self.names,
                 self.father_last_name,
                 self.mother_last_name
-                )
+            )
 
     def save(self, *args, **kwargs):
         # self.person_type = PersonType.objects.get(name="Doctor")
@@ -123,7 +123,7 @@ class Appointment(models.Model):
         Doctor,
         chained_field="clinic",
         chained_model_field="clinic",
-        )
+    )
     appointment_date = models.DateField(
         verbose_name="fecha de cita"
     )

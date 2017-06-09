@@ -110,6 +110,7 @@ class MemberAdmin(AdminImageMixin, ImportExportModelAdmin):
             'classes': ('suit-tab', 'suit-tab-general',),
             'fields': [
                 'picture',
+                ('is_mother', 'children_quantity',),
                 'member_number',
                 'names',
                 'father_last_name',
@@ -198,7 +199,7 @@ class MemberAdmin(AdminImageMixin, ImportExportModelAdmin):
         'mother_last_name'
     ]
 
-    readonly_fields = ('member_number',)
+    readonly_fields = ('member_number', 'children_quantity', 'is_mother')
 
     list_per_page = 10
 

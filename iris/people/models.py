@@ -217,6 +217,10 @@ class Person(TimeStampedModel, AuthStampedModel):
         default=True,
         verbose_name="estado"
     )
+    age = models.PositiveIntegerField(
+        verbose_name='Edad',
+        null=True
+    )
 
     people = models.Manager()
     men = MaleManager()
@@ -257,14 +261,16 @@ class Person(TimeStampedModel, AuthStampedModel):
             Returns person's age.
         """
         today = date.today()
+        person = Person.objects.filter(id=self.id)
         if self.birth_day:
-            age = today.year - self.birth_day.year - (
+            age_calculated = today.year - self.birth_day.year - (
                 (today.month, today.day) <
                 (self.birth_day.month, self.birth_day.day)
             )
+            person.update(age=age_calculated)
         else:
-            age = None
-        return age
+            age_calculated = None
+        return age_calculated
     calculate_age.short_description = "Edad"
     # Use birth_day field to order in Admin site:
     calculate_age.admin_order_field = "-birth_day"

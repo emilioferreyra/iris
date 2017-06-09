@@ -173,13 +173,15 @@ class Member(Person):
     is_mother = models.BooleanField(
         default=False,
         verbose_name="Es madre",
-        help_text="Indica si la miembro es madre"
     )
     health_insurance = models.BooleanField(
         default=False,
         verbose_name="Seguro de Salud"
     )
-    children_quantity = models.PositiveIntegerField(null=True)
+    children_quantity = models.PositiveIntegerField(
+        verbose_name="Cantidad de hijos",
+        null=True
+    )
     objects = MemberManager()
 
     class Meta:
@@ -220,6 +222,8 @@ class Member(Person):
             Q(dependent_of=self.id),
             Q(kinship=d['son']) | Q(kinship=d['daughter'])
         ).count()
+        if q > 0:
+            Member.objects.filter(id=self.id).update(children_quantity=q)
         return q
 
     # children_quantity.admin_order_field = 'children_number'

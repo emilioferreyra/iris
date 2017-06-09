@@ -24,11 +24,11 @@ member_family = 6
 
 
 @python_2_unicode_compatible
-class Disability(models.Model):
+class Diagnosis(models.Model):
     """
-        Store member's disabilities.
-        Related model:
-        :model:`members.Member`.
+    Store member's disabilities.
+    Related model:
+    :model:`members.Member`.
     """
     name = models.CharField(
         unique=True,
@@ -37,8 +37,8 @@ class Disability(models.Model):
     )
 
     class Meta:
-        verbose_name = "Discapacidad"
-        verbose_name_plural = "Discapacidades"
+        verbose_name = "Diagnostico"
+        verbose_name_plural = "Diagnosticos"
         ordering = ['name']
 
     def __str__(self):
@@ -48,9 +48,9 @@ class Disability(models.Model):
 @python_2_unicode_compatible
 class Cane(models.Model):
     """
-        Store member's cane number.
-        Related model:
-        :model:`members.Member`.
+    Store member's cane number.
+    Related model:
+    :model:`members.Member`.
     """
     name = models.PositiveIntegerField(
         verbose_name="número de bastón"
@@ -68,9 +68,9 @@ class Cane(models.Model):
 @python_2_unicode_compatible
 class Occupation(models.Model):
     """
-        Store member's occupations.
-        Related model:
-        :model:`members.Member`.
+    Store member's occupations.
+    Related model:
+    :model:`members.Member`.
     """
     name = models.CharField(
         max_length=40,
@@ -110,32 +110,32 @@ d = dict(son=3, daughter=4)
 
 class Member(Person):
     """
-        Stores members information.
-        Related model:
-        :model:`commons.AcademicLevel`,
-        :model:`doctors.Appointment`,
-        :model:`members.Cane`,
-        :model:`auth.User`,
-        :model:`people.Person`,
-        :model:`members.Disability`,
-        :model:`commons.DocumentType`,
-        :model:`members.House`,
-        :model:`commons.Kinship`,
-        :model:`commons.MaritalStatus`,
-        :model:`location.Nationality`,
-        :model:`members.Occupation`,
-        :model:`commons.PersonType`,
-        :model:`people.PersonAddress` and
-        :model:`people.PersonPhone`.
+    Stores members information.
+    Related model:
+    :model:`commons.AcademicLevel`,
+    :model:`doctors.Appointment`,
+    :model:`members.Cane`,
+    :model:`auth.User`,
+    :model:`people.Person`,
+    :model:`members.Disability`,
+    :model:`commons.DocumentType`,
+    :model:`members.House`,
+    :model:`commons.Kinship`,
+    :model:`commons.MaritalStatus`,
+    :model:`location.Nationality`,
+    :model:`members.Occupation`,
+    :model:`commons.PersonType`,
+    :model:`people.PersonAddress` and
+    :model:`people.PersonPhone`.
     """
     member_number = models.IntegerField(
         unique=True,
         default=number,
         verbose_name="número de miembro"
     )
-    disabilities = models.ManyToManyField(
-        Disability,
-        verbose_name="discapacidades"
+    diagnosis = models.ManyToManyField(
+        Diagnosis,
+        verbose_name="diagnosticos"
     )
     cane_number = models.ForeignKey(
         Cane,

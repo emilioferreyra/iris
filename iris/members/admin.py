@@ -3,8 +3,8 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.contrib import admin
-from django.db import models
-from django.forms import CheckboxSelectMultiple
+# from django.db import models
+# from django.forms import CheckboxSelectMultiple
 
 from sorl.thumbnail.admin import AdminImageMixin
 from import_export import resources
@@ -12,7 +12,7 @@ from import_export.admin import ImportExportModelAdmin
 
 from .models import (
     Member,
-    Disability,
+    Diagnosis,
     Cane,
     House,
     Occupation,
@@ -119,7 +119,7 @@ class MemberAdmin(AdminImageMixin, ImportExportModelAdmin):
         ('Additional Info', {
             'classes': ('suit-tab', 'suit-tab-additionalsfields',),
             'fields': [
-                'disabilities',
+                'diagnosis',
                 'cane_number',
                 'currently_works',
                 'occupation',
@@ -170,7 +170,7 @@ class MemberAdmin(AdminImageMixin, ImportExportModelAdmin):
     #     models.ManyToManyField: {'widget': CheckboxSelectMultiple},
     # }
 
-    filter_horizontal = ['disabilities']
+    filter_horizontal = ['diagnosis']
 
     inlines = [
         MemberAddressInline,
@@ -203,6 +203,6 @@ class MemberAdmin(AdminImageMixin, ImportExportModelAdmin):
     ordering = ['-member_number']
 
 
-admin.site.register(Disability)
+admin.site.register(Diagnosis)
 admin.site.register(Cane)
 admin.site.register(Occupation)

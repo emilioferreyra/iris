@@ -177,12 +177,14 @@ class Person(TimeStampedModel, AuthStampedModel):
     document_type = models.ForeignKey(
         DocumentType,
         null=True,
+        blank=True,
         verbose_name="tipo documento identidad",
         help_text="Seleccione el tipo de documento de identidad"
     )
     document_id = models.CharField(
         max_length=22,
         null=True,
+        blank=True,
         verbose_name="documento identidad",
         help_text="Introduzca el número de documento"
     )

@@ -23,7 +23,7 @@ class DoctorPhoneInline(PersonPhoneInline):
 
 
 @admin.register(Doctor)
-class DoctorAdmin(admin.ModelAdmin, AdminImageMixin):
+class DoctorAdmin(AdminImageMixin, admin.ModelAdmin):
     fieldsets = [
         (None, {
             'classes': ('suit-tab', 'suit-tab-general',),
@@ -33,12 +33,8 @@ class DoctorAdmin(admin.ModelAdmin, AdminImageMixin):
                 'father_last_name',
                 'mother_last_name',
                 'email',
-                # 'birth_day',
                 'nationality',
-                # 'marital_status',
                 'gender',
-                # 'document_type',
-                # 'document_id',
                 'status',
             ]
         }),
@@ -71,23 +67,16 @@ class DoctorAdmin(admin.ModelAdmin, AdminImageMixin):
         'doctor_name'
     ]
 
-    filter_vertical = [
+    filter_horizontal = [
         'specialities',
         'clinic',
-        'specialities'
     ]
 
     search_fields = [
         'names',
         'father_last_name',
         'mother_last_name',
-        # 'clinic',
-        # 'specialities'
     ]
-
-    # formfield_overrides = {
-    #     models.ManyToManyField: {'widget': CheckboxSelectMultiple},
-    # }
 
     inlines = [
         DoctorPhoneInline
@@ -102,7 +91,7 @@ class DoctorAdmin(admin.ModelAdmin, AdminImageMixin):
 
     suit_form_tabs = (
         ('general', 'General'),
-        ('additionalsfields', 'Adicional'),
+        ('additionalsfields', 'Especialidades y Clínicas'),
         ('phones', 'Teléfonos'),
     )
 
@@ -141,8 +130,6 @@ class AppointmentAdmin(AdminImageMixin, admin.ModelAdmin):
         'appointment_date',
         'member',
         'doctor',
-        # 'member_link',
-        # 'doctor_link',
         'clinic'
     ]
 

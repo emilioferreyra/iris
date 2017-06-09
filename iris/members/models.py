@@ -135,7 +135,7 @@ class Member(Person):
     )
     diagnosis = models.ManyToManyField(
         Diagnosis,
-        verbose_name="diagnosticos"
+        verbose_name="Diagnosticos"
     )
     cane_number = models.ForeignKey(
         Cane,
@@ -151,24 +151,24 @@ class Member(Person):
         verbose_name="trabaja actualmente",
         help_text="Indique si actualmente tiene trabajo"
     )
-    occupation = models.ForeignKey(
+    occupation = models.ManyToManyField(
         Occupation,
         null=True,
         blank=True,
-        verbose_name="ocupación",
+        verbose_name="Ocupación(es)",
         help_text="Seleccione ocupación"
     )
     where_work = models.CharField(
         max_length=100,
         null=True,
         blank=True,
-        verbose_name="donde trabaja",
+        verbose_name="Donde trabaja",
         help_text="Empresa o lugar donde trabaja"
     )
     observations = models.TextField(
         null=True,
         blank=True,
-        verbose_name="observaciones",
+        verbose_name="Observaciones",
         help_text="Escribir observaciones adicionales"
     )
     is_mother = models.BooleanField(
@@ -176,7 +176,10 @@ class Member(Person):
         verbose_name="Es madre",
         help_text="Indica si la miembro es madre"
     )
-
+    health_insurance = models.BooleanField(
+        default=False,
+        verbose_name="Seguro de Salud"
+    )
     objects = MemberManager()
 
     class Meta:

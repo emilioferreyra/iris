@@ -8,9 +8,9 @@ from smart_selects.db_fields import ChainedForeignKey
 from sorl.thumbnail import ImageField
 from localflavor.us.models import PhoneNumberField
 
-from commons.models import PersonType
-from people.models import Person
-from people.models import SupplierManager
+# from commons.models import PersonType
+# from people.models import Person
+# from people.models import SupplierManager
 from location.models import Country, Region, Province, Town
 
 supplier_id = 4

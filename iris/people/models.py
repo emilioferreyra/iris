@@ -365,7 +365,8 @@ class PersonAddress(models.Model):
     address_type = models.ForeignKey(
         AddressType,
         verbose_name="tipo dirección",
-        help_text="Seleccione tipo de dirección"
+        help_text="Seleccione tipo de dirección",
+        default=1
     )
     building = models.CharField(
         max_length=20,

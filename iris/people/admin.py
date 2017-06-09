@@ -13,7 +13,7 @@ from commons.models import PhoneType
 class PersonAddressInline(admin.StackedInline):
     max_num_addresses = AddressType.objects.count()
     model = PersonAddress
-    extra = 1
+    extra = 0
     fields = [
         'address_type',
         'street',

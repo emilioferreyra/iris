@@ -81,15 +81,24 @@ class HouseInline(admin.StackedInline):
 
 class AppointmentInline(admin.StackedInline):
     model = Appointment
+    min_num = 0
+    extra = 0
     fields = [
         'appointment_date',
         'clinic',
         'doctor',
         'symptomatology',
+        'prescription',
         'date_next_appoitment'
     ]
-    min_num = 0
-    extra = 0
+    readonly_fields = [
+        'appointment_date',
+        'clinic',
+        'doctor',
+        'symptomatology',
+        'prescription',
+        'date_next_appoitment'
+    ]
     suit_classes = 'suit-tab suit-tab-appointment'
 
 
@@ -178,7 +187,7 @@ class MemberAdmin(AdminImageMixin, ImportExportModelAdmin):
         MemberPhoneInline,
         MemberFamilyInline,
         HouseInline,
-        AppointmentInline,
+        # AppointmentInline,
     ]
 
     search_fields = [
@@ -198,7 +207,7 @@ class MemberAdmin(AdminImageMixin, ImportExportModelAdmin):
         ('memberphone', 'Telefonos'),
         ('memberfamily', 'Familiares'),
         ('house', 'Tipo de vivienda'),
-        ('appointment', 'Citas médicas'),
+        # ('appointment', 'Citas médicas'),
     )
 
     ordering = ['-member_number']

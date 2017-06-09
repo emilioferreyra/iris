@@ -154,7 +154,8 @@ class Member(Person):
     occupation = models.ManyToManyField(
         Occupation,
         verbose_name="Ocupación(es)",
-        help_text="Seleccione ocupación"
+        help_text="Seleccione ocupación",
+        blank=True
     )
     where_work = models.CharField(
         max_length=100,

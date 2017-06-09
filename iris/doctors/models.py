@@ -117,7 +117,7 @@ class Appointment(models.Model):
     )
     clinic = models.ForeignKey(
         Clinic,
-        verbose_name="clínica"
+        verbose_name="clínica",
     )
     doctor = ChainedForeignKey(
         Doctor,
@@ -125,22 +125,23 @@ class Appointment(models.Model):
         chained_model_field="clinic",
     )
     appointment_date = models.DateField(
-        verbose_name="fecha de cita"
+        verbose_name="fecha de cita",
     )
     symptomatology = models.TextField(
         max_length=300,
-        verbose_name="sintomatología"
+        verbose_name="sintomatología",
     )
     prescription = models.TextField(
         max_length=300,
         null=True,
         blank=True,
-        verbose_name="prescripción"
+        verbose_name="prescripción",
     )
     date_next_appoitment = models.DateField(
         null=True,
         blank=True,
-        verbose_name="fecha de próxima cita"
+        verbose_name="fecha de próxima cita",
+
     )
 
     class Meta:

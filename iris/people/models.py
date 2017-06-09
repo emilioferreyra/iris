@@ -117,15 +117,6 @@ class FemaleManager(models.Manager):
         return super(FemaleManager, self).get_query_set().filter(gender=men)
 
 
-# class ActivePersonManager(models.Manager):
-#     """
-#     Manage person that status is actived query set to only return
-#     active = True
-#     """
-#     def get_query_set(self):
-#         return super(ActivePersonManager, self).get_query_set().filter(status=True)
-
-
 @python_2_unicode_compatible
 class Person(TimeStampedModel, AuthStampedModel):
     """
@@ -345,21 +336,24 @@ class PersonAddress(models.Model):
     region = models.ForeignKey(
         Region,
         verbose_name="región",
-        help_text="Seleccione región"
+        help_text="Seleccione región",
+        default=1
     )
     province = ChainedForeignKey(
         Province,
         chained_field="region",
         chained_model_field="region",
         verbose_name="provincia",
-        help_text="Seleccione provincia"
+        help_text="Seleccione provincia",
+        default=29
     )
     town = ChainedForeignKey(
         Town,
         chained_field="province",
         chained_model_field="province",
         verbose_name="municipio",
-        help_text="Seleccione municipio"
+        help_text="Seleccione municipio",
+        default=203
     )
     location = ChainedForeignKey(
         Location,

@@ -152,7 +152,7 @@ class AddressType(models.Model):
         verbose_name = "Tipo de dirección"
         verbose_name_plural = "Tipo de direcciones"
         db_table = 'location_address_type'
-        ordering = ['name']
+        ordering = ['id']
 
     def __str__(self):
         return self.name

@@ -234,7 +234,7 @@ class Person(TimeStampedModel, AuthStampedModel):
         verbose_name_plural = "Personas"
 
     def __str__(self):
-        return '%s %s %s' % (
+        return '{} {} {}'.format(
             self.names,
             self.father_last_name,
             self.mother_last_name
@@ -244,7 +244,7 @@ class Person(TimeStampedModel, AuthStampedModel):
         """
         Returns person's full name.
         """
-        return "%s %s %s" % (
+        return "{} {} {}".format(
             self.names,
             self.father_last_name,
             self.mother_last_name
@@ -288,6 +288,26 @@ class Person(TimeStampedModel, AuthStampedModel):
             return address
 
     main_address.short_description = "Dirección"
+
+    def get_location(self):
+        """
+        Returns person's town.
+        If one or more addresses are marked as default,
+        returns the first address that was added.
+        """
+        address = PersonAddress.objects.filter(
+            person_name_id=self.id,
+            is_default=True
+        ).order_by('id').first()
+        if address:
+            return address.location
+        else:
+            address = PersonAddress.objects.filter(
+                person_name_id=self.id
+            ).order_by('id').first()
+            return address.location
+
+    get_location.short_description = "Localidad"
 
     def main_phone(self):
         """

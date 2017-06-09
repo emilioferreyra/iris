@@ -145,10 +145,12 @@ class MemberAdmin(AdminImageMixin, ImportExportModelAdmin):
         'full_name',
         'gender',
         'member_is_mother',
-        'children_quantity',
+        'get_children_quantity',
         'main_phone',
         'calculate_age',
-        'academic_level',
+        # 'academic_level',
+        'main_address',
+        'get_location',
         'status',
     ]
 

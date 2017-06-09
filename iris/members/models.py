@@ -179,6 +179,7 @@ class Member(Person):
         default=False,
         verbose_name="Seguro de Salud"
     )
+    children_quantity = models.PositiveIntegerField(null=True)
     objects = MemberManager()
 
     class Meta:
@@ -212,17 +213,17 @@ class Member(Person):
 
     member_is_mother.admin_order_field = 'is_mother'
     member_is_mother.boolean = True
-    member_is_mother.short_description = 'Es madre?'
+    member_is_mother.short_description = 'Madre'
 
-    def children_quantity(self):
-        quantity = Person.member_families.filter(
+    def get_children_quantity(self):
+        q = Person.member_families.filter(
             Q(dependent_of=self.id),
             Q(kinship=d['son']) | Q(kinship=d['daughter'])
         ).count()
-        return quantity
+        return q
 
     # children_quantity.admin_order_field = 'children_number'
-    children_quantity.short_description = 'Cantidad de hijos'
+    get_children_quantity.short_description = 'Cantidad de hijos'
 
     def was_created_recently(self):
         """

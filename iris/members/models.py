@@ -153,8 +153,6 @@ class Member(Person):
     )
     occupation = models.ManyToManyField(
         Occupation,
-        null=True,
-        blank=True,
         verbose_name="Ocupación(es)",
         help_text="Seleccione ocupación"
     )

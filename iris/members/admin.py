@@ -124,6 +124,7 @@ class MemberAdmin(AdminImageMixin, ImportExportModelAdmin):
                 'currently_works',
                 'occupation',
                 'where_work',
+                'health_insurance',
                 'observations',
             ]}
         )
@@ -170,7 +171,7 @@ class MemberAdmin(AdminImageMixin, ImportExportModelAdmin):
     #     models.ManyToManyField: {'widget': CheckboxSelectMultiple},
     # }
 
-    filter_horizontal = ['diagnosis']
+    filter_horizontal = ['diagnosis', 'occupation']
 
     inlines = [
         MemberAddressInline,

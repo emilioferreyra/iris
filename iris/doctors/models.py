@@ -149,11 +149,7 @@ class Appointment(models.Model):
         unique_together = (("member", "doctor", "appointment_date"),)
 
     def __str__(self):
-        return '%s con %s en %s' % (
-            self.member,
-            self.doctor,
-            self.clinic
-        )
+        return 'Cita con {} en {}'.format(self.doctor, self.clinic)
 
 
 @python_2_unicode_compatible

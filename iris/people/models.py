@@ -117,6 +117,15 @@ class FemaleManager(models.Manager):
         return super(FemaleManager, self).get_query_set().filter(gender=men)
 
 
+# class ActivePersonManager(models.Manager):
+#     """
+#     Manage person that status is actived query set to only return
+#     active = True
+#     """
+#     def get_query_set(self):
+#         return super(ActivePersonManager, self).get_query_set().filter(status=True)
+
+
 @python_2_unicode_compatible
 class Person(TimeStampedModel, AuthStampedModel):
     """
@@ -157,7 +166,9 @@ class Person(TimeStampedModel, AuthStampedModel):
     )
     birth_day = models.DateField(
         verbose_name="Fecha nacimiento",
-        help_text="Introduzca Fecha de nacimiento"
+        help_text="Introduzca Fecha de nacimiento",
+        null=True,
+        blank=True
     )
     nationality = models.ForeignKey(
         Nationality,
@@ -168,7 +179,9 @@ class Person(TimeStampedModel, AuthStampedModel):
     marital_status = models.ForeignKey(
         MaritalStatus,
         verbose_name="estado civil",
-        help_text="Seleccione estado civil"
+        help_text="Seleccione estado civil",
+        null=True,
+        blank=True
     )
     document_type = models.ForeignKey(
         DocumentType,
@@ -221,6 +234,7 @@ class Person(TimeStampedModel, AuthStampedModel):
     suppliers = SupplierManager()
     employee_families = EmployeeFamilyManager()
     member_families = MemberFamilyManager()
+    # active_person = ActivePersonManager()
 
     class Meta:
         verbose_name = "Persona"
@@ -250,10 +264,14 @@ class Person(TimeStampedModel, AuthStampedModel):
             Returns person's age.
         """
         today = date.today()
-        return today.year - self.birth_day.year - (
-            (today.month, today.day) <
-            (self.birth_day.month, self.birth_day.day)
-        )
+        if self.birth_day:
+            age = today.year - self.birth_day.year - (
+                (today.month, today.day) <
+                (self.birth_day.month, self.birth_day.day)
+            )
+        else:
+            age = None
+        return age
     calculate_age.short_description = "Edad"
     # Use birth_day field to order in Admin site:
     calculate_age.admin_order_field = "-birth_day"

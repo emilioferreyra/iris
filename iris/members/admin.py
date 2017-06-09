@@ -19,6 +19,7 @@ from .models import (
     MemberFamily
 )
 from people.admin import PersonAddressInline, PersonPhoneInline
+from doctors.models import Appointment
 
 
 class MemberResource(resources.ModelResource):
@@ -78,8 +79,22 @@ class HouseInline(admin.StackedInline):
     suit_classes = 'suit-tab suit-tab-house'
 
 
+class AppointmentInline(admin.StackedInline):
+    model = Appointment
+    fields = [
+        'appointment_date',
+        'clinic',
+        'doctor',
+        'symptomatology',
+        'date_next_appoitment'
+    ]
+    min_num = 0
+    extra = 0
+    suit_classes = 'suit-tab suit-tab-appointment'
+
+
 @admin.register(Member)
-class MemberAdmin(ImportExportModelAdmin, AdminImageMixin):
+class MemberAdmin(AdminImageMixin, ImportExportModelAdmin):
     resources_class = MemberResource
     fieldsets = [
         (None, {
@@ -100,7 +115,7 @@ class MemberAdmin(ImportExportModelAdmin, AdminImageMixin):
                 'document_id',
                 'status',
             ]}
-        ),
+            ),
         ('Additional Info', {
             'classes': ('suit-tab', 'suit-tab-additionalsfields',),
             'fields': [
@@ -159,7 +174,8 @@ class MemberAdmin(ImportExportModelAdmin, AdminImageMixin):
         MemberAddressInline,
         MemberPhoneInline,
         MemberFamilyInline,
-        HouseInline
+        HouseInline,
+        AppointmentInline,
     ]
 
     search_fields = [
@@ -179,6 +195,7 @@ class MemberAdmin(ImportExportModelAdmin, AdminImageMixin):
         ('memberphone', 'Telefonos'),
         ('memberfamily', 'Familiares'),
         ('house', 'Tipo de vivienda'),
+        ('appointment', 'Citas médicas'),
     )
 
     ordering = ['-member_number']

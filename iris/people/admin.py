@@ -48,7 +48,7 @@ class PersonAdmin(AdminImageMixin, admin.ModelAdmin):
         'status',
         ('person_type', admin.RelatedOnlyFieldListFilter),
         ('marital_status', admin.RelatedOnlyFieldListFilter),
-        )
+    )
     fieldsets = [
         (None, {
             'classes': ('suit-tab', 'suit-tab-general',),

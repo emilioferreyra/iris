@@ -8,12 +8,13 @@ from sorl.thumbnail.admin import AdminImageMixin
 
 from .models import (
     Doctor,
-    Clinic,
     Speciality,
+    Clinic,
     Appointment,
     Medicine,
     PrescribedMedicine
 )
+from suppliers.admin import SupplierCompanyAdmin
 from people.admin import PersonPhoneInline
 
 
@@ -22,7 +23,7 @@ class DoctorPhoneInline(PersonPhoneInline):
 
 
 @admin.register(Doctor)
-class DoctorAdmin(admin.ModelAdmin):
+class DoctorAdmin(admin.ModelAdmin, AdminImageMixin):
     fieldsets = [
         (None, {
             'classes': ('suit-tab', 'suit-tab-general',),
@@ -32,12 +33,12 @@ class DoctorAdmin(admin.ModelAdmin):
                 'father_last_name',
                 'mother_last_name',
                 'email',
-                'birth_day',
+                # 'birth_day',
                 'nationality',
-                'marital_status',
+                # 'marital_status',
                 'gender',
-                'document_type',
-                'document_id',
+                # 'document_type',
+                # 'document_id',
                 'status',
             ]
         }),
@@ -57,6 +58,7 @@ class DoctorAdmin(admin.ModelAdmin):
 
     list_display = [
         'id',
+        'image_tag',
         'doctor_name',
         'email',
         'main_phone',
@@ -65,12 +67,14 @@ class DoctorAdmin(admin.ModelAdmin):
 
     list_display_links = [
         'id',
+        'image_tag',
         'doctor_name'
     ]
 
     filter_vertical = [
         'specialities',
-        'clinic'
+        'clinic',
+        'specialities'
     ]
 
     search_fields = [
@@ -93,6 +97,7 @@ class DoctorAdmin(admin.ModelAdmin):
         'status',
         ('clinic', admin.RelatedOnlyFieldListFilter),
         ('specialities', admin.RelatedOnlyFieldListFilter),
+        'created'
     )
 
     suit_form_tabs = (
@@ -163,12 +168,14 @@ class AppointmentAdmin(AdminImageMixin, admin.ModelAdmin):
         'prescribedmedicine__medicine',
     )
 
+    raw_id_fields = ('member',)
+
     inlines = [PrescribedMedicineInlines]
 
     suit_form_tabs = (
         ('general', 'General'),
         ('prescription', 'Prescripcion'),
-        ('prescribedmedicine', 'Medicinas prescritas'),
+        ('prescribedmedicine', 'Meidcamentos prescritos'),
     )
     list_per_page = 5
 
@@ -192,26 +199,14 @@ class AppointmentAdmin(AdminImageMixin, admin.ModelAdmin):
 
 
 @admin.register(Clinic)
-class ClinicAdmin(admin.ModelAdmin):
-    fields = [
+class ClinicAdmin(SupplierCompanyAdmin):
+    list_display = [
+        'image_tag',
         'name',
-        'region',
-        'province',
-        'town',
         'address',
         'phone_number',
         'email',
-        'company_logo',
     ]
-    list_display = [
-        'id',
-        'name',
-        'town',
-        'address',
-        'phone_number',
-        'email'
-    ]
-    list_display_links = ['id', 'name']
 
 
 admin.site.register(Speciality)

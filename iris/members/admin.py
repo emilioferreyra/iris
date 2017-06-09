@@ -166,9 +166,11 @@ class MemberAdmin(AdminImageMixin, ImportExportModelAdmin):
         "academic_level": admin.HORIZONTAL
     }
 
-    formfield_overrides = {
-        models.ManyToManyField: {'widget': CheckboxSelectMultiple},
-    }
+    # formfield_overrides = {
+    #     models.ManyToManyField: {'widget': CheckboxSelectMultiple},
+    # }
+
+    filter_horizontal = ['disabilities']
 
     inlines = [
         MemberAddressInline,

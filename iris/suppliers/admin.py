@@ -12,11 +12,10 @@ from .models import SupplierContact
 class SupplierContactInline(admin.StackedInline):
     model = SupplierContact
     fields = [
-        'name',
-        'email',
-        'phone_number',
-        'extension_number',
-        'mobile_number'
+        ('name', 'email',),
+        ('phone_number', 'extension_number',),
+        'mobile_number',
+        ('department', 'position',),
 
     ]
     min_num = 0
@@ -42,14 +41,11 @@ class SupplierCompanyAdmin(AdminImageMixin, admin.ModelAdmin):
             'fields': [
                 "company_logo",
                 "name",
-                "supplier_type",
-                "country",
-                "region",
-                "province",
-                "town",
-                "address",
-                "phone_number",
-                "email",
+                ("supplier_type", "country",),
+                ("region",
+                "province",), ("town",
+                "address",), ("phone_number",
+                "email",),
             ]
         })]
 

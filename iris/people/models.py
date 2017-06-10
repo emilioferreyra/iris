@@ -261,7 +261,7 @@ class Person(TimeStampedModel, AuthStampedModel):
 
     def calculate_age(self):
         """
-            Returns person's age.
+        Returns person's age.
         """
         today = date.today()
         person = Person.people.filter(id=self.id)
@@ -280,9 +280,9 @@ class Person(TimeStampedModel, AuthStampedModel):
 
     def main_address(self):
         """
-            Returns person's main address.
-            If one or more addresses are marked as default,
-            returns the first address that was added.
+        Returns person's main address.
+        If one or more addresses are marked as default,
+        returns the first address that was added.
         """
         address = PersonAddress.objects.filter(
             person_name_id=self.id,
@@ -326,9 +326,9 @@ class Person(TimeStampedModel, AuthStampedModel):
 
     def main_phone(self):
         """
-            Returns person's main phone.
-            If one or more phones are marked as default,
-            returns the first phone that was added.
+        Returns person's main phone.
+        If one or more phones are marked as default,
+        returns the first phone that was added.
         """
         phone = PersonPhone.objects.filter(
             person_name_id=self.id,
@@ -442,9 +442,9 @@ class PersonAddress(models.Model):
 @python_2_unicode_compatible
 class PersonPhone(models.Model):
     """
-        Store person's phones.
-        Related models:
-        :model:`people.Person` and :model:`commons.PhoneType`
+    Store person's phones.
+    Related models:
+    :model:`people.Person` and :model:`commons.PhoneType`
     """
     phone_type = models.ForeignKey(
         PhoneType,

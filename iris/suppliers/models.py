@@ -56,20 +56,22 @@ class SupplierCompany(models.Model):
     )
     region = models.ForeignKey(
         Region,
-        default=1,
-        verbose_name="región"
+        verbose_name="región",
+        default=1
     )
     province = ChainedForeignKey(
         Province,
         chained_field="region",
         chained_model_field="region",
-        verbose_name="provincia"
+        verbose_name="provincia",
+        default=29
     )
     town = ChainedForeignKey(
         Town,
         chained_field="province",
         chained_model_field="province",
-        verbose_name="municipio"
+        verbose_name="municipio",
+        default=203
     )
     phone_number = PhoneNumberField(
         verbose_name="número de teléfono",
@@ -110,6 +112,7 @@ class SupplierCompany(models.Model):
 
 @python_2_unicode_compatible
 class SupplierContact(models.Model):
+    supplier_company = models.ForeignKey(SupplierCompany)
     name = models.CharField("nombre", max_length=100)
     email = models.EmailField("e-mail", null=True, blank=True)
     phone_number = PhoneNumberField(
@@ -123,7 +126,8 @@ class SupplierContact(models.Model):
         blank=True
     )
     mobile_number = PhoneNumberField("teléfono móvil", null=True, blank=True)
-    supplier_company = models.ForeignKey(SupplierCompany)
+    department = models.CharField(max_length=100, null=True, blank=True)
+    position = models.CharField(max_length=100, null=True, blank=True)
 
     class Meta:
         verbose_name = "Contacto"

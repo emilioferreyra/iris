@@ -222,6 +222,7 @@ class Person(TimeStampedModel, AuthStampedModel):
     main_location = models.ForeignKey(
         Location,
         null=True,
+        blank=True,
         verbose_name='Localidad'
     )
 
@@ -308,17 +309,18 @@ class Person(TimeStampedModel, AuthStampedModel):
             is_default=True
         ).order_by('id').first()
 
-        location = Person.people.get(id=self.id)
+        location = Person.people.filter(id=self.id)
 
         if main_address:
             main_location = main_address.location
+            location.update(main_location=main_location)
         else:
             main_address = PersonAddress.objects.filter(
                 person_name_id=self.id
             ).order_by('id').first()
             main_location = main_address.location
+            location.update(main_location=main_location)
         return main_location
-        location.update(main_location=main_location)
 
     get_location.short_description = "Localidad"
 

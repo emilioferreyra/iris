@@ -190,7 +190,7 @@ class MemberAdmin(AdminImageMixin, ImportExportModelAdmin):
         # 'member_number',
         'image_tag',
         'full_name',
-        'gender',
+        # 'gender',
         'member_is_mother',
         'get_children_quantity',
         'main_phone',
@@ -216,6 +216,7 @@ class MemberAdmin(AdminImageMixin, ImportExportModelAdmin):
         ('academic_level', admin.RelatedOnlyFieldListFilter),
         ('occupation', admin.RelatedOnlyFieldListFilter),
         'house__property_type',
+        ('main_location', admin.RelatedOnlyFieldListFilter),
         # DecadeBornListFilter
     ]
 

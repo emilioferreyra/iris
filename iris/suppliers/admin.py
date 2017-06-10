@@ -42,10 +42,9 @@ class SupplierCompanyAdmin(AdminImageMixin, admin.ModelAdmin):
                 "company_logo",
                 "name",
                 ("supplier_type", "country",),
-                ("region",
-                "province",), ("town",
-                "address",), ("phone_number",
-                "email",),
+                ("region", "province",),
+                ("town", "address",),
+                ("phone_number", "email",),
             ]
         })]
 

@@ -14,7 +14,7 @@ from .models import (
     Medicine,
     PrescribedMedicine
 )
-# from suppliers.admin import SupplierCompanyAdmin
+from suppliers.admin import SupplierCompanyAdmin
 from people.admin import PersonPhoneInline
 
 
@@ -186,7 +186,7 @@ class AppointmentAdmin(AdminImageMixin, admin.ModelAdmin):
 
 
 @admin.register(Clinic)
-class ClinicAdmin(AdminImageMixin, admin.ModelAdmin):
+class ClinicAdmin(SupplierCompanyAdmin):
     list_display = [
         'image_tag',
         'name',
@@ -195,23 +195,11 @@ class ClinicAdmin(AdminImageMixin, admin.ModelAdmin):
         'phone_number',
         'email',
     ]
-
-    list_filter = (
-        ('town', admin.RelatedOnlyFieldListFilter),
-        # 'town',
-    )
-
-    list_per_page = 5
-
     search_fields = [
         'name',
         'province__name',
         'town__name',
     ]
-
-    list_display_links = ['name', 'image_tag']
-
-    ordering = ['name']
 
 
 admin.site.register(Speciality)

@@ -26,45 +26,45 @@ from doctors.models import Appointment
 from .forms import MemberForm
 
 
-class DecadeBornListFilter(admin.SimpleListFilter):
-    # Human-readable title which will be displayed in the
-    # right admin sidebar just above the filter options.
-    title = _('decade born')
+# class DecadeBornListFilter(admin.SimpleListFilter):
+#     # Human-readable title which will be displayed in the
+#     # right admin sidebar just above the filter options.
+#     title = _('decade born')
 
-    # Parameter for the filter that will be used in the URL query.
-    parameter_name = 'decade'
+#     # Parameter for the filter that will be used in the URL query.
+#     parameter_name = 'decade'
 
-    def lookups(self, request, model_admin):
-        """
-        Returns a list of tuples. The first element in each
-        tuple is the coded value for the option that will
-        appear in the URL query. The second element is the
-        human-readable name for the option that will appear
-        in the right sidebar.
-        """
-        return (
-            ('80s', _('in the eighties')),
-            ('90s', _('in the nineties')),
-        )
+#     def lookups(self, request, model_admin):
+#         """
+#         Returns a list of tuples. The first element in each
+#         tuple is the coded value for the option that will
+#         appear in the URL query. The second element is the
+#         human-readable name for the option that will appear
+#         in the right sidebar.
+#         """
+#         return (
+#             ('80s', _('in the eighties')),
+#             ('90s', _('in the nineties')),
+#         )
 
-    def queryset(self, request, queryset):
-        """
-        Returns the filtered queryset based on the value
-        provided in the query string and retrievable via
-        `self.value()`.
-        """
-        # Compare the requested value (either '80s' or '90s')
-        # to decide how to filter the queryset.
-        if self.value() == '80s':
-            return queryset.filter(
-                birthday__gte=date(1980, 1, 1),
-                birthday__lte=date(1989, 12, 31)
-            )
-        if self.value() == '90s':
-            return queryset.filter(
-                birthday__gte=date(1990, 1, 1),
-                birthday__lte=date(1999, 12, 31)
-            )
+#     def queryset(self, request, queryset):
+#         """
+#         Returns the filtered queryset based on the value
+#         provided in the query string and retrievable via
+#         `self.value()`.
+#         """
+#         # Compare the requested value (either '80s' or '90s')
+#         # to decide how to filter the queryset.
+#         if self.value() == '80s':
+#             return queryset.filter(
+#                 birthday__gte=date(1980, 1, 1),
+#                 birthday__lte=date(1989, 12, 31)
+#             )
+#         if self.value() == '90s':
+#             return queryset.filter(
+#                 birthday__gte=date(1990, 1, 1),
+#                 birthday__lte=date(1999, 12, 31)
+#             )
 
 
 class MemberResource(resources.ModelResource):
@@ -254,6 +254,30 @@ class MemberAdmin(AdminImageMixin, ImportExportModelAdmin):
         'age',
         'main_location',
     )
+
+    def get_readonly_fields(self, request, obj=None):
+        '''
+        Query the group to which the user belongs and change the
+        read-only fields if the group is "Secretarias" by the elements
+        of the variable secretary_readonly_fields
+        '''
+        new_readonly_fields = Member._meta.get_all_field_names()
+
+        ignored_list_fields = [
+            'picture', 'where_work', 'occupation', 'observations',
+            'health_insurance', 'academic_level', 'currently_works',
+        ]
+
+        for item in ignored_list_fields:
+            new_readonly_fields.remove(item)
+
+        secretary_readonly_fields = new_readonly_fields
+
+        if request.user.groups.filter(name='Secretarias').exists():
+            return secretary_readonly_fields
+        else:
+            return super(MemberAdmin, self)\
+                .get_readonly_fields(request, obj=obj)
 
     list_per_page = 10
 

@@ -121,13 +121,23 @@ class SupplierContact(models.Model):
         blank=True
     )
     extension_number = models.PositiveSmallIntegerField(
-        "número de extensión",
+        "extensión",
         null=True,
         blank=True
     )
     mobile_number = PhoneNumberField("teléfono móvil", null=True, blank=True)
-    department = models.CharField(max_length=100, null=True, blank=True)
-    position = models.CharField(max_length=100, null=True, blank=True)
+    department = models.CharField(
+        max_length=100,
+        null=True,
+        blank=True,
+        verbose_name='departamento'
+    )
+    position = models.CharField(
+        max_length=100,
+        null=True,
+        blank=True,
+        verbose_name='posición'
+    )
 
     class Meta:
         verbose_name = "Contacto"

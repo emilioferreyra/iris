@@ -153,7 +153,7 @@ class Person(TimeStampedModel, AuthStampedModel):
         verbose_name="género",
         help_text='Seleccione género',
     )
-    birth_day = models.DateField(
+    birthday = models.DateField(
         verbose_name="Fecha nacimiento",
         help_text="Introduzca Fecha de nacimiento",
         null=True,
@@ -259,18 +259,18 @@ class Person(TimeStampedModel, AuthStampedModel):
         """
         today = date.today()
         person = Person.people.filter(id=self.id)
-        if self.birth_day:
-            age_calculated = today.year - self.birth_day.year - (
+        if self.birthday:
+            age_calculated = today.year - self.birthday.year - (
                 (today.month, today.day) <
-                (self.birth_day.month, self.birth_day.day)
+                (self.birthday.month, self.birthday.day)
             )
             person.update(age=age_calculated)
         else:
             age_calculated = None
         return age_calculated
     calculate_age.short_description = "Edad"
-    # Use birth_day field to order in Admin site:
-    calculate_age.admin_order_field = "-birth_day"
+    # Use birthday field to order in Admin site:
+    calculate_age.admin_order_field = "-birthday"
 
     def main_address(self):
         """

@@ -216,7 +216,7 @@ class Employee(Person):
         chained_field="department",
         chained_model_field="department",
         verbose_name="posición"
-        )
+    )
     workSchedule = models.ForeignKey(
         WorkSchedule,
         verbose_name="calendario trabajo",

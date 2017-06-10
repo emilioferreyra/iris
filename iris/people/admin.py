@@ -13,7 +13,7 @@ from commons.models import PhoneType
 class PersonAddressInline(admin.StackedInline):
     max_num_addresses = AddressType.objects.count()
     model = PersonAddress
-    extra = 1
+    extra = 0
     fields = [
         'address_type',
         'street',
@@ -48,7 +48,7 @@ class PersonAdmin(AdminImageMixin, admin.ModelAdmin):
         'status',
         ('person_type', admin.RelatedOnlyFieldListFilter),
         ('marital_status', admin.RelatedOnlyFieldListFilter),
-        )
+    )
     fieldsets = [
         (None, {
             'classes': ('suit-tab', 'suit-tab-general',),
@@ -64,8 +64,7 @@ class PersonAdmin(AdminImageMixin, admin.ModelAdmin):
                 'gender',
                 'document_type',
                 'document_id',
-                'status',
-                'person_type'
+                'status'
                 ]
             })]
 

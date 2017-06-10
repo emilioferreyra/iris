@@ -105,7 +105,7 @@ class MaleManager(models.Manager):
     gender = men
     """
     def get_query_set(self):
-        return super(MaleManager, self).get_query_set().filter(gender='M')
+        return super(MaleManager, self).get_query_set().filter(gender=women)
 
 
 class FemaleManager(models.Manager):
@@ -114,7 +114,7 @@ class FemaleManager(models.Manager):
     gender = women
     """
     def get_query_set(self):
-        return super(FemaleManager, self).get_query_set().filter(gender='F')
+        return super(FemaleManager, self).get_query_set().filter(gender=men)
 
 
 @python_2_unicode_compatible
@@ -132,19 +132,16 @@ class Person(TimeStampedModel, AuthStampedModel):
     """
     names = models.CharField(
         verbose_name="nombres",
-        help_text="Introduzca Nombres",
         max_length=100)
     father_last_name = models.CharField(
         max_length=50,
-        verbose_name="Apellido Paterno",
-        help_text="Apellido del padre"
+        verbose_name="Primer Apellido",
     )
     mother_last_name = models.CharField(
         max_length=50,
         null=True,
         blank=True,
-        verbose_name="Apellido Materno",
-        help_text="Apellido de la madre"
+        verbose_name="Segundo Apellido",
     )
     gender = models.CharField(
         max_length=1,
@@ -153,11 +150,14 @@ class Person(TimeStampedModel, AuthStampedModel):
             ('F', "Femenino"),
         ),
         null=True,
-        verbose_name="género"
+        verbose_name="género",
+        help_text='Seleccione género',
     )
-    birth_day = models.DateField(
+    birthday = models.DateField(
         verbose_name="Fecha nacimiento",
-        help_text="Introduzca Fecha de nacimiento"
+        help_text="Introduzca Fecha de nacimiento",
+        null=True,
+        blank=True
     )
     nationality = models.ForeignKey(
         Nationality,
@@ -168,18 +168,21 @@ class Person(TimeStampedModel, AuthStampedModel):
     marital_status = models.ForeignKey(
         MaritalStatus,
         verbose_name="estado civil",
-        help_text="Seleccione estado civil"
+        help_text="Seleccione estado civil",
+        null=True,
+        blank=True
     )
     document_type = models.ForeignKey(
         DocumentType,
         null=True,
+        blank=True,
         verbose_name="tipo documento identidad",
         help_text="Seleccione el tipo de documento de identidad"
     )
     document_id = models.CharField(
         max_length=22,
-        # help_text='000-0000000-0',
         null=True,
+        blank=True,
         verbose_name="documento identidad",
         help_text="Introduzca el número de documento"
     )
@@ -212,23 +215,33 @@ class Person(TimeStampedModel, AuthStampedModel):
         default=True,
         verbose_name="estado"
     )
+    age = models.PositiveIntegerField(
+        verbose_name='Edad',
+        null=True
+    )
+    main_location = models.ForeignKey(
+        Location,
+        null=True,
+        blank=True,
+        verbose_name='Localidad'
+    )
 
     people = models.Manager()
+    men = MaleManager()
+    women = FemaleManager()
     employees = EmployeeManager()
     members = MemberManager()
     doctors = DoctorManager()
     suppliers = SupplierManager()
     employee_families = EmployeeFamilyManager()
     member_families = MemberFamilyManager()
-    men = MaleManager()
-    women = FemaleManager()
 
     class Meta:
         verbose_name = "Persona"
         verbose_name_plural = "Personas"
 
     def __str__(self):
-        return '%s %s %s' % (
+        return '{} {} {}'.format(
             self.names,
             self.father_last_name,
             self.mother_last_name
@@ -236,9 +249,9 @@ class Person(TimeStampedModel, AuthStampedModel):
 
     def full_name(self):
         """
-            Returns person's full name.
+        Returns person's full name.
         """
-        return "%s %s %s" % (
+        return "{} {} {}".format(
             self.names,
             self.father_last_name,
             self.mother_last_name
@@ -248,22 +261,28 @@ class Person(TimeStampedModel, AuthStampedModel):
 
     def calculate_age(self):
         """
-            Returns person's age.
+        Returns person's age.
         """
         today = date.today()
-        return today.year - self.birth_day.year - (
-            (today.month, today.day) <
-            (self.birth_day.month, self.birth_day.day)
-        )
+        person = Person.people.filter(id=self.id)
+        if self.birthday:
+            age_calculated = today.year - self.birthday.year - (
+                (today.month, today.day) <
+                (self.birthday.month, self.birthday.day)
+            )
+            person.update(age=age_calculated)
+        else:
+            age_calculated = None
+        return age_calculated
     calculate_age.short_description = "Edad"
-    # Use birth_day field to order in Admin site:
-    calculate_age.admin_order_field = "-birth_day"
+    # Use birthday field to order in Admin site:
+    calculate_age.admin_order_field = "-birthday"
 
     def main_address(self):
         """
-            Returns person's main address.
-            If one or more addresses are marked as default,
-            returns the first address that was added.
+        Returns person's main address.
+        If one or more addresses are marked as default,
+        returns the first address that was added.
         """
         address = PersonAddress.objects.filter(
             person_name_id=self.id,
@@ -279,11 +298,37 @@ class Person(TimeStampedModel, AuthStampedModel):
 
     main_address.short_description = "Dirección"
 
+    def get_location(self):
+        """
+        Returns person's town.
+        If one or more addresses are marked as default,
+        returns the first address that was added.
+        """
+        main_address = PersonAddress.objects.filter(
+            person_name_id=self.id,
+            is_default=True
+        ).order_by('id').first()
+
+        location = Person.people.filter(id=self.id)
+
+        if main_address:
+            main_location = main_address.location
+            location.update(main_location=main_location)
+        else:
+            main_address = PersonAddress.objects.filter(
+                person_name_id=self.id
+            ).order_by('id').first()
+            main_location = main_address.location
+            location.update(main_location=main_location)
+        return main_location
+
+    get_location.short_description = "Localidad"
+
     def main_phone(self):
         """
-            Returns person's main phone.
-            If one or more phones are marked as default,
-            returns the first phone that was added.
+        Returns person's main phone.
+        If one or more phones are marked as default,
+        returns the first phone that was added.
         """
         phone = PersonPhone.objects.filter(
             person_name_id=self.id,
@@ -328,21 +373,24 @@ class PersonAddress(models.Model):
     region = models.ForeignKey(
         Region,
         verbose_name="región",
-        help_text="Seleccione región"
+        help_text="Seleccione región",
+        default=1
     )
     province = ChainedForeignKey(
         Province,
         chained_field="region",
         chained_model_field="region",
         verbose_name="provincia",
-        help_text="Seleccione provincia"
+        help_text="Seleccione provincia",
+        default=29
     )
     town = ChainedForeignKey(
         Town,
         chained_field="province",
         chained_model_field="province",
         verbose_name="municipio",
-        help_text="Seleccione municipio"
+        help_text="Seleccione municipio",
+        default=203
     )
     location = ChainedForeignKey(
         Location,
@@ -354,7 +402,8 @@ class PersonAddress(models.Model):
     address_type = models.ForeignKey(
         AddressType,
         verbose_name="tipo dirección",
-        help_text="Seleccione tipo de dirección"
+        help_text="Seleccione tipo de dirección",
+        default=1
     )
     building = models.CharField(
         max_length=20,
@@ -393,9 +442,9 @@ class PersonAddress(models.Model):
 @python_2_unicode_compatible
 class PersonPhone(models.Model):
     """
-        Store person's phones.
-        Related models:
-        :model:`people.Person` and :model:`commons.PhoneType`
+    Store person's phones.
+    Related models:
+    :model:`people.Person` and :model:`commons.PhoneType`
     """
     phone_type = models.ForeignKey(
         PhoneType,

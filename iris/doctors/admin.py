@@ -2,15 +2,19 @@
 # Django core
 from __future__ import absolute_import, unicode_literals
 from django.contrib import admin
+from django.core.urlresolvers import reverse
+from django.utils.safestring import mark_safe
+from sorl.thumbnail.admin import AdminImageMixin
 
 from .models import (
     Doctor,
-    Clinic,
     Speciality,
+    Clinic,
     Appointment,
     Medicine,
     PrescribedMedicine
 )
+from suppliers.admin import SupplierCompanyAdmin
 from people.admin import PersonPhoneInline
 
 
@@ -19,7 +23,7 @@ class DoctorPhoneInline(PersonPhoneInline):
 
 
 @admin.register(Doctor)
-class DoctorAdmin(admin.ModelAdmin):
+class DoctorAdmin(AdminImageMixin, admin.ModelAdmin):
     fieldsets = [
         (None, {
             'classes': ('suit-tab', 'suit-tab-general',),
@@ -29,22 +33,18 @@ class DoctorAdmin(admin.ModelAdmin):
                 'father_last_name',
                 'mother_last_name',
                 'email',
-                'birth_day',
                 'nationality',
-                'marital_status',
                 'gender',
-                'document_type',
-                'document_id',
                 'status',
-                ]
+            ]
         }),
         ('Additional Info', {
             'classes': ('suit-tab', 'suit-tab-additionalsfields',),
             'fields': [
                 'specialities',
                 'clinic'
-                ]
-            })]
+            ]
+        })]
 
     radio_fields = {
         "gender": admin.VERTICAL,
@@ -54,33 +54,29 @@ class DoctorAdmin(admin.ModelAdmin):
 
     list_display = [
         'id',
+        'image_tag',
         'doctor_name',
         'email',
         'main_phone',
         'status',
-        ]
+    ]
 
     list_display_links = [
         'id',
+        'image_tag',
         'doctor_name'
-        ]
+    ]
 
-    filter_vertical = [
+    filter_horizontal = [
         'specialities',
-        'clinic'
-        ]
+        'clinic',
+    ]
 
     search_fields = [
         'names',
         'father_last_name',
         'mother_last_name',
-        # 'clinic',
-        # 'specialities'
-        ]
-
-    # formfield_overrides = {
-    #     models.ManyToManyField: {'widget': CheckboxSelectMultiple},
-    # }
+    ]
 
     inlines = [
         DoctorPhoneInline
@@ -90,13 +86,14 @@ class DoctorAdmin(admin.ModelAdmin):
         'status',
         ('clinic', admin.RelatedOnlyFieldListFilter),
         ('specialities', admin.RelatedOnlyFieldListFilter),
-        )
+        'created'
+    )
 
     suit_form_tabs = (
         ('general', 'General'),
-        ('additionalsfields', 'Adicional'),
+        ('additionalsfields', 'Especialidades y Clínicas'),
         ('phones', 'Teléfonos'),
-        )
+    )
 
 
 class PrescribedMedicineInlines(admin.StackedInline):
@@ -107,7 +104,7 @@ class PrescribedMedicineInlines(admin.StackedInline):
 
 
 @admin.register(Appointment)
-class AppointmentAdmin(admin.ModelAdmin):
+class AppointmentAdmin(AdminImageMixin, admin.ModelAdmin):
     """docstring for AppointmentAdmin"""
     fieldsets = [
         (None, {
@@ -119,14 +116,14 @@ class AppointmentAdmin(admin.ModelAdmin):
                 'member',
                 'symptomatology',
                 'date_next_appoitment'
-                ]
-            }),
+            ]
+        }),
         ('Prescription', {
             'classes': ('suit-tab', 'suit-tab-prescription',),
             'fields': [
                 'prescription'
-                ]
-            })]
+            ]
+        })]
 
     list_display = [
         'id',
@@ -134,58 +131,75 @@ class AppointmentAdmin(admin.ModelAdmin):
         'member',
         'doctor',
         'clinic'
-        ]
+    ]
+
+    list_display_links = [
+        'id',
+        'appointment_date',
+    ]
+
     search_fields = [
-        'member',
-        'doctor',
-        'clinic'
-        ]
+        'member__names',
+        'member__father_last_name',
+        'member__mother_last_name',
+        'doctor__names',
+        'doctor__father_last_name',
+        'doctor__mother_last_name',
+        'clinic__name'
+    ]
     list_filter = (
         'appointment_date',
         ('clinic', admin.RelatedOnlyFieldListFilter),
         ('member', admin.RelatedOnlyFieldListFilter),
         ('doctor', admin.RelatedOnlyFieldListFilter),
+        'prescribedmedicine__medicine',
     )
-    list_display_links = [
-        'id',
-        'appointment_date',
-        'member',
-        # 'doctor',
-        # 'clinic'
-        ]
-    # ordering = ['-id']
+
+    raw_id_fields = ('member',)
 
     inlines = [PrescribedMedicineInlines]
 
     suit_form_tabs = (
         ('general', 'General'),
         ('prescription', 'Prescripcion'),
-        ('prescribedmedicine', 'Medicinas prescritas'),
-        )
+        ('prescribedmedicine', 'Medicamentos prescritos'),
+    )
     list_per_page = 5
+
+    read_only_fields = ('member_link', 'doctor_link',)
+
+    def member_link(self, obj):
+        return mark_safe('<a href="{}">{}</a>'.format(
+            reverse("admin:members_member_change", args=(obj.member.pk,)),
+            obj.member.names
+        ))
+    member_link.short_description = 'miembro'
+    member_link.admin_order_field = 'member'
+
+    def doctor_link(self, obj):
+        return mark_safe('<a href="{}">{}</a>'.format(
+            reverse("admin:doctors_doctor_change", args=(obj.doctor.pk,)),
+            obj.doctor.father_last_name
+        ))
+    doctor_link.short_description = 'doctor'
+    doctor_link.admin_order_field = 'doctor'
 
 
 @admin.register(Clinic)
-class ClinicAdmin(admin.ModelAdmin):
-    fields = [
+class ClinicAdmin(SupplierCompanyAdmin):
+    list_display = [
+        'image_tag',
         'name',
-        'region',
-        'province',
-        'town',
         'address',
+        'town',
         'phone_number',
         'email',
-        'company_logo',
-        ]
-    list_display = [
-        'id',
+    ]
+    search_fields = [
         'name',
-        'town',
-        'address',
-        'phone_number',
-        'email'
-        ]
-    list_display_links = ['id', 'name']
+        'province__name',
+        'town__name',
+    ]
 
 
 admin.site.register(Speciality)

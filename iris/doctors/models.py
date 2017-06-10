@@ -79,13 +79,13 @@ class Doctor(Person):
                 self.names,
                 self.father_last_name,
                 self.mother_last_name
-                )
+            )
         else:
             return "Dr. %s %s %s" % (
                 self.names,
                 self.father_last_name,
                 self.mother_last_name
-                )
+            )
 
     doctor_name.short_description = 'Nombre'
 
@@ -95,13 +95,13 @@ class Doctor(Person):
                 self.names,
                 self.father_last_name,
                 self.mother_last_name
-                )
+            )
         else:
             return "Dr. %s %s %s" % (
                 self.names,
                 self.father_last_name,
                 self.mother_last_name
-                )
+            )
 
     def save(self, *args, **kwargs):
         # self.person_type = PersonType.objects.get(name="Doctor")
@@ -117,30 +117,31 @@ class Appointment(models.Model):
     )
     clinic = models.ForeignKey(
         Clinic,
-        verbose_name="clínica"
+        verbose_name="clínica",
     )
     doctor = ChainedForeignKey(
         Doctor,
         chained_field="clinic",
         chained_model_field="clinic",
-        )
+    )
     appointment_date = models.DateField(
-        verbose_name="fecha de cita"
+        verbose_name="fecha de cita",
     )
     symptomatology = models.TextField(
         max_length=300,
-        verbose_name="sintomatología"
+        verbose_name="sintomatología",
     )
     prescription = models.TextField(
         max_length=300,
         null=True,
         blank=True,
-        verbose_name="prescripción"
+        verbose_name="prescripción",
     )
     date_next_appoitment = models.DateField(
         null=True,
         blank=True,
-        verbose_name="fecha de próxima cita"
+        verbose_name="fecha de próxima cita",
+
     )
 
     class Meta:
@@ -149,11 +150,7 @@ class Appointment(models.Model):
         unique_together = (("member", "doctor", "appointment_date"),)
 
     def __str__(self):
-        return '%s con %s en %s' % (
-            self.member,
-            self.doctor,
-            self.clinic
-        )
+        return 'Cita con {} en {}'.format(self.doctor, self.clinic)
 
 
 @python_2_unicode_compatible

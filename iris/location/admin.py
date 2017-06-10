@@ -32,6 +32,7 @@ class ProvinceInline(admin.TabularInline):
 
 @admin.register(Region)
 class RegionAdmin(ImportExportModelAdmin):
+    list_display = ['id', 'name']
     inlines = [ProvinceInline]
 
 
@@ -64,4 +65,4 @@ class LocationAdmin(ImportExportModelAdmin):
 
 @admin.register(AddressType)
 class AddressTypeAdmin(ImportExportModelAdmin):
-    pass
+    list_display = ['id', 'name']

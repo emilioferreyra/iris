@@ -24,11 +24,11 @@ member_family = 6
 
 
 @python_2_unicode_compatible
-class Disability(models.Model):
+class Diagnosis(models.Model):
     """
-        Store member's disabilities.
-        Related model:
-        :model:`members.Member`.
+    Store member's disabilities.
+    Related model:
+    :model:`members.Member`.
     """
     name = models.CharField(
         unique=True,
@@ -37,8 +37,8 @@ class Disability(models.Model):
     )
 
     class Meta:
-        verbose_name = "Discapacidad"
-        verbose_name_plural = "Discapacidades"
+        verbose_name = "Diagnostico"
+        verbose_name_plural = "Diagnosticos"
         ordering = ['name']
 
     def __str__(self):
@@ -48,9 +48,9 @@ class Disability(models.Model):
 @python_2_unicode_compatible
 class Cane(models.Model):
     """
-        Store member's cane number.
-        Related model:
-        :model:`members.Member`.
+    Store member's cane number.
+    Related model:
+    :model:`members.Member`.
     """
     name = models.PositiveIntegerField(
         verbose_name="número de bastón"
@@ -68,9 +68,9 @@ class Cane(models.Model):
 @python_2_unicode_compatible
 class Occupation(models.Model):
     """
-        Store member's occupations.
-        Related model:
-        :model:`members.Member`.
+    Store member's occupations.
+    Related model:
+    :model:`members.Member`.
     """
     name = models.CharField(
         max_length=40,
@@ -110,32 +110,32 @@ d = dict(son=3, daughter=4)
 
 class Member(Person):
     """
-        Stores members information.
-        Related model:
-        :model:`commons.AcademicLevel`,
-        :model:`doctors.Appointment`,
-        :model:`members.Cane`,
-        :model:`auth.User`,
-        :model:`people.Person`,
-        :model:`members.Disability`,
-        :model:`commons.DocumentType`,
-        :model:`members.House`,
-        :model:`commons.Kinship`,
-        :model:`commons.MaritalStatus`,
-        :model:`location.Nationality`,
-        :model:`members.Occupation`,
-        :model:`commons.PersonType`,
-        :model:`people.PersonAddress` and
-        :model:`people.PersonPhone`.
+    Stores members information.
+    Related model:
+    :model:`commons.AcademicLevel`,
+    :model:`doctors.Appointment`,
+    :model:`members.Cane`,
+    :model:`auth.User`,
+    :model:`people.Person`,
+    :model:`members.Disability`,
+    :model:`commons.DocumentType`,
+    :model:`members.House`,
+    :model:`commons.Kinship`,
+    :model:`commons.MaritalStatus`,
+    :model:`location.Nationality`,
+    :model:`members.Occupation`,
+    :model:`commons.PersonType`,
+    :model:`people.PersonAddress` and
+    :model:`people.PersonPhone`.
     """
     member_number = models.IntegerField(
         unique=True,
         default=number,
         verbose_name="número de miembro"
     )
-    disabilities = models.ManyToManyField(
-        Disability,
-        verbose_name="discapacidades"
+    diagnosis = models.ManyToManyField(
+        Diagnosis,
+        verbose_name="Diagnosticos"
     )
     cane_number = models.ForeignKey(
         Cane,
@@ -151,32 +151,37 @@ class Member(Person):
         verbose_name="trabaja actualmente",
         help_text="Indique si actualmente tiene trabajo"
     )
-    occupation = models.ForeignKey(
+    occupation = models.ManyToManyField(
         Occupation,
-        null=True,
-        blank=True,
-        verbose_name="ocupación",
-        help_text="Seleccione ocupación"
+        verbose_name="Ocupación(es)",
+        help_text="Seleccione ocupación",
+        blank=True
     )
     where_work = models.CharField(
         max_length=100,
         null=True,
         blank=True,
-        verbose_name="donde trabaja",
+        verbose_name="Donde trabaja",
         help_text="Empresa o lugar donde trabaja"
     )
     observations = models.TextField(
         null=True,
         blank=True,
-        verbose_name="observaciones",
+        verbose_name="Observaciones",
         help_text="Escribir observaciones adicionales"
     )
     is_mother = models.BooleanField(
         default=False,
         verbose_name="Es madre",
-        help_text="Indica si la miembro es madre"
     )
-
+    health_insurance = models.BooleanField(
+        default=False,
+        verbose_name="Seguro de Salud"
+    )
+    children_quantity = models.PositiveIntegerField(
+        verbose_name="Cantidad de hijos",
+        null=True
+    )
     objects = MemberManager()
 
     class Meta:
@@ -210,17 +215,19 @@ class Member(Person):
 
     member_is_mother.admin_order_field = 'is_mother'
     member_is_mother.boolean = True
-    member_is_mother.short_description = 'Es madre?'
+    member_is_mother.short_description = 'Madre'
 
-    def children_quantity(self):
-        quantity = Person.member_families.filter(
+    def get_children_quantity(self):
+        q = Person.member_families.filter(
             Q(dependent_of=self.id),
             Q(kinship=d['son']) | Q(kinship=d['daughter'])
         ).count()
-        return quantity
+        if q > 0:
+            Member.objects.filter(id=self.id).update(children_quantity=q)
+        return q
 
     # children_quantity.admin_order_field = 'children_number'
-    children_quantity.short_description = 'Cantidad de hijos'
+    get_children_quantity.short_description = 'Cantidad de hijos'
 
     def was_created_recently(self):
         """

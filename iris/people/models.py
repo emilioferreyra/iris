@@ -219,7 +219,11 @@ class Person(TimeStampedModel, AuthStampedModel):
         verbose_name='Edad',
         null=True
     )
-    main_location = models.CharField(max_length=50, null=True)
+    main_location = models.ForeignKey(
+        Location,
+        null=True,
+        verbose_name='Localidad'
+    )
 
     people = models.Manager()
     men = MaleManager()
@@ -299,17 +303,22 @@ class Person(TimeStampedModel, AuthStampedModel):
         If one or more addresses are marked as default,
         returns the first address that was added.
         """
-        address = PersonAddress.objects.filter(
+        main_address = PersonAddress.objects.filter(
             person_name_id=self.id,
             is_default=True
         ).order_by('id').first()
-        if address:
-            return address.location
+
+        location = Person.people.get(id=self.id)
+
+        if main_address:
+            main_location = main_address.location
         else:
-            address = PersonAddress.objects.filter(
+            main_address = PersonAddress.objects.filter(
                 person_name_id=self.id
             ).order_by('id').first()
-            return address.location
+            main_location = main_address.location
+        return main_location
+        location.update(main_location=main_location)
 
     get_location.short_description = "Localidad"
 

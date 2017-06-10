@@ -160,6 +160,7 @@ class MemberAdmin(AdminImageMixin, ImportExportModelAdmin):
                 ('father_last_name', 'mother_last_name',),
                 'member_number',
                 ('age', 'is_mother', 'children_quantity',),
+                'main_location',
                 'email',
                 'birthday',
                 'academic_level',
@@ -170,7 +171,7 @@ class MemberAdmin(AdminImageMixin, ImportExportModelAdmin):
                 'document_id',
                 # 'status',
             ]}
-            ),
+        ),
         ('Additional Info', {
             'classes': ('suit-tab', 'suit-tab-additionalsfields',),
             'fields': [
@@ -249,7 +250,8 @@ class MemberAdmin(AdminImageMixin, ImportExportModelAdmin):
         'member_number',
         'children_quantity',
         'is_mother',
-        'age'
+        'age',
+        'main_location',
     )
 
     list_per_page = 10

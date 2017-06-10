@@ -132,19 +132,16 @@ class Person(TimeStampedModel, AuthStampedModel):
     """
     names = models.CharField(
         verbose_name="nombres",
-        help_text="Introduzca Nombres",
         max_length=100)
     father_last_name = models.CharField(
         max_length=50,
-        verbose_name="Apellido Paterno",
-        help_text="Apellido del padre"
+        verbose_name="Primer Apellido",
     )
     mother_last_name = models.CharField(
         max_length=50,
         null=True,
         blank=True,
-        verbose_name="Apellido Materno",
-        help_text="Apellido de la madre"
+        verbose_name="Segundo Apellido",
     )
     gender = models.CharField(
         max_length=1,
@@ -153,7 +150,8 @@ class Person(TimeStampedModel, AuthStampedModel):
             ('F', "Femenino"),
         ),
         null=True,
-        verbose_name="género"
+        verbose_name="género",
+        help_text='Seleccione género',
     )
     birth_day = models.DateField(
         verbose_name="Fecha nacimiento",
@@ -231,7 +229,6 @@ class Person(TimeStampedModel, AuthStampedModel):
     suppliers = SupplierManager()
     employee_families = EmployeeFamilyManager()
     member_families = MemberFamilyManager()
-    # active_person = ActivePersonManager()
 
     class Meta:
         verbose_name = "Persona"
@@ -261,7 +258,7 @@ class Person(TimeStampedModel, AuthStampedModel):
             Returns person's age.
         """
         today = date.today()
-        person = Person.objects.filter(id=self.id)
+        person = Person.people.filter(id=self.id)
         if self.birth_day:
             age_calculated = today.year - self.birth_day.year - (
                 (today.month, today.day) <

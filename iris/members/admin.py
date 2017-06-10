@@ -20,6 +20,7 @@ from .models import (
 )
 from people.admin import PersonAddressInline, PersonPhoneInline
 from doctors.models import Appointment
+from .forms import MemberForm
 
 
 class MemberResource(resources.ModelResource):
@@ -104,17 +105,17 @@ class AppointmentInline(admin.StackedInline):
 
 @admin.register(Member)
 class MemberAdmin(AdminImageMixin, ImportExportModelAdmin):
+    form = MemberForm
     resources_class = MemberResource
     fieldsets = [
         (None, {
             'classes': ('suit-tab', 'suit-tab-general',),
             'fields': [
                 'picture',
-                ('is_mother', 'children_quantity',),
-                'member_number',
                 'names',
-                'father_last_name',
-                'mother_last_name',
+                ('father_last_name', 'mother_last_name',),
+                'member_number',
+                ('age', 'is_mother', 'children_quantity',),
                 'email',
                 'birth_day',
                 'academic_level',
@@ -123,7 +124,7 @@ class MemberAdmin(AdminImageMixin, ImportExportModelAdmin):
                 'gender',
                 'document_type',
                 'document_id',
-                'status',
+                # 'status',
             ]}
             ),
         ('Additional Info', {
@@ -199,7 +200,12 @@ class MemberAdmin(AdminImageMixin, ImportExportModelAdmin):
         'mother_last_name'
     ]
 
-    readonly_fields = ('member_number', 'children_quantity', 'is_mother')
+    readonly_fields = (
+        'member_number',
+        'children_quantity',
+        'is_mother',
+        'age'
+    )
 
     list_per_page = 10
 

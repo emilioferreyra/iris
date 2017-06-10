@@ -219,6 +219,7 @@ class Person(TimeStampedModel, AuthStampedModel):
         verbose_name='Edad',
         null=True
     )
+    main_location = models.CharField(max_length=50, null=True)
 
     people = models.Manager()
     men = MaleManager()

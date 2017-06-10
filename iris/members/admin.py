@@ -215,7 +215,7 @@ class MemberAdmin(AdminImageMixin, ImportExportModelAdmin):
         ('academic_level', admin.RelatedOnlyFieldListFilter),
         ('occupation', admin.RelatedOnlyFieldListFilter),
         'house__property_type',
-        DecadeBornListFilter
+        # DecadeBornListFilter
     ]
 
     radio_fields = {

@@ -142,11 +142,11 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(
     os.path.dirname(BASE_DIR),
     "static_in_env", "static_root"
-    )
+)
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static_in_pro", "our_static"),
-    # os.path.join(BASE_DIR, "static_in_env"),
+    os.path.join(BASE_DIR, "static_in_env"),
     # '/var/www/static/',
 )
 
@@ -158,7 +158,7 @@ USE_DJANGO_JQUERY = False
 # Django Suit configuration example
 SUIT_CONFIG = {
     # header
-    'ADMIN_NAME': 'Iris Project',
+    'ADMIN_NAME': 'Iris ACICIRD',
     # 'HEADER_DATE_FORMAT': 'l, j. F Y',
     # 'HEADER_TIME_FORMAT': 'H:i',
 

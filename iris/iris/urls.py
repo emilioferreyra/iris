@@ -15,20 +15,26 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 # Necesario para redireccionar el root hacia el admin
-from django.core.urlresolvers import reverse_lazy
-from django.views.generic.base import RedirectView
+# from django.core.urlresolvers import reverse_lazy
+# from django.views.generic.base import RedirectView
 from django.conf import settings
-
+from django.conf.urls.static import static
 from django.contrib import admin
+from django.views.generic import TemplateView
+
+from .views import home
 
 
 urlpatterns = [
     # Necesario para redireccionar el root hacia el admin
-    url(r'^$', RedirectView.as_view(
-        url=reverse_lazy('admin:index'),
-        permanent=False)
-        ),
-    # Url del admin normal
+    # url(r'^$', RedirectView.as_view(
+    #     url=reverse_lazy('admin:index'),
+    #     permanent=False)
+    #     ),
+    url(r'^$', home, name='home'),
+    url(r'^about/$', TemplateView.as_view(template_name="about.html"), name='about'),
+    url(r'^contact/$', TemplateView.as_view(template_name="contact.html"), name='contact'),
+    url(r'^services/$', TemplateView.as_view(template_name="services.html"), name='services'),
     url(r'^reports/', include('reports.urls')),
     url(r'^report_builder/', include('report_builder.urls')),
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
@@ -38,3 +44,16 @@ urlpatterns = [
         'document_root': settings.MEDIA_ROOT
     }),
 ]
+
+# + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+if settings.DEBUG:
+    urlpatterns += static(
+        settings.STATIC_URL,
+        document_root=settings.STATIC_ROOT
+    )
+
+#     urlpatterns += static(
+#         settings.MEDIA_URL,
+#         document_root=settings.MEDIA_ROOT
+#     )

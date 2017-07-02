@@ -214,7 +214,7 @@ module.exports = function(grunt) {
         title: 'Guide'
       },
       api: {
-        src: ['source/**/*.js', '!iris/**/*.spec.js'],
+        src: ['source/**/*.js', '!src/**/*.spec.js'],
         title: 'API Documentation'
       }
     }

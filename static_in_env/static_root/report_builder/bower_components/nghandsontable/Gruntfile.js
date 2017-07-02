@@ -35,10 +35,10 @@ module.exports = function (grunt) {
       },
 			new: {
 				src: [
-					'iris/ie-shim.js',
-					'iris/ngHandsontable.js',
-					'iris/services/*.js',
-					'iris/directives/*.js'
+					'src/ie-shim.js',
+					'src/ngHandsontable.js',
+					'src/services/*.js',
+					'src/directives/*.js'
 				],
 				dest: 'dist/ngHandsontable.js'
 			}
@@ -55,11 +55,11 @@ module.exports = function (grunt) {
       options: {
         jshintrc:true
       },
-      files:['iris/**/*.js', 'iris/*.js']
+      files:['src/**/*.js', 'src/*.js']
     },
 
 		watch: {
-      files: ['iris/**/*', 'bower_components/**/*'],
+      files: ['src/**/*', 'bower_components/**/*'],
       tasks: ['concat', 'uglify']
     }
   });

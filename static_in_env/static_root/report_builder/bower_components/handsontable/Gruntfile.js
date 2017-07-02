@@ -60,75 +60,75 @@ module.exports = function (grunt) {
     meta: {
       src: [
         'tmp/core.js',
-        'iris/multiMap.js',
-        'iris/dom.js',
-        'iris/eventManager.js',
-        'iris/tableView.js',
-        'iris/editors.js',
-        'iris/editorManager.js',
-        'iris/renderers.js',
-        'iris/helpers.js',
-        'iris/dataMap.js',
+        'src/multiMap.js',
+        'src/dom.js',
+        'src/eventManager.js',
+        'src/tableView.js',
+        'src/editors.js',
+        'src/editorManager.js',
+        'src/renderers.js',
+        'src/helpers.js',
+        'src/dataMap.js',
 
-        'iris/renderers/cellDecorator.js',
-        'iris/renderers/textRenderer.js',
-        'iris/renderers/autocompleteRenderer.js',
-        'iris/renderers/checkboxRenderer.js',
-        'iris/renderers/numericRenderer.js',
-        'iris/renderers/passwordRenderer.js',
-        'iris/renderers/htmlRenderer.js',
+        'src/renderers/cellDecorator.js',
+        'src/renderers/textRenderer.js',
+        'src/renderers/autocompleteRenderer.js',
+        'src/renderers/checkboxRenderer.js',
+        'src/renderers/numericRenderer.js',
+        'src/renderers/passwordRenderer.js',
+        'src/renderers/htmlRenderer.js',
 
-        'iris/editors/baseEditor.js',
-        'iris/editors/textEditor.js',
-        'iris/editors/mobileTextEditor.js',
-        'iris/editors/checkboxEditor.js',
-        'iris/editors/dateEditor.js',
-        'iris/editors/handsontableEditor.js',
-        'iris/editors/autocompleteEditor.js',
-        'iris/editors/passwordEditor.js',
-        'iris/editors/selectEditor.js',
-        'iris/editors/dropdownEditor.js',
-        'iris/editors/numericEditor.js',
+        'src/editors/baseEditor.js',
+        'src/editors/textEditor.js',
+        'src/editors/mobileTextEditor.js',
+        'src/editors/checkboxEditor.js',
+        'src/editors/dateEditor.js',
+        'src/editors/handsontableEditor.js',
+        'src/editors/autocompleteEditor.js',
+        'src/editors/passwordEditor.js',
+        'src/editors/selectEditor.js',
+        'src/editors/dropdownEditor.js',
+        'src/editors/numericEditor.js',
 
-        'iris/validators/numericValidator.js',
-        'iris/validators/dateValidator.js',
-        'iris/validators/autocompleteValidator.js',
+        'src/validators/numericValidator.js',
+        'src/validators/dateValidator.js',
+        'src/validators/autocompleteValidator.js',
 
-        'iris/cellTypes.js',
+        'src/cellTypes.js',
 
-        'iris/3rdparty/autoResize.js',
-        'iris/3rdparty/sheetclip.js',
-        'iris/3rdparty/copypaste.js',
-        'iris/3rdparty/json-patch-duplex.js',
+        'src/3rdparty/autoResize.js',
+        'src/3rdparty/sheetclip.js',
+        'src/3rdparty/copypaste.js',
+        'src/3rdparty/json-patch-duplex.js',
 
-        'iris/pluginHooks.js',
-        'iris/plugins/autoColumnSize.js',
-        'iris/plugins/columnSorting.js',
-        'iris/plugins/contextMenu.js',
-        'iris/plugins/comments.js',
-        'iris/plugins/legacy.js',
-        'iris/plugins/manualColumnMove.js',
-        'iris/plugins/manualColumnResize.js',
-        'iris/plugins/manualRowResize.js',
-        'iris/plugins/observeChanges.js',
-        'iris/plugins/persistentState.js',
-        'iris/plugins/undoRedo.js',
-        'iris/plugins/dragToScroll/dragToScroll.js',
-        'iris/plugins/copyPaste.js',
-        'iris/plugins/search.js',
-        'iris/plugins/mergeCells/mergeCells.js',
-        'iris/plugins/customBorders/customBorders.js',
-        'iris/plugins/manualRowMove.js',
-        'iris/plugins/autofill.js',
-        'iris/plugins/grouping/grouping.js',
-        'iris/plugins/contextMenuCopyPaste/contextMenuCopyPaste.js',
-        'iris/plugins/multipleSelectionHandles/multipleSelectionHandles.js',
-        'iris/plugins/touchScroll/touchScroll.js',
-        'iris/plugins/manualColumnFreeze/manualColumnFreeze.js'
+        'src/pluginHooks.js',
+        'src/plugins/autoColumnSize.js',
+        'src/plugins/columnSorting.js',
+        'src/plugins/contextMenu.js',
+        'src/plugins/comments.js',
+        'src/plugins/legacy.js',
+        'src/plugins/manualColumnMove.js',
+        'src/plugins/manualColumnResize.js',
+        'src/plugins/manualRowResize.js',
+        'src/plugins/observeChanges.js',
+        'src/plugins/persistentState.js',
+        'src/plugins/undoRedo.js',
+        'src/plugins/dragToScroll/dragToScroll.js',
+        'src/plugins/copyPaste.js',
+        'src/plugins/search.js',
+        'src/plugins/mergeCells/mergeCells.js',
+        'src/plugins/customBorders/customBorders.js',
+        'src/plugins/manualRowMove.js',
+        'src/plugins/autofill.js',
+        'src/plugins/grouping/grouping.js',
+        'src/plugins/contextMenuCopyPaste/contextMenuCopyPaste.js',
+        'src/plugins/multipleSelectionHandles/multipleSelectionHandles.js',
+        'src/plugins/touchScroll/touchScroll.js',
+        'src/plugins/manualColumnFreeze/manualColumnFreeze.js'
       ],
       walkontable: [
-        'iris/3rdparty/walkontable/iris/*.js',
-        'iris/3rdparty/walkontable/iris/3rdparty/*.js'
+        'src/3rdparty/walkontable/src/*.js',
+        'src/3rdparty/walkontable/src/3rdparty/*.js'
       ],
       vendor: [
         'lib/numeral.js'
@@ -148,14 +148,14 @@ module.exports = function (grunt) {
           'dist/handsontable.js': [
             'tmp/intro.js',
             '<%= meta.shims %>',
-            '<%= meta.iris %>',
+            '<%= meta.src %>',
             '<%= meta.walkontable %>',
             'plugins/jqueryHandsontable.js',
-            'iris/outro.js'
+            'src/outro.js'
           ],
           'dist/handsontable.css': [
             'tmp/handsontable.css',
-            'iris/css/mobile.handsontable.css'
+            'src/css/mobile.handsontable.css'
           ]
         }
       },
@@ -181,10 +181,10 @@ module.exports = function (grunt) {
         livereload: true //works with Chrome LiveReload extension. See: https://github.com/gruntjs/grunt-contrib-watch
       },
       files: [
-        'iris/**/*.js',
-        'iris/**/*.css',
-        'iris/**/*.html',
-        '!iris/3rdparty/walkontable/test/**/*',
+        'src/**/*.js',
+        'src/**/*.css',
+        'src/**/*.html',
+        '!src/3rdparty/walkontable/test/**/*',
         'lib/**/*.js',
         'lib/**/*.css'
       ],
@@ -204,9 +204,9 @@ module.exports = function (grunt) {
           }
         },
         files: {
-          'tmp/intro.js': 'iris/intro.js',
-          'tmp/core.js': 'iris/core.js',
-          'tmp/handsontable.css': 'iris/css/handsontable.css'
+          'tmp/intro.js': 'src/intro.js',
+          'tmp/core.js': 'src/core.js',
+          'tmp/handsontable.css': 'src/css/handsontable.css'
         }
       }
     },
@@ -224,7 +224,7 @@ module.exports = function (grunt) {
           specs: [
             'test/jasmine/spec/*Spec.js',
             'test/jasmine/spec/!(mobile)*/*Spec.js',
-            'iris/plugins/*/test/*.spec.js',
+            'src/plugins/*/test/*.spec.js',
             'plugins/*/test/*.spec.js',
             'test/jasmine/spec/MemoryLeakTest.js'
           ],
@@ -254,29 +254,29 @@ module.exports = function (grunt) {
       },
       walkontable: {
         src: [
-          'iris/dom.js',
-          'iris/helpers.js',
-          'iris/eventManager.js',
-          'iris/3rdparty/walkontable/iris/*.js',
-          'iris/3rdparty/walkontable/iris/3rdparty/*.js'
+          'src/dom.js',
+          'src/helpers.js',
+          'src/eventManager.js',
+          'src/3rdparty/walkontable/src/*.js',
+          'src/3rdparty/walkontable/src/3rdparty/*.js'
         ],
         options: {
           specs: [
-            'iris/3rdparty/walkontable/test/jasmine/spec/*.spec.js'
+            'src/3rdparty/walkontable/test/jasmine/spec/*.spec.js'
           ],
           styles: [
-            'iris/3rdparty/walkontable/css/walkontable.css'
+            'src/3rdparty/walkontable/css/walkontable.css'
           ],
           vendor: [
             'lib/jquery.min.js'
           ],
           helpers: [
-            'iris/3rdparty/walkontable/test/jasmine/SpecHelper.js',
+            'src/3rdparty/walkontable/test/jasmine/SpecHelper.js',
             'test/jasmine/lib/nodeShim.js',
-            'iris/3rdparty/walkontable/test/jasmine/test-init.js'
+            'src/3rdparty/walkontable/test/jasmine/test-init.js'
 
           ],
-          outfile: 'iris/3rdparty/walkontable/test/jasmine/SpecRunner.html',
+          outfile: 'src/3rdparty/walkontable/test/jasmine/SpecRunner.html',
           template: 'test/jasmine/templates/SpecRunner.tmpl',
           keepRunner: true
         }
@@ -293,7 +293,7 @@ module.exports = function (grunt) {
         options: {
           specs: [
             'test/jasmine/spec/mobile/*Spec.js',
-            'iris/plugins/*/test/mobile/*.spec.js'
+            'src/plugins/*/test/mobile/*.spec.js'
           ],
           styles: [
             'test/jasmine/css/SpecRunner.css',
@@ -364,7 +364,7 @@ module.exports = function (grunt) {
       },
       walkontable: {
         options: {
-          urls: ['http://localhost:9999/iris/3rdparty/walkontable/test/jasmine/SpecRunner.html'],
+          urls: ['http://localhost:9999/src/3rdparty/walkontable/test/jasmine/SpecRunner.html'],
 //          build: process.env.TRAVIS_JOB_ID,
           build: '<%= pkg.version %>-<%= gitinfo.local.branch.current.name %>',
           concurrency: 3,
@@ -379,8 +379,8 @@ module.exports = function (grunt) {
           jshintrc: true
         }
       };
-      options.core = 'iris/core.js';
-      options.src = '<%= meta.iris %>';
+      options.core = 'src/core.js';
+      options.src = '<%= meta.src %>';
       options.walkontable = '<%= meta.walkontable %>';
 
       return options;
@@ -414,7 +414,7 @@ module.exports = function (grunt) {
         specPath =  grunt.template.process('test/jasmine/spec/<%=specFile%>', {data: context});
         break;
       case 'walkontable':
-        specPath =  grunt.template.process('iris/3rdparty/walkontable/test/jasmine/spec/<%=specFile%>', {data: context});
+        specPath =  grunt.template.process('src/3rdparty/walkontable/test/jasmine/spec/<%=specFile%>', {data: context});
         break;
       default:
         grunt.fail.fatal('Unknown test task: "' + taskName + '". Available test tasks: [handsontable, walkontable]')

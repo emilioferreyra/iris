@@ -73,7 +73,7 @@ function each(obj, iterator, context) {
 
 /**
  * extend object.
- * means that properties in dest will be overwritten by the ones in iris.
+ * means that properties in dest will be overwritten by the ones in src.
  * @param {Object} dest
  * @param {Object} src
  * @param {Boolean} [merge]
@@ -92,8 +92,8 @@ function extend(dest, src, merge) {
 }
 
 /**
- * merge the values from iris in the dest.
- * means that properties that exist in dest will not be overwritten by iris
+ * merge the values from src in the dest.
+ * means that properties that exist in dest will not be overwritten by src
  * @param {Object} dest
  * @param {Object} src
  * @returns {Object} dest

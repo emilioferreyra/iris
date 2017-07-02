@@ -884,7 +884,7 @@ MdContactChipsCtrl.prototype.filterSelectedContacts = function(contact) {
                   $mdContactChipsCtrl.placeholder : $mdContactChipsCtrl.secondaryPlaceholder}}">\
             <div class="md-contact-suggestion">\
               <img \
-                  ng-iris="{{item[$mdContactChipsCtrl.contactImage]}}"\
+                  ng-src="{{item[$mdContactChipsCtrl.contactImage]}}"\
                   alt="{{item[$mdContactChipsCtrl.contactName]}}" />\
               <span class="md-contact-name" md-highlight-text="$mdContactChipsCtrl.searchText">\
                 {{item[$mdContactChipsCtrl.contactName]}}\
@@ -895,7 +895,7 @@ MdContactChipsCtrl.prototype.filterSelectedContacts = function(contact) {
           <md-chip-template>\
             <div class="md-contact-avatar">\
               <img \
-                  ng-iris="{{$chip[$mdContactChipsCtrl.contactImage]}}"\
+                  ng-src="{{$chip[$mdContactChipsCtrl.contactImage]}}"\
                   alt="{{$chip[$mdContactChipsCtrl.contactName]}}" />\
             </div>\
             <div class="md-contact-name">\

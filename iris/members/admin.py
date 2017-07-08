@@ -19,7 +19,8 @@ from .models import (
     Cane,
     House,
     Occupation,
-    MemberFamily
+    MemberFamily,
+    WorkPlace
 )
 from people.admin import PersonAddressInline, PersonPhoneInline
 from doctors.models import Appointment
@@ -171,6 +172,9 @@ class MemberAdmin(AdminImageMixin, ImportExportModelAdmin):
         'created',
         'is_mother',
         'gender',
+        'currently_works',
+        'where_work',
+        # ('where_work', admin.RelatedOnlyFieldListFilter),
         ('marital_status', admin.RelatedOnlyFieldListFilter),
         ('academic_level', admin.RelatedOnlyFieldListFilter),
         ('occupation', admin.RelatedOnlyFieldListFilter),
@@ -224,7 +228,7 @@ class MemberAdmin(AdminImageMixin, ImportExportModelAdmin):
 
         ignored_list_fields = [
             'picture', 'where_work', 'occupation', 'observations',
-            'health_insurance', 'academic_level', 'currently_works',
+            'health_insurance', 'academic_level', 'currently_works'
         ]
 
         for item in ignored_list_fields:
@@ -232,7 +236,7 @@ class MemberAdmin(AdminImageMixin, ImportExportModelAdmin):
 
         secretary_readonly_fields = new_readonly_fields
 
-        if request.user.groups.filter(name='Secretarias').exists():
+        if request.user.groups.filter(name='Secretarias').exists() and obj:
             return secretary_readonly_fields
         else:
             return super(MemberAdmin, self)\
@@ -256,3 +260,4 @@ class MemberAdmin(AdminImageMixin, ImportExportModelAdmin):
 admin.site.register(Diagnosis)
 admin.site.register(Cane)
 admin.site.register(Occupation)
+admin.site.register(WorkPlace)

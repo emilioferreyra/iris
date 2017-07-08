@@ -1,8 +1,20 @@
-{% extends "reports/index.html" %}
+{% extends "home/base.html" %}
+{% load django_bootstrap_breadcrumbs %}
 
-{% block head_title %}{{title}}{% endblock head_title %}
+{% block head_title %}{{title}} {% endblock head_title %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% breadcrumb "Reportes" "reports_home"%}
+    {% breadcrumb "Nivel academico" "academic_level_report"%}
+{% endblock %}
+
 
 {% block content %}
+
+{% render_breadcrumbs %}
+
+<hr>
 
 {% if request.user.is_authenticated %}
     {% if request.user.is_staff%}      

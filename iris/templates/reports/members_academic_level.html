@@ -1,7 +1,11 @@
 {% extends "reports/index.html" %}
 
+{% block head_title %}{{title}}{% endblock head_title %}
 
 {% block content %}
+
+{% if request.user.is_authenticated %}
+    {% if request.user.is_staff%}      
 
     <div class="container">
     <h2>{{ title }}</h2>
@@ -10,19 +14,26 @@
              <thead>
             <tr>
                 <th>#</th>
-                <th>Localidad</th>
+                <th>Nivel Academico</th>
                 <th>Total</th>
             </tr>
             </thead>
                 {% for obj in object_list %}
             <tr>
                 <td>{{ forloop.counter }}</td>
-                <td><a href="">{{ obj.location__name }}</a></td>
+                <td><a href="{% url 'admin:members_member_changelist' %}">{{ obj.academic_level__name }}</a></td>
                 <td>{{ obj.total }}</td>
             </tr>
                 {% endfor %}
             </table>
         </div>
     </div>
+    
+        {% else %}
+            <h2>Por favor pida permiso al administrador del sistema</h2>
+    {% endif %}
+{% else %}
+        <h2>Inicie sesión para ver esta página</h2>
+{% endif %}
 
-{% endblock %}
+{% endblock content %}

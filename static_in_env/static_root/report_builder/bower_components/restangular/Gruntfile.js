@@ -24,7 +24,7 @@ module.exports = function(grunt) {
         banner: '<%= meta.banner %>'
       },
       dist: {
-        src: ['iris/*.js'],
+        src: ['src/*.js'],
         dest: '<%= dirs.dest %>/<%= pkg.name %>.js'
       }
     },
@@ -45,7 +45,7 @@ module.exports = function(grunt) {
       }
     },
     jshint: {
-      files: ['Gruntfile.js', 'iris/*.js'],
+      files: ['Gruntfile.js', 'src/*.js'],
       options: {
         curly: false,
         browser: true,

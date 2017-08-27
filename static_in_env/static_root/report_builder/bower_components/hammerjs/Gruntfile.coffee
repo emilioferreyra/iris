@@ -19,17 +19,17 @@ module.exports = (grunt) ->
     concat:
       build:
         src: [
-          'iris/hammer.prefix'
-          'iris/utils.js'
-          'iris/input.js'
-          'iris/input/*.js'
-          'iris/touchaction.js'
-          'iris/recognizer.js'
-          'iris/recognizers/*.js'
-          'iris/hammer.js'
-          'iris/manager.js'
-          'iris/expose.js'
-          'iris/hammer.suffix']
+          'src/hammer.prefix'
+          'src/utils.js'
+          'src/input.js'
+          'src/input/*.js'
+          'src/touchaction.js'
+          'src/recognizer.js'
+          'src/recognizers/*.js'
+          'src/hammer.js'
+          'src/manager.js'
+          'src/expose.js'
+          'src/hammer.suffix']
         dest: 'hammer.js'
 
     uglify:
@@ -52,15 +52,15 @@ module.exports = (grunt) ->
               exportName: 'Hammer'
         files:
           'tests/build.js': [
-            'iris/utils.js'
-            'iris/input.js'
-            'iris/input/*.js'
-            'iris/touchaction.js'
-            'iris/recognizer.js'
-            'iris/recognizers/*.js'
-            'iris/hammer.js'
-            'iris/manager.js'
-            'iris/expose.js']
+            'src/utils.js'
+            'src/input.js'
+            'src/input/*.js'
+            'src/touchaction.js'
+            'src/recognizer.js'
+            'src/recognizers/*.js'
+            'src/hammer.js'
+            'src/manager.js'
+            'src/expose.js']
 
     'string-replace':
       version:
@@ -80,7 +80,7 @@ module.exports = (grunt) ->
 
     jscs:
       src: [
-        'iris/**/*.js'
+        'src/**/*.js'
         'tests/unit/*.js'
       ]
       options:
@@ -89,7 +89,7 @@ module.exports = (grunt) ->
 
     watch:
       scripts:
-        files: ['iris/**/*.js']
+        files: ['src/**/*.js']
         tasks: ['concat','string-replace','uglify','jshint','jscs']
         options:
           interrupt: true

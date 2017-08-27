@@ -66,6 +66,21 @@ class Cane(models.Model):
 
 
 @python_2_unicode_compatible
+class WorkPlace(models.Model):
+    """
+    Store member's work place
+    """
+    name = models.CharField(unique=True, max_length=50)
+
+    class Meta:
+        verbose_name = "WorkPlace"
+        verbose_name_plural = "WorkPlaces"
+
+    def __str__(self):
+        return self.name
+
+
+@python_2_unicode_compatible
 class Occupation(models.Model):
     """
     Store member's occupations.
@@ -100,10 +115,10 @@ def number():
     else:
         return value + 1
 
-"""
-Children dictionary to be used in member_is_mother
-and children_quantity functions.
-"""
+
+# Children dictionary to be used in member_is_mother
+# and children_quantity functions.
+
 
 d = dict(son=3, daughter=4)
 
@@ -157,13 +172,18 @@ class Member(Person):
         help_text="Seleccione ocupación",
         blank=True
     )
-    where_work = models.CharField(
-        max_length=100,
-        null=True,
-        blank=True,
-        verbose_name="Donde trabaja",
-        help_text="Empresa o lugar donde trabaja"
+    where_work = models.ForeignKey(
+        WorkPlace,
+        verbose_name="Lugar donde trabaja",
+        null=True
     )
+    # where_work = models.CharField(
+    #     max_length=100,
+    #     null=True,
+    #     blank=True,
+    #     verbose_name="Donde trabaja",
+    #     help_text="Empresa o lugar donde trabaja"
+    # )
     observations = models.TextField(
         null=True,
         blank=True,

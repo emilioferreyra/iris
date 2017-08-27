@@ -13,7 +13,7 @@ Iris is a web application developed in Python and powered by Django web framewor
 
 ***
 
-##List of requirements:
+## List of requirements:
 - [Django==1.8.13](https://www.djangoproject.com/download/)
 - blessings==1.6
 - bootstrap-admin==0.3.6
@@ -35,7 +35,8 @@ Iris is a web application developed in Python and powered by Django web framewor
 - [wsgiref==0.1.2](https://pypi.python.org/pypi/wsgiref?) 
 
 
-##Mains Modules:
+
+## Main Modules:
 
 **Employees:** This app allows employees control and department which they belongs, also their position and supervisor.
 
@@ -48,7 +49,8 @@ Iris is a web application developed in Python and powered by Django web framewor
 ***
 
 
-##Others Modules:
+
+## Other Modules:
 
 **Common:** Provides commons models used in the mains apps.
 
@@ -61,7 +63,7 @@ Iris is a web application developed in Python and powered by Django web framewor
 ***
 
 
-##Screen shots:
+## Screen shots:
 
 **Member form:**
 

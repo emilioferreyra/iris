@@ -2,10 +2,10 @@
 
 from __future__ import absolute_import, unicode_literals
 
-from datetime import date
+# from datetime import date
 
 from django.contrib import admin
-from django.utils.translation import ugettext_lazy as _
+# from django.utils.translation import ugettext_lazy as _
 # from django.db import models
 # from django.forms import CheckboxSelectMultiple
 
@@ -19,52 +19,12 @@ from .models import (
     Cane,
     House,
     Occupation,
-    MemberFamily
+    MemberFamily,
+    WorkPlace
 )
 from people.admin import PersonAddressInline, PersonPhoneInline
 from doctors.models import Appointment
 from .forms import MemberForm
-
-
-# class DecadeBornListFilter(admin.SimpleListFilter):
-#     # Human-readable title which will be displayed in the
-#     # right admin sidebar just above the filter options.
-#     title = _('decade born')
-
-#     # Parameter for the filter that will be used in the URL query.
-#     parameter_name = 'decade'
-
-#     def lookups(self, request, model_admin):
-#         """
-#         Returns a list of tuples. The first element in each
-#         tuple is the coded value for the option that will
-#         appear in the URL query. The second element is the
-#         human-readable name for the option that will appear
-#         in the right sidebar.
-#         """
-#         return (
-#             ('80s', _('in the eighties')),
-#             ('90s', _('in the nineties')),
-#         )
-
-#     def queryset(self, request, queryset):
-#         """
-#         Returns the filtered queryset based on the value
-#         provided in the query string and retrievable via
-#         `self.value()`.
-#         """
-#         # Compare the requested value (either '80s' or '90s')
-#         # to decide how to filter the queryset.
-#         if self.value() == '80s':
-#             return queryset.filter(
-#                 birthday__gte=date(1980, 1, 1),
-#                 birthday__lte=date(1989, 12, 31)
-#             )
-#         if self.value() == '90s':
-#             return queryset.filter(
-#                 birthday__gte=date(1990, 1, 1),
-#                 birthday__lte=date(1999, 12, 31)
-#             )
 
 
 class MemberResource(resources.ModelResource):
@@ -212,6 +172,9 @@ class MemberAdmin(AdminImageMixin, ImportExportModelAdmin):
         'created',
         'is_mother',
         'gender',
+        'currently_works',
+        'where_work',
+        # ('where_work', admin.RelatedOnlyFieldListFilter),
         ('marital_status', admin.RelatedOnlyFieldListFilter),
         ('academic_level', admin.RelatedOnlyFieldListFilter),
         ('occupation', admin.RelatedOnlyFieldListFilter),
@@ -265,7 +228,7 @@ class MemberAdmin(AdminImageMixin, ImportExportModelAdmin):
 
         ignored_list_fields = [
             'picture', 'where_work', 'occupation', 'observations',
-            'health_insurance', 'academic_level', 'currently_works',
+            'health_insurance', 'academic_level', 'currently_works'
         ]
 
         for item in ignored_list_fields:
@@ -273,7 +236,7 @@ class MemberAdmin(AdminImageMixin, ImportExportModelAdmin):
 
         secretary_readonly_fields = new_readonly_fields
 
-        if request.user.groups.filter(name='Secretarias').exists():
+        if request.user.groups.filter(name='Secretarias').exists() and obj:
             return secretary_readonly_fields
         else:
             return super(MemberAdmin, self)\
@@ -297,3 +260,4 @@ class MemberAdmin(AdminImageMixin, ImportExportModelAdmin):
 admin.site.register(Diagnosis)
 admin.site.register(Cane)
 admin.site.register(Occupation)
+admin.site.register(WorkPlace)

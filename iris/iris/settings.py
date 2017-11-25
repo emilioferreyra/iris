@@ -48,6 +48,7 @@ INSTALLED_APPS = (
     'django_extensions',
     'import_export',
     'django_bootstrap_breadcrumbs',
+    'clear_cache',
     # My apps
     'location',
     'commons',

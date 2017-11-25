@@ -14,9 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
 from django.conf.urls import include, url
-# Necesario para redireccionar el root hacia el admin
-# from django.core.urlresolvers import reverse_lazy
-# from django.views.generic.base import RedirectView
+# The next 2 modules are necessary to redirect root to admin site
+from django.core.urlresolvers import reverse_lazy
+from django.views.generic.base import RedirectView
+
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
@@ -26,11 +27,11 @@ from .views import home
 
 
 urlpatterns = [
-    # Necesario para redireccionar el root hacia el admin
-    # url(r'^$', RedirectView.as_view(
-    #     url=reverse_lazy('admin:index'),
-    #     permanent=False)
-    #     ),
+    # The next url redirect root to admin site
+    url(r'^$', RedirectView.as_view(
+        url=reverse_lazy('admin:index'),
+        permanent=False)
+        ),
     url(r'^$', home, name='home'),
     url(
         r'^about/$',

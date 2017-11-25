@@ -73,8 +73,8 @@ class WorkPlace(models.Model):
     name = models.CharField(unique=True, max_length=50)
 
     class Meta:
-        verbose_name = "WorkPlace"
-        verbose_name_plural = "WorkPlaces"
+        verbose_name = "Lugar de trabajo"
+        verbose_name_plural = "Lugares de trabajo"
 
     def __str__(self):
         return self.name

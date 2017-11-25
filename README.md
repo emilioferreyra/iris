@@ -1,15 +1,15 @@
 Iris Project.
 =======
 
-This project was designed to assist the correct identification of needs for the proper channeling of resources to the members of the Association of  Blind of Cibao of Dominican Republic.
+This project was designed to assist in the right identification of needs for the proper channeling of resources to the members of the Asociación de Ciegos del Cibao (Dominican Republic).
 
-Iris is a web application developed in Python via Django web framework, which allows recording information of the members and their environment and medical history:
+Iris is a web application developed in Python and powered by Django web framework, which allows recording members information, their environment and medical history:
 
 - Basic information (name, age, phone, address, marital status, occupation, photography).
-- The one or more types of disability.
-- Registers family member living with and their relationship.
+- One or more disabilities types.
+- Registers member's families living with and their relationship.
 - Automatically identify mothers.
-- Identifies the number of children of members.
+- Identify member's children quantity.
 
 ***
 
@@ -35,28 +35,30 @@ Iris is a web application developed in Python via Django web framework, which al
 - [wsgiref==0.1.2](https://pypi.python.org/pypi/wsgiref?) 
 
 
+
 ## Main Modules:
 
-**Employees:** This app allows the registration of employees and the department to which it belongs, position and supervisor.
+**Employees:** This app allows employees control and department which they belongs, also their position and supervisor.
 
-**Members:** This app lets you save the member information as well as their type of disability and information related to family and home.
+**Members:** This app allows to save member information as well as their disabilities types, family information related to and home status.
 
-**Doctors:** This app lets you record clinics and doctors who provide consultation service to members and the appointments of the members.
+**Doctors:** This app allows record clinics history, doctors who provide medicals consultations services and the member's appointments.
 
-**Suppliers:** This app allows you to register suppliers and contacts related companies.
+**Suppliers:** This app allows to record suppliers information such as contact, address and so on.
 
 ***
 
 
+
 ## Other Modules:
 
-**Common:** Contains common models used in the main apps.
+**Common:** Provides commons models used in the mains apps.
 
-**Location:** Contains the models necessary for the correct location of entities (people, members, suppliers, etc.).
+**Location:** Provides models needed for entities right location (people, members, suppliers, etc.).
 
-**People:** This app contains reusable models entities employees, members, doctor, family member and family employee contact supplier.
+**People:** This app provides reusable models entities like employees, members, doctors, member's family, employee's family and supplier's contact information.
 
-**Housing:** This app contains the models that identify the characteristics of housing for members.
+**Housing:** This app provides models that identify member's housing features, like floor type and ceiling materials.
 
 ***
 

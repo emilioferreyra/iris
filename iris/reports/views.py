@@ -7,6 +7,12 @@ from members.models import Member
 from people.models import PersonAddress
 
 
+def index(request):
+    title = "Reports"
+    context = {'title': title}
+    return render(request, "reports/index.html", context=context)
+
+
 def members_by_academic_level(request):
     field = 'academic_level__name'
     queryset = Member.objects.all().\
@@ -17,15 +23,12 @@ def members_by_academic_level(request):
         "title": "Miembros por Nivel Académico",
         "object_list": queryset
     }
-    return render(request, "reports/members_by_academic_level.html", context)
-
-
-# Variables declaration
-person_type_member = 2
-address_type_home = 1
+    return render(request, "reports/members_academic_level.html", context=context)
 
 
 def members_by_location(request):
+    person_type_member = 2
+    address_type_home = 1
     field = 'location__name'
     queryset = PersonAddress.objects.filter(
         person_name__person_type_id=person_type_member,
@@ -37,7 +40,7 @@ def members_by_location(request):
         "title": "Miembros por Localidad",
         "object_list": queryset
     }
-    return render(request, "reports/member_by_location.html", context)
+    return render(request, "reports/members_location.html", context=context)
 
 
 def mothers_quantity(request):
@@ -52,4 +55,4 @@ def mothers_quantity(request):
         "object_list": queryset,
         "total_mothers": total_mothers
     }
-    return render(request, "reports/mothers.html", context)
+    return render(request, "reports/members_mothers.html", context=context)

@@ -1,6 +1,19 @@
 {% extends "home/base.html" %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block head_title %}{{title}} {% endblock head_title %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% breadcrumb "Acerca de Iris" "about"%}
+{% endblock %}
+
 
 {% block content %}
+
+{% render_breadcrumbs %}
+
+<hr>
 
 <header class="jumbotron hero-spacer">
     <h1>Acerca de Iris</h1>

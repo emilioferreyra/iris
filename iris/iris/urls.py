@@ -32,9 +32,21 @@ urlpatterns = [
     #     permanent=False)
     #     ),
     url(r'^$', home, name='home'),
-    url(r'^about/$', TemplateView.as_view(template_name="about.html"), name='about'),
-    url(r'^contact/$', TemplateView.as_view(template_name="contact.html"), name='contact'),
-    url(r'^services/$', TemplateView.as_view(template_name="services.html"), name='services'),
+    url(
+        r'^about/$',
+        TemplateView.as_view(template_name="about.html"),
+        name='about'
+    ),
+    url(
+        r'^contact/$',
+        TemplateView.as_view(template_name="contact.html"),
+        name='contact'
+    ),
+    url(
+        r'^services/$',
+        TemplateView.as_view(template_name="services.html"),
+        name='services'
+    ),
     url(r'^reports/', include('reports.urls')),
     url(r'^report_builder/', include('report_builder.urls')),
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

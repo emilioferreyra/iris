@@ -1,4 +1,6 @@
 {% load staticfiles %}
+{% load django_bootstrap_breadcrumbs %}
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -25,15 +27,19 @@
     
     {% include "home/navbar.html" %}
 
-
     <!-- Page Content -->
     <div class="container">
 
-        {% block jumbotron %}
-
+        {% block breadcrumbs %} 
+            {% clear_breadcrumbs %}
+            {% breadcrumb "Home" "/" %}
         {% endblock %}
 
-        <hr>
+        {% block jumbotron %} {% endblock %}
+
+        
+
+{#         <hr> #}
 
         {% block content %}
             
@@ -43,7 +49,7 @@
 
         <hr>
 
-        
+    </div>
     <!-- /.container -->
 {% include "home/footer.html" %}
 {% include "home/js.html" %}

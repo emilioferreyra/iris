@@ -47,6 +47,7 @@ INSTALLED_APPS = (
     'bootstrap3',
     'django_extensions',
     'import_export',
+    'django_bootstrap_breadcrumbs',
     # My apps
     'location',
     'commons',

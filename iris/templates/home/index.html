@@ -1,7 +1,13 @@
 {% extends "home/base.html" %}
 {% load staticfiles %}
+{% load django_bootstrap_breadcrumbs %}
 
-{% block head_title %} {% endblock head_title %}
+{% block head_title %}{{title}} {% endblock head_title %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+{% endblock %}
+
 
 <style>
 {% block style %}
@@ -13,29 +19,25 @@
 {% endblock style %}
 </style>
 
-
-{% block jumbotron %}
-
-	{% if not request.user.is_authenticated %}
-		<!-- Jumbotron Header -->
-		<header class="jumbotron hero-spacer">
-		    <h1>{{ greating }}</h1>
-		    <p>{{ jumbotron_content }}</p>
-		    <p>
-		    	<a href="{% url 'admin:index' %}" class="btn btn-primary" role="button">Iniciar</a>
-		    </p>
-		</header>
-	{% endif %}
-
-{% endblock jumbotron %}
-
 {% block content %}
+
+{% render_breadcrumbs %}
+
+<hr>
 
 	{% if request.user.is_authenticated %}
 
 		{# Aquí va en DASHBOARD #}
 		
 	{% else %}		
+        <!-- Jumbotron Header -->
+        <header class="jumbotron hero-spacer">
+            <h1>{{ greating }}</h1>
+            <p>{{ jumbotron_content }}</p>
+            <p>
+                <a href="{% url 'admin:index' %}" class="btn btn-primary" role="button">Iniciar</a>
+            </p>
+        </header>
 
 	 <!-- Title -->
         <div class="row">

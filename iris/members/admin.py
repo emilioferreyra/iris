@@ -82,6 +82,12 @@ class HouseInline(admin.StackedInline):
     max_num = 1
     extra = 0
     suit_classes = 'suit-tab suit-tab-house'
+    radio_fields = {
+        "property_type": admin.HORIZONTAL,
+        "ceiling": admin.HORIZONTAL,
+        "wall": admin.HORIZONTAL,
+        "floor": admin.HORIZONTAL
+    }
 
 
 class AppointmentInline(admin.StackedInline):

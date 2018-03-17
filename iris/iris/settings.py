@@ -29,16 +29,18 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = (
-    # 'modeltranslation',
-    'suit',
-    'django.contrib.admindocs',
+SUIT = True
+# SUIT = False
+
+INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.admindocs',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     # Third-party apps
     'smart_selects',
     'localflavor',
@@ -49,6 +51,8 @@ INSTALLED_APPS = (
     'import_export',
     'django_bootstrap_breadcrumbs',
     'clear_cache',
+    'suit_dashboard',
+
     # My apps
     'location',
     'commons',
@@ -57,8 +61,14 @@ INSTALLED_APPS = (
     'housing',
     'members',
     'suppliers',
-    'doctors',
-)
+    'doctors'
+]
+
+if SUIT:  # add suit and replace admin with SimpleAdminConfig
+    INSTALLED_APPS = [
+        'suit',
+        'django.contrib.admin.apps.SimpleAdminConfig'
+    ] + INSTALLED_APPS[1:]
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',

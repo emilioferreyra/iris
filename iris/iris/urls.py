@@ -17,14 +17,20 @@ from django.conf.urls import include, url
 # The next 2 modules are necessary to redirect root to admin site
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic.base import RedirectView
+from django.contrib import admin
+
 
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.views.generic import TemplateView
 
+from .site import DashboardSite
 from .views import home
 
+admin.site = DashboardSite()
+admin.sites.site = admin.site
+admin.autodiscover()
 
 urlpatterns = [
     # The next url redirect root to admin site

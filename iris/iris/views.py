@@ -1,6 +1,12 @@
 # -*- coding: utf-8 -*-
 
 from django.shortcuts import render
+from suit_dashboard.views import DashboardView
+
+
+class HomeView(DashboardView):
+    # template_name = 'home/index.html'
+    pass
 
 
 def home(request):

@@ -1,28 +1,25 @@
 # -*- coding: utf-8 -*-
-
+# Python core modules
 from __future__ import absolute_import, unicode_literals
 
-# from datetime import date
-
+# Django modules
 from django.contrib import admin
-# from django.utils.translation import ugettext_lazy as _
-# from django.db import models
-# from django.forms import CheckboxSelectMultiple
 
+# Third-party modules
 from sorl.thumbnail.admin import AdminImageMixin
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
 
-from .models import (
-    Member,
-    Diagnosis,
-    Cane,
-    House,
-    Occupation,
-    MemberFamily,
-    WorkPlace
-)
-from people.admin import PersonAddressInline, PersonPhoneInline
+# My modules
+from .models import Member
+from .models import Diagnosis
+from .models import Cane
+from .models import House
+from .models import Occupation
+from .models import MemberFamily
+from .models import WorkPlace
+from people.admin import PersonAddressInline
+from people.admin import PersonPhoneInline
 from doctors.models import Appointment
 from .forms import MemberForm
 

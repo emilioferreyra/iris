@@ -22,6 +22,7 @@ from people.admin import PersonAddressInline
 from people.admin import PersonPhoneInline
 from doctors.models import Appointment
 from .forms import MemberForm
+from iris.admin_base import AdminBase
 
 
 class MemberResource(resources.ModelResource):
@@ -260,7 +261,22 @@ class MemberAdmin(AdminImageMixin, ImportExportModelAdmin):
     ordering = ['-member_number']
 
 
-admin.site.register(Diagnosis)
-admin.site.register(Cane)
-admin.site.register(Occupation)
-admin.site.register(WorkPlace)
+
+@admin.register(Diagnosis)
+class DiagnosisAdmin(AdminBase):
+    pass
+
+
+@admin.register(Cane)
+class CaneAdmin(AdminBase):
+    pass
+
+
+@admin.register(Occupation)
+class OccupationAdmin(AdminBase):
+    pass
+
+
+@admin.register(WorkPlace)
+class WorkPlaceAdmin(AdminBase):
+    pass

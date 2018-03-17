@@ -75,6 +75,7 @@ class WorkPlace(models.Model):
     class Meta:
         verbose_name = "Lugar de trabajo"
         verbose_name_plural = "Lugares de trabajo"
+        ordering = ['id']
 
     def __str__(self):
         return self.name
@@ -97,7 +98,7 @@ class Occupation(models.Model):
         verbose_name = "Ocupación"
         verbose_name_plural = "Ocupaciones"
         db_table = "members_occupation"
-        ordering = ["name"]
+        ordering = ['id']
 
     def __str__(self):
         return self.name

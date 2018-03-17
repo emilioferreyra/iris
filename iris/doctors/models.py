@@ -51,6 +51,7 @@ class Speciality(models.Model):
     class Meta:
         verbose_name = "Especialidad"
         verbose_name_plural = "Especialidades"
+        ordering = ['id']
 
     def __str__(self):
         return self.name
@@ -164,6 +165,7 @@ class Medicine(models.Model):
     class Meta:
         verbose_name = "Medicina"
         verbose_name_plural = "Medicinas"
+        ordering = ['id']
 
     def __str__(self):
         return self.name

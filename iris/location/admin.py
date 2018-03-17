@@ -1,9 +1,14 @@
-# Django core
+# -*- coding: utf-8 -*-
+#  Python core
 from __future__ import absolute_import, unicode_literals
+
+# Django modules
 from django.contrib import admin
 
+# Third-party modules
 from import_export.admin import ImportExportModelAdmin
 
+# My modules
 from .models import Country
 from .models import Nationality
 from .models import Region
@@ -11,19 +16,17 @@ from .models import Province
 from .models import Town
 from .models import Location
 from .models import AddressType
+from iris.admin_base import AdminBase
 
 
 @admin.register(Country)
-class CountryAdmin(ImportExportModelAdmin):
+class CountryAdmin(AdminBase, ImportExportModelAdmin):
     pass
 
 
 @admin.register(Nationality)
-class NationalityAdmin(ImportExportModelAdmin):
-    list_display = ['id', 'name']
-    list_display_links = ['id', 'name']
-    search_fields = ['name']
-    list_per_page = 10
+class NationalityAdmin(AdminBase, ImportExportModelAdmin):
+    pass
 
 
 class ProvinceInline(admin.TabularInline):
@@ -31,38 +34,30 @@ class ProvinceInline(admin.TabularInline):
 
 
 @admin.register(Region)
-class RegionAdmin(ImportExportModelAdmin):
-    list_display = ['id', 'name']
+class RegionAdmin(AdminBase, ImportExportModelAdmin):
     inlines = [ProvinceInline]
 
 
 @admin.register(Province)
-class ProvinceAdmin(ImportExportModelAdmin):
+class ProvinceAdmin(AdminBase, ImportExportModelAdmin):
     list_display = ['id', 'name', 'region']
-    list_display_links = ['id', 'name']
     list_filter = ['region']
-    search_fields = ['name', 'region__name']
-    list_per_page = 10
 
 
 @admin.register(Town)
-class TownAdmin(ImportExportModelAdmin):
+class TownAdmin(AdminBase, ImportExportModelAdmin):
     list_display = ['id', 'name', 'province']
-    list_display_links = ['id', 'name']
     list_filter = ['province']
-    search_fields = ['name', 'province__name']
-    list_per_page = 10
 
 
 @admin.register(Location)
-class LocationAdmin(ImportExportModelAdmin):
+class LocationAdmin(AdminBase, ImportExportModelAdmin):
     list_display = ['id', 'name', 'town']
-    list_display_links = ['id', 'name']
-    list_filter = ['town']
-    search_fields = ['name', 'town__name']
-    list_per_page = 10
+    list_filter = (
+        ('town', admin.RelatedOnlyFieldListFilter),
+    )
 
 
 @admin.register(AddressType)
-class AddressTypeAdmin(ImportExportModelAdmin):
-    list_display = ['id', 'name']
+class AddressTypeAdmin(AdminBase, ImportExportModelAdmin):
+    pass

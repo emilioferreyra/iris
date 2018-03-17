@@ -1,12 +1,18 @@
 # -*- coding: utf-8 -*-
+# Python core modules
 from __future__ import absolute_import, unicode_literals
+
+# Django modules
 from django.contrib import admin
 
+# Third-party modules
 from import_export.admin import ImportExportModelAdmin
 
+# My modules
 from .models import HouseMaterial
 from .models import HousePart
 from .models import PropertyType
+from iris.admin_base import AdminBase
 
 
 class HouseMaterialInline(admin.TabularInline):
@@ -21,5 +27,5 @@ class HousePartAdmin(admin.ModelAdmin):
 
 
 @admin.register(PropertyType)
-class PropertyTypeAdmin(ImportExportModelAdmin):
+class PropertyTypeAdmin(AdminBase, ImportExportModelAdmin):
     pass

@@ -2,18 +2,32 @@
 {% load admin_static %}
 
 
-{# {% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %} #}
+{#{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}#}
+
+{% block title %}
+    {% if title == 'Suit Dashboard' %}
+        Iris
+    {% else %}
+        Iris | {{ title }}
+    {% endif %}
+{% endblock %}
+
 
 {% block branding %}
-<h1 id="site-name"><a href="{% url 'home' %}">{{ "Iris ACICIRD" }}</a></h1>
+<h1 id="site-name">
+   <a href="{% url 'admin:index' %}">
+      <img src="{% static 'img/iris-logo.png' %}" width="40" height="40" /> {{ "Iris ACICIRD" }}
+   </a>
+</h1>
 {% endblock %}
 
 {# {% block nav-global %}{% endblock %} #}
 
 
 {# Additional <head> content here, some extra meta tags or favicon #}
-{#{% block extrahead %}#}
-{#{% endblock %}#}
+{% block extrahead %}
+    <link rel="icon" href="{% static 'img/favicon.ico' %}">
+{% endblock %}
 
 
 {# Additional CSS includes #}
@@ -57,12 +71,12 @@
 {#{% endblock %}#}
 
 {# Footer branding name (center) #}
-{# {% block footer_branding %}
+{% block footer_branding %}
 <p>Iris ACICIRD</p>
-{% endblock %} #}
+{% endblock %}
 
 
 {# Footer copyright (right side) #}
 {% block copyright %}
- Copyright &copy; 2016 Client<br>Developed by <a href="https://github.com/emilioferreyra/iris" target="_blank">Ramón Emilio Ferreyra</a>
+ Copyright &copy; 2016 ACICIRD<br>Desarrollado por <a href="https://github.com/emilioferreyra/iris" target="_blank">Emilio Ferreyra</a>
 {% endblock %}

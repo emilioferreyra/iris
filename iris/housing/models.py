@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
+# Python core modules
 from __future__ import absolute_import
 from __future__ import unicode_literals
+
+# Django modules
 from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
 

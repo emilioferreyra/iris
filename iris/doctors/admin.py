@@ -1,21 +1,26 @@
 # -*- coding: utf-8 -*-
-# Django core
+# Python core moduels
 from __future__ import absolute_import, unicode_literals
+
+# Django modules
 from django.contrib import admin
 from django.core.urlresolvers import reverse
 from django.utils.safestring import mark_safe
-from sorl.thumbnail.admin import AdminImageMixin
 
-from .models import (
-    Doctor,
-    Speciality,
-    Clinic,
-    Appointment,
-    Medicine,
-    PrescribedMedicine
-)
+# Third-party modules
+from sorl.thumbnail.admin import AdminImageMixin
+from import_export.admin import ImportExportModelAdmin
+
+# My modules
+from .models import Doctor
+from .models import Speciality
+from .models import Clinic
+from .models import Appointment
+from .models import Medicine
+from .models import PrescribedMedicine
 from suppliers.admin import SupplierCompanyAdmin
 from people.admin import PersonPhoneInline
+from iris.admin_base import AdminBase
 
 
 class DoctorPhoneInline(PersonPhoneInline):
@@ -202,5 +207,10 @@ class ClinicAdmin(SupplierCompanyAdmin):
     ]
 
 
-admin.site.register(Speciality)
-admin.site.register(Medicine)
+@admin.register(Speciality)
+class SpecialityAdmin(AdminBase, ImportExportModelAdmin):
+    pass
+
+@admin.register(Medicine)
+class MedicineAdmin(AdminBase, ImportExportModelAdmin):
+    pass

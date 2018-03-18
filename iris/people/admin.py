@@ -1,13 +1,20 @@
 # -*- coding: utf-8 -*-
-# Django core
+# Python core modules
 from __future__ import absolute_import, unicode_literals
 # from datetime import date
+
+# Django modules
 from django.contrib import admin
 from sorl.thumbnail.admin import AdminImageMixin
 
 #  My apps
-from .models import Person, PersonAddress, PersonPhone, PersonType, AddressType
+from .models import Person
+from .models import PersonAddress
+from .models import PersonPhone
+from .models import PersonType
+from .models import AddressType
 from commons.models import PhoneType
+from iris.admin_base import AdminBase
 
 
 class PersonAddressInline(admin.StackedInline):
@@ -105,5 +112,6 @@ class PersonAdmin(AdminImageMixin, admin.ModelAdmin):
     list_per_page = 10
 
 
-admin.site.register(PersonType)
-# admin.site.register(Person, PersonAdmin)
+@admin.register(PersonType)
+class PersonTypeAdmin(AdminBase):
+    pass

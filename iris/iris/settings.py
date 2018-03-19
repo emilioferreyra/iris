@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'smart_selects',
     'localflavor',
     'sorl.thumbnail',
-    'report_builder',
+    # 'report_builder',
     'bootstrap3',
     'django_extensions',
     'import_export',

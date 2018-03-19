@@ -94,15 +94,10 @@ class PrescribedMedicineInline(nested_admin.NestedStackedInline):
     model = PrescribedMedicine
     sortable_field_name = 'appointment'
     extra = 0
-    radio_fields = {
-        "unit": admin.HORIZONTAL,
-        # "frecuency_unit": admin.HORIZONTAL,
-    }
     fields = (
         ('medicine', 'quantity'),
-        'unit',
-        ('frecuency', 'frecuency_unit'),
-        'instructions',
+        ('unit', 'frecuency'),
+        ('frecuency_unit', 'instructions'),
     )
 
 
@@ -111,14 +106,12 @@ class AppointmentInline(nested_admin.NestedStackedInline):
     sortable_field_name = 'member'
     min_num = 0
     extra = 0
-    fields = [
-        'appointment_date',
-        'clinic',
+    fields = (
+        ('appointment_date', 'clinic'),
         'doctor',
-        'symptomatology',
-        'prescription',
-        'date_next_appoitment'
-    ]
+        ('symptomatology', 'prescription'),
+        'date_next_appoitment',
+    )
     # readonly_fields = [
     #     'appointment_date',
     #     'clinic',

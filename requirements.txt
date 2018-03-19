@@ -23,7 +23,6 @@ django-localflavor==1.2
 django-model-utils==2.4
 django-nested-admin==3.0.21
 django-phonenumber-field==2.0.0
-django-report-builder==3.3.0
 django-report-utils==0.3.15
 django-selectable==1.1.0
 django-smart-selects==1.5.2

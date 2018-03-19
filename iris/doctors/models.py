@@ -180,7 +180,13 @@ class PrescribedMedicine(models.Model):
     )
     FRECUENCY_UNIT_CHOICES = (
         ("H", "Cada Hora"),
-        ("D", "Al Día"),
+        ("D", "Veces al Día"),
+    )
+    INSTRUCTION_CHOICES = (
+        ("A", "Antes de comida"),
+        ("C", "Con la comida"),
+        ("D", "Después de comida"),
+        ("N", "Sin instrucciones para comida"),
     )
     appointment = models.ForeignKey(Appointment)
     medicine = models.ForeignKey(
@@ -203,7 +209,13 @@ class PrescribedMedicine(models.Model):
     frecuency_unit = models.CharField(
         max_length=1,
         choices=FRECUENCY_UNIT_CHOICES,
-        verbose_name="unidade de frecuencia"
+        verbose_name="unidad de frecuencia"
+    )
+    instructions = models.CharField(
+        max_length=1,
+        choices=INSTRUCTION_CHOICES,
+        verbose_name="instrucciones",
+        default="N"
     )
 
     class Meta:

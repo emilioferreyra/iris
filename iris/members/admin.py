@@ -96,8 +96,14 @@ class PrescribedMedicineInline(nested_admin.NestedStackedInline):
     extra = 0
     radio_fields = {
         "unit": admin.HORIZONTAL,
-        "frecuency_unit": admin.HORIZONTAL,
+        # "frecuency_unit": admin.HORIZONTAL,
     }
+    fields = (
+        ('medicine', 'quantity'),
+        'unit',
+        ('frecuency', 'frecuency_unit'),
+        'instructions',
+    )
 
 
 class AppointmentInline(nested_admin.NestedStackedInline):

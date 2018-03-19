@@ -9,6 +9,7 @@ from django.contrib import admin
 from sorl.thumbnail.admin import AdminImageMixin
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
+import nested_admin
 
 # My modules
 from .models import Member
@@ -21,6 +22,7 @@ from .models import WorkPlace
 from people.admin import PersonAddressInline
 from people.admin import PersonPhoneInline
 from doctors.models import Appointment
+from doctors.models import PrescribedMedicine
 from .forms import MemberForm
 from iris.admin_base import AdminBase
 
@@ -54,7 +56,7 @@ class MemberPhoneInline(PersonPhoneInline):
     suit_classes = 'suit-tab suit-tab-memberphone'
 
 
-class MemberFamilyInline(admin.StackedInline):
+class MemberFamilyInline(nested_admin.NestedStackedInline):
     model = MemberFamily
     fields = [
         'kinship',
@@ -74,7 +76,7 @@ class MemberFamilyInline(admin.StackedInline):
     suit_classes = 'suit-tab suit-tab-memberfamily'
 
 
-class HouseInline(admin.StackedInline):
+class HouseInline(nested_admin.NestedStackedInline):
     model = House
     min_num = 1
     max_num = 1
@@ -88,8 +90,19 @@ class HouseInline(admin.StackedInline):
     }
 
 
-class AppointmentInline(admin.StackedInline):
+class PrescribedMedicineInline(nested_admin.NestedStackedInline):
+    model = PrescribedMedicine
+    sortable_field_name = 'appointment'
+    extra = 0
+    radio_fields = {
+        "unit": admin.HORIZONTAL,
+        "frecuency_unit": admin.HORIZONTAL,
+    }
+
+
+class AppointmentInline(nested_admin.NestedStackedInline):
     model = Appointment
+    sortable_field_name = 'member'
     min_num = 0
     extra = 0
     fields = [
@@ -100,19 +113,20 @@ class AppointmentInline(admin.StackedInline):
         'prescription',
         'date_next_appoitment'
     ]
-    readonly_fields = [
-        'appointment_date',
-        'clinic',
-        'doctor',
-        'symptomatology',
-        'prescription',
-        'date_next_appoitment'
-    ]
+    # readonly_fields = [
+    #     'appointment_date',
+    #     'clinic',
+    #     'doctor',
+    #     'symptomatology',
+    #     'prescription',
+    #     'date_next_appoitment'
+    # ]
+    inlines = [PrescribedMedicineInline]
     suit_classes = 'suit-tab suit-tab-appointment'
 
 
 @admin.register(Member)
-class MemberAdmin(AdminImageMixin, ImportExportModelAdmin):
+class MemberAdmin(AdminImageMixin, nested_admin.NestedModelAdmin):
     form = MemberForm
     resources_class = MemberResource
     fieldsets = [
@@ -205,7 +219,7 @@ class MemberAdmin(AdminImageMixin, ImportExportModelAdmin):
         MemberPhoneInline,
         MemberFamilyInline,
         HouseInline,
-        # AppointmentInline,
+        AppointmentInline,
     ]
 
     search_fields = [
@@ -250,16 +264,15 @@ class MemberAdmin(AdminImageMixin, ImportExportModelAdmin):
 
     suit_form_tabs = (
         ('general', 'General'),
-        ('additionalsfields', 'Información Adicional'),
+        ('additionalsfields', 'Info-Adicional'),
         ('memberaddress', 'Direcciones'),
         ('memberphone', 'Telefonos'),
         ('memberfamily', 'Familiares'),
         ('house', 'Tipo de vivienda'),
-        # ('appointment', 'Citas médicas'),
+        ('appointment', 'Citas médicas'),
     )
 
     ordering = ['-member_number']
-
 
 
 @admin.register(Diagnosis)

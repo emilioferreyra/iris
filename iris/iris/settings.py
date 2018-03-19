@@ -184,14 +184,14 @@ SUIT_CONFIG = {
     'MENU_ICONS': {
         'sites': 'icon-leaf',
         'auth': 'icon-lock',
-        'commons': 'icon-random',
-        'doctors': 'icon-calendar',
+        'commons': 'icon-tasks',
+        'doctors': 'icon-plus',
         'employees': 'icon-user',
         'housing': 'icon-home',
         'location': 'icon-map-marker',
         'members': 'icon-eye-close',
         'people': 'icon-user',
-        'suppliers': 'icon-briefcase',
+        'suppliers': 'icon-shopping-cart',
     },
     'MENU_OPEN_FIRST_CHILD': True,  # Default True
     # 'MENU_EXCLUDE': ('auth.group',),

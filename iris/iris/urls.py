@@ -55,7 +55,7 @@ urlpatterns = [
         name='services'
     ),
     url(r'^reports/', include('reports.urls')),
-    # url(r'^report_builder/', include('report_builder.urls')),
+    url(r'^report_builder/', include('report_builder.urls')),
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^chaining/', include('smart_selects.urls')),

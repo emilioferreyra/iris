@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'smart_selects',
     'localflavor',
     'sorl.thumbnail',
-    # 'report_builder',
+    'report_builder',
     'bootstrap3',
     'django_extensions',
     'import_export',
@@ -98,6 +98,7 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.core.context_processors.request',
+                'django.core.context_processors.static',
                 'django.template.context_processors.request',
                 # 'django.core.context_processors.i18n',
                 'django.contrib.auth.context_processors.auth',
@@ -205,3 +206,7 @@ SUIT_CONFIG = {
     # misc
     # 'LIST_PER_PAGE': 15
 }
+
+
+# Django report-builder configurations
+

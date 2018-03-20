@@ -210,6 +210,27 @@ class Member(Person):
         verbose_name_plural = "Miembros"
         ordering = ['-id']
 
+    # class ReportBuilder:
+    #     # exclude = ()  # Lists or tuple of excluded fields
+    #     fields = (
+    #         'names',
+    #         'father_last_name',
+    #         'mother_last_name',
+    #         'gender',
+    #         'birthday',
+    #         'marital_status',
+    #         'document_type',
+    #         'document_id',
+    #         'email',
+    #         'kinship',
+    #         'picture',
+    #         'status',
+    #         'age',
+    #         'main_location',
+    #         'academic_level',
+    #     )  # Explicitly allowed fields
+        # extra = ()  # List extra fields (useful for methods)
+
     def save(self, *args, **kwargs):
         """
         Modify original save method to make the field person_type

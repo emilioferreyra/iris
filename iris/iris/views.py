@@ -5,8 +5,8 @@ from suit_dashboard.views import DashboardView
 
 
 class HomeView(DashboardView):
-    # template_name = 'home/index.html'
-    pass
+    template_name = 'suit_dashboard/template.html'
+    # pass
 
 
 def home(request):

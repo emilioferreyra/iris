@@ -11,5 +11,5 @@ class DashboardSite(AdminSite):
             url(r'^$', self.admin_view(HomeView.as_view()), name='index'),
         ]
 
-        del urls[0]
+        # del urls[0]
         return custom_urls + urls

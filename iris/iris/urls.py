@@ -26,7 +26,7 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 
 from .site import DashboardSite
-from .views import home
+# from .views import home
 
 admin.site = DashboardSite()
 admin.sites.site = admin.site
@@ -38,7 +38,7 @@ urlpatterns = [
         url=reverse_lazy('admin:index'),
         permanent=False)
         ),
-    url(r'^$', home, name='home'),
+    # url(r'^$', home, name='home'),
     url(
         r'^about/$',
         TemplateView.as_view(template_name="about.html"),

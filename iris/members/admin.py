@@ -8,8 +8,6 @@ from django.contrib import admin
 # Third-party modules
 from sorl.thumbnail.admin import AdminImageMixin
 from import_export import resources
-from import_export.admin import ImportExportModelAdmin
-import nested_admin
 
 # My modules
 from .models import Member
@@ -28,7 +26,6 @@ from iris.admin_base import AdminBase
 
 
 class MemberResource(resources.ModelResource):
-
     class Meta:
         model = Member
         fields = (
@@ -56,7 +53,7 @@ class MemberPhoneInline(PersonPhoneInline):
     suit_classes = 'suit-tab suit-tab-memberphone'
 
 
-class MemberFamilyInline(nested_admin.NestedStackedInline):
+class MemberFamilyInline(admin.StackedInline):
     model = MemberFamily
     fields = [
         'kinship',
@@ -76,7 +73,7 @@ class MemberFamilyInline(nested_admin.NestedStackedInline):
     suit_classes = 'suit-tab suit-tab-memberfamily'
 
 
-class HouseInline(nested_admin.NestedStackedInline):
+class HouseInline(admin.StackedInline):
     model = House
     min_num = 1
     max_num = 1
@@ -90,7 +87,7 @@ class HouseInline(nested_admin.NestedStackedInline):
     }
 
 
-class PrescribedMedicineInline(nested_admin.NestedStackedInline):
+class PrescribedMedicineInline(admin.StackedInline):
     model = PrescribedMedicine
     sortable_field_name = 'appointment'
     extra = 0
@@ -101,7 +98,7 @@ class PrescribedMedicineInline(nested_admin.NestedStackedInline):
     )
 
 
-class AppointmentInline(nested_admin.NestedStackedInline):
+class AppointmentInline(admin.StackedInline):
     model = Appointment
     sortable_field_name = 'member'
     min_num = 0
@@ -125,30 +122,28 @@ class AppointmentInline(nested_admin.NestedStackedInline):
 
 
 @admin.register(Member)
-class MemberAdmin(AdminImageMixin, nested_admin.NestedModelAdmin):
+class MemberAdmin(AdminImageMixin, admin.ModelAdmin):
     form = MemberForm
     resources_class = MemberResource
     fieldsets = [
-        (None, {
-            'classes': ('suit-tab', 'suit-tab-general',),
-            'fields': [
-                'picture',
-                'names',
-                ('father_last_name', 'mother_last_name',),
-                'member_number',
-                ('age', 'is_mother', 'children_quantity',),
-                'main_location',
-                'email',
-                'birthday',
-                'academic_level',
-                'nationality',
-                'marital_status',
-                'gender',
-                'document_type',
-                'document_id',
-                # 'status',
-            ]}
-        ),
+        (None, dict(classes=('suit-tab', 'suit-tab-general',), fields=[
+            'picture',
+            'names',
+            ('father_last_name', 'mother_last_name',),
+            'member_number',
+            ('age', 'is_mother', 'children_quantity',),
+            'main_location',
+            'email',
+            'birthday',
+            'academic_level',
+            'nationality',
+            'marital_status',
+            'gender',
+            'document_type',
+            'document_id',
+            # 'status',
+        ])
+         ),
         ('Additional Info', {
             'classes': ('suit-tab', 'suit-tab-additionalsfields',),
             'fields': [
@@ -160,7 +155,7 @@ class MemberAdmin(AdminImageMixin, nested_admin.NestedModelAdmin):
                 'health_insurance',
                 'observations',
             ]}
-        )
+         )
     ]
 
     list_display = [
@@ -236,11 +231,11 @@ class MemberAdmin(AdminImageMixin, nested_admin.NestedModelAdmin):
     )
 
     def get_readonly_fields(self, request, obj=None):
-        '''
+        """
         Query the group to which the user belongs and change the
         read-only fields if the group is "Secretarias" by the elements
         of the variable secretary_readonly_fields
-        '''
+        """
         new_readonly_fields = Member._meta.get_all_field_names()
 
         ignored_list_fields = [
@@ -256,7 +251,7 @@ class MemberAdmin(AdminImageMixin, nested_admin.NestedModelAdmin):
         if request.user.groups.filter(name='Secretarias').exists() and obj:
             return secretary_readonly_fields
         else:
-            return super(MemberAdmin, self)\
+            return super(MemberAdmin, self) \
                 .get_readonly_fields(request, obj=obj)
 
     list_per_page = 10

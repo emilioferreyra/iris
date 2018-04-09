@@ -52,7 +52,6 @@ INSTALLED_APPS = [
     'django_bootstrap_breadcrumbs',
     'clear_cache',
     'suit_dashboard',
-    'nested_admin',
 
     # My apps
     'location',
@@ -209,4 +208,3 @@ SUIT_CONFIG = {
 
 
 # Django report-builder configurations
-

@@ -193,7 +193,7 @@ SUIT_CONFIG = {
         'people': 'icon-user',
         'suppliers': 'icon-shopping-cart',
     },
-    'MENU_OPEN_FIRST_CHILD': True,  # Default True
+    'MENU_OPEN_FIRST_CHILD': False,  # Default True
     # 'MENU_EXCLUDE': ('auth.group',),
     # 'MENU': (
     # 'sites',

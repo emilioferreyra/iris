@@ -173,10 +173,10 @@ class Member(Person):
         help_text="Seleccione ocupación",
         blank=True
     )
-    where_work = models.ForeignKey(
+    where_work = models.ManyToManyField(
         WorkPlace,
         verbose_name="Lugar donde trabaja",
-        null=True
+        blank=True
     )
     # where_work = models.CharField(
     #     max_length=100,

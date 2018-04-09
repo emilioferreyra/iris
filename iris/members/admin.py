@@ -205,7 +205,7 @@ class MemberAdmin(AdminImageMixin, admin.ModelAdmin):
     #     models.ManyToManyField: {'widget': CheckboxSelectMultiple},
     # }
 
-    filter_horizontal = ['diagnosis', 'occupation']
+    filter_horizontal = ['diagnosis', 'occupation', 'where_work']
 
     inlines = [
         MemberAddressInline,

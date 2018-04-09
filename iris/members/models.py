@@ -178,13 +178,7 @@ class Member(Person):
         verbose_name="Lugar donde trabaja",
         blank=True
     )
-    # where_work = models.CharField(
-    #     max_length=100,
-    #     null=True,
-    #     blank=True,
-    #     verbose_name="Donde trabaja",
-    #     help_text="Empresa o lugar donde trabaja"
-    # )
+
     observations = models.TextField(
         null=True,
         blank=True,

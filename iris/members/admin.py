@@ -109,15 +109,14 @@ class AppointmentInline(admin.StackedInline):
         ('symptomatology', 'prescription'),
         'date_next_appoitment',
     )
-    # readonly_fields = [
-    #     'appointment_date',
-    #     'clinic',
-    #     'doctor',
-    #     'symptomatology',
-    #     'prescription',
-    #     'date_next_appoitment'
-    # ]
-    inlines = [PrescribedMedicineInline]
+    readonly_fields = [
+        'appointment_date',
+        'clinic',
+        'doctor',
+        'symptomatology',
+        'prescription',
+        'date_next_appoitment'
+    ]
     suit_classes = 'suit-tab suit-tab-appointment'
 
 

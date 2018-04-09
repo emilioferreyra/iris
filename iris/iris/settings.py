@@ -29,10 +29,11 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-SUIT = True
+# SUIT = True
 # SUIT = False
 
 INSTALLED_APPS = [
+    'suit',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.admindocs',
@@ -64,11 +65,11 @@ INSTALLED_APPS = [
     'doctors'
 ]
 
-if SUIT:  # add suit and replace admin with SimpleAdminConfig
-    INSTALLED_APPS = [
-        'suit',
-        'django.contrib.admin.apps.SimpleAdminConfig'
-    ] + INSTALLED_APPS[1:]
+# if SUIT:  # add suit and replace admin with SimpleAdminConfig
+#     INSTALLED_APPS = [
+#         'suit',
+#         'django.contrib.admin.apps.SimpleAdminConfig'
+#     ] + INSTALLED_APPS[1:]
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',

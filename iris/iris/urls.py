@@ -28,9 +28,9 @@ from django.views.generic import TemplateView
 from .site import DashboardSite
 # from .views import home
 
-admin.site = DashboardSite()
-admin.sites.site = admin.site
-admin.autodiscover()
+# admin.site = DashboardSite()
+# admin.sites.site = admin.site
+# admin.autodiscover()
 
 urlpatterns = [
     # The next url redirect root to admin site

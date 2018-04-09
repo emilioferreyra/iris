@@ -52,7 +52,6 @@ INSTALLED_APPS = [
     'django_bootstrap_breadcrumbs',
     'clear_cache',
     'suit_dashboard',
-    'nested_admin',
 
     # My apps
     'location',
@@ -194,7 +193,7 @@ SUIT_CONFIG = {
         'people': 'icon-user',
         'suppliers': 'icon-shopping-cart',
     },
-    'MENU_OPEN_FIRST_CHILD': True,  # Default True
+    'MENU_OPEN_FIRST_CHILD': False,  # Default True
     # 'MENU_EXCLUDE': ('auth.group',),
     # 'MENU': (
     # 'sites',
@@ -209,4 +208,3 @@ SUIT_CONFIG = {
 
 
 # Django report-builder configurations
-

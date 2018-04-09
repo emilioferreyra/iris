@@ -105,6 +105,11 @@ class PrescribedMedicineInlines(admin.StackedInline):
     """docstring for PrescribedMedicineInlines"""
     model = PrescribedMedicine
     extra = 0
+    fields = (
+        ('medicine', 'quantity'),
+        ('unit', 'frecuency'),
+        ('frecuency_unit', 'instructions'),
+    )
     suit_classes = 'suit-tab suit-tab-prescribedmedicine'
 
 

@@ -10,7 +10,7 @@ configparser==3.5.0
 curtsies==0.1.23
 decorator==4.0.10
 diff-match-patch==20121119
-Django==1.8.19
+Django==1.11.29
 django-app-settings==0.2.5
 django-audit-log==0.7.0
 django-bootstrap-breadcrumbs==0.8.2

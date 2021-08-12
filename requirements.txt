@@ -60,7 +60,7 @@ pathlib2==2.3.5
 pexpect==4.8.0
 phonenumberslite==8.12.17
 pickleshare==0.7.5
-Pillow==8.1.0
+Pillow>=8.2.0
 prompt-toolkit==3.0.14
 ptyprocess==0.7.0
 Pygments==2.7.4
